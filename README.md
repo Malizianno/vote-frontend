@@ -2,9 +2,9 @@ This project is part of a bigger project: vot.e App designed for diploma purpose
 
 vot.e App is designed to be a three-part app known as microservice architecture as follows:
 
-    vot.e backend -> The core app which stores the data and executes voting processes (simulations)
-    vot.e frontend -> The ADMIN user interface, accessible only via ADMIN accounts
-    vot.e mobile app -> The mobile App
+1. vot.e backend -> The core app which stores the data and executes voting processes (simulations)
+2. vot.e frontend -> The ADMIN user interface, accessible only via ADMIN accounts
+3. vot.e mobile app -> The mobile App
 
 ::: vot.e frontend --> ADMIN UI :::
 
