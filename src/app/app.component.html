@@ -1,20 +1,13 @@
-<div class="container">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-          <a class="nav-link" href="#">Features</a>
-          <a class="nav-link" href="#">Pricing</a>
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </div>
-      </div>
+<nav class="navbar sticky-top navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">vot.e</a>
+    <div class="row me-auto mb-2 mb-lg-0 text-white">
+      <div class="col"> <a class="active" aria-current="page" href="/dashboard">Acasă</a> </div>
+      <div class="col"><a href="/candidates">Candidați</a></div>
+      <div class="col"><a href="/users">Useri</a></div>
     </div>
-  </nav>
-</div>
+  </div>
+
+</nav>
 
 <router-outlet></router-outlet>
