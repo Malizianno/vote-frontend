@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class DashboardComponent {
 
+  totals = {
+    users: 10,
+    candidates: 12
+  };
 }
