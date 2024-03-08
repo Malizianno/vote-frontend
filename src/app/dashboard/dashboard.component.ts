@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Totals } from '../model/dashboard-totals.model';
+import { DashboardService } from '../services/dashboard.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,9 +9,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
+  totals = new Totals();
 
-  totals = {
-    users: 10,
-    candidates: 12
-  };
+  constructor(private service: DashboardService,) {
+    this.reloadPage();
+  }
+
+  reloadPage() {
+    this.getTotals().subscribe();
+  }
+
+  getTotals() {
+    return this.service.getTotals().pipe(map((res) => {
+      if (res) {
+        this.totals = res;
+      }
+    }));
+  }
 }
