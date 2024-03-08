@@ -20,6 +20,8 @@
     "@angular/platform-server": "^16.1.0",
     "@angular/router": "^16.1.0",
     "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "ng-bootstrap": "^1.6.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -37,6 +39,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "prettier": "^2.2.1",
     "typescript": "~5.1.3"
   }
 }

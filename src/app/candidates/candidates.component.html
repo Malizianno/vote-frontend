@@ -1,5 +1,8 @@
-<div>{{candidates}}</div>>
+<div class="container-fluid">
+      <div class="mb-2">{{candidates}}</div>
+      
+      <div class="card" *ngFor="let candidate of candidates">
+          <div class="row">{{ candidate | json }}</div>
+      </div>
 
-<div class="card" *ngFor="let candidate of candidates">
-    <div class="row">{{ candidate | json }}</div>
 </div>
