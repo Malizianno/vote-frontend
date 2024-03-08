@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <h4 class="modal-title" translate>Adaugă candidat</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+
+<div class="modal-body">
+    <div class="row mb-3">
+        <div class="col">Nume</div>
+        <div class="col">
+            <input type="text" class="form-control" [(ngModel)]="candidate.lastName" placeholder="Nume" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">Prenume</div>
+        <div class="col">
+            <input type="text" class="form-control" [(ngModel)]="candidate.firstName" placeholder="Prenume" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">Descriere</div>
+        <div class="col">
+            <input type="text" class="form-control" [(ngModel)]="candidate.description" placeholder="Descriere" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">Partid</div>
+        <div class="col">
+            <input type="text" class="form-control" [(ngModel)]="candidate.party" placeholder="Partid" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">Imagine</div>
+        <div class="col">
+            <input type="text" class="form-control" [(ngModel)]="candidate.image" placeholder="Imagine" />
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-dark" id="save" (click)="save()" [disabled]="!canSave()" translate>
+        Salvează
+    </button>
+</div>

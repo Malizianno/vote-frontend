@@ -1,1 +1,30 @@
-<p>users works!</p>
+<div class="container-fluid">
+    <div class="card my-4">
+        <table class="table table-striped" *ngIf="users">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Username</th>
+                    <th>
+                        <div class="float-end">
+                            <button type="button" class="btn btn-dark" (click)="add()"><i
+                                    class="bi bi-plus"></i></button>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <th scope="row">{{ user.id }}</th>
+                    <td>{{ user.username }}</td>
+                    <td>
+                        <div class="float-end">
+                            <button type="button" class="btn btn-danger" (click)="delete(user.id)"><i
+                                    class="bi bi-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

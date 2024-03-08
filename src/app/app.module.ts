@@ -9,6 +9,9 @@ import { CandidatesComponent } from './candidates/candidates.component';
 import { UsersComponent } from './users/users.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { AddCandidateComponent } from './candidates/add/add-candidate.modal';
+import { AddUserComponent } from './users/add/add-user.modal';
 
 @NgModule({
   declarations: [
@@ -16,12 +19,15 @@ import { HttpClientModule } from '@angular/common/http';
     DashboardComponent,
     CandidatesComponent,
     UsersComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AddCandidateComponent,
+    AddUserComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
+    FormsModule,
     HttpClientModule,
   ],
   providers: [],

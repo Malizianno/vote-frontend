@@ -1,5 +1,36 @@
 <div class="container-fluid">
-      <div class="card" *ngFor="let candidate of candidates">
-          <div class="row">{{ candidate | json }}</div>
-      </div>
+    <div class="card my-4">
+        <table class="table table-striped" *ngIf="candidates">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Party</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Description</th>
+                    <th>
+                        <div class="float-end">
+                            <button type="button" class="btn btn-dark" (click)="add()"><i class="bi bi-plus"></i></button>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let candidate of candidates">
+                    <th scope="row">{{ candidate.id }}</th>
+                    <td>{{ candidate.firstName }}</td>
+                    <td>{{ candidate.lastName }}</td>
+                    <td>{{ candidate.party }}</td>
+                    <td>{{ candidate.image }}</td>
+                    <td>{{ candidate.description }}</td>
+                    <td>
+                        <div class="float-end">
+                            <button type="button" class="btn btn-danger" (click)="delete(candidate.id)"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

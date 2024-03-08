@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h4 class="modal-title" translate>Adaugă user</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+
+<div class="modal-body">
+    <div class="row mb-3">
+        <div class="col">Username</div>
+        <div class="col">
+            <input type="text" class="form-control" [(ngModel)]="user.username" placeholder="Username" />
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-dark" id="save" (click)="save()" [disabled]="!canSave()" translate>
+        Salvează
+    </button>
+</div>
