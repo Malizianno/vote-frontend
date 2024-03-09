@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { AddCandidateComponent } from './candidates/add/add-candidate.modal';
 import { AddUserComponent } from './users/add/add-user.modal';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CandidateInfoComponent } from './components/candidate-info/candidate-info.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NotFoundComponent,
     AddCandidateComponent,
     AddUserComponent,
+    CandidateInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +33,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     NgbModule,
     HttpClientModule,
+  ],
+  exports: [
+    CandidateInfoComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

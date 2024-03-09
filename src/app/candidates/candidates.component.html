@@ -1,4 +1,12 @@
 <div class="container-fluid">
+    <div class="card my-4" *ngIf="totalCandidates > 0">
+        <div class="card-body row">
+            <div class="col" *ngFor="let candidate of candidates">
+                <app-candidate-info [candidate]="candidate"></app-candidate-info>
+            </div>
+        </div>
+    </div>
+
     <div class="card my-4">
         <table class="table table-striped">
             <thead>
@@ -48,7 +56,7 @@
         <div class="row mt-2" *ngIf="totalCandidates > 0">
             <div class="col">
                 <ngb-pagination class="d-flex justify-content-center" [(page)]="paging.page" [pageSize]="paging.size"
-                    (pageChange)="onPageChange($event)" [collectionSize]="totalCandidates"></ngb-pagination>
+                    (pageChange)="onPageChange($event)" [collectionSize]="totalCandidates" [maxSize]="5"></ngb-pagination>
             </div>
         </div>
     </div>

@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="card mx-1 my-1" style="width: 18rem;">
+        <img class="card-img-top" src="{{ candidate.image }}" alt="{{ candidate.image }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ candidate.firstName + ' ' + candidate.lastName }}</h5>
+            <h4 class="card-title">{{ '(' + candidate.party + ')' }}</h4>
+            <p class="card-text">{{ candidate.description }}</p>
+        </div>
+    </div>
+</div>

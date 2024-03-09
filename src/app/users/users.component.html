@@ -40,7 +40,7 @@
         <div class="row mt-2" *ngIf="totalUsers > 0">
             <div class="col">
                 <ngb-pagination class="d-flex justify-content-center" [(page)]="paging.page" [pageSize]="paging.size"
-                    (pageChange)="onPageChange($event)" [collectionSize]="totalUsers"></ngb-pagination>
+                    (pageChange)="onPageChange($event)" [collectionSize]="totalUsers" [maxSize]="5"></ngb-pagination>
             </div>
         </div>
     </div>
