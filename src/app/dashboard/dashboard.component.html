@@ -1,17 +1,52 @@
 <div class="container-fluid">
-    <div class="card">
-        <div class="card-title">Număr total de elemente:</div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col">candidați: </div>
-                <div class="col">{{ totals.candidates }}</div>
-            </div>
-            <div class="row">
-                <div class="col">useri: </div>
-                <div class="col">{{ totals.users }}</div>
+
+    <div class="row">
+        <div class="card col-3 my-1 mx-1">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">Total candidați: </div>
+                    <div class="col-2">{{ totals.candidates }}</div>
+                </div>
+                <div class="row">
+                    <div class="col">Total useri: </div>
+                    <div class="col-2">{{ totals.users }}</div>
+                </div>
             </div>
         </div>
     </div>
 
+    <div class="row">
+        <div class="card col-3 mx-1 my-1">
+            <div class="card-body">
+                <!-- FAKE CANDIDATES -->
+                <div class="row my-1">
+                    <div class="col-2">
+                        <input type="text" class="form-control" placeholder="0" [(ngModel)]="fakeCandidatesNo">
+                    </div>
+                    <div class="col">candidați fake</div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-dark" (click)="generateFakeCandidates()"><i
+                                class="bi bi-person-plus-fill"></i></button>
+                    </div>
+                </div>
+                <!-- FAKE USERS -->
+                <div class="row my-1">
+                    <div class="col-2">
+                        <input type="text" class="form-control" placeholder="0" [(ngModel)]="fakeUsersNo">
+                    </div>
+                    <div class="col">useri fake</div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-dark" (click)="generateFakeUsers()"><i
+                                class="bi bi-person-plus-fill"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="row" *ngIf="response.length > 0">
+        <div class="col font-weight-bold">
+            <div class="font-weight-bold">{{ response }}</div>
+        </div>
+    </div>
 </div>

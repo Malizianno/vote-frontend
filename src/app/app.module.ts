@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AddCandidateComponent } from './candidates/add/add-candidate.modal';
 import { AddUserComponent } from './users/add/add-user.modal';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AddUserComponent } from './users/add/add-user.modal';
     AppRoutingModule,
     RouterModule,
     FormsModule,
+    NgbModule,
     HttpClientModule,
   ],
   providers: [],

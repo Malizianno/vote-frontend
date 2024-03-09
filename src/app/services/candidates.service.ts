@@ -23,7 +23,7 @@ export class CandidateService {
     }
 
     getFiltered(candidate: Candidate, paging: Paging): Observable<CandidateResponse> {
-        const filter = { candidate, paging };
+        const filter = { candidate, paging: { page: paging.page - 1, size: paging.size } };
 
         return this.http.post<CandidateResponse>(this.apiURL + '/filtered', filter, {});
     }

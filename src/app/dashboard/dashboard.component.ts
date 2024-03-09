@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { map } from 'rxjs';
 import { Totals } from '../model/dashboard-totals.model';
 import { DashboardService } from '../services/dashboard.service';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,6 +10,11 @@ import { map } from 'rxjs';
 })
 export class DashboardComponent {
   totals = new Totals();
+
+  fakeCandidatesNo = 0;
+  fakeUsersNo = 0;
+
+  response = "";
 
   constructor(private service: DashboardService,) {
     this.reloadPage();
@@ -25,5 +30,23 @@ export class DashboardComponent {
         this.totals = res;
       }
     }));
+  }
+
+  generateFakeUsers() {
+    return this.service.fakeUsers(this.fakeUsersNo).subscribe((res) => {
+      if (res) {
+        this.response = 'generated ' + this.fakeUsersNo + ' users successfully!';
+        this.reloadPage();
+      }
+    });
+  }
+
+  generateFakeCandidates() {
+    return this.service.fakeCandidates(this.fakeCandidatesNo).subscribe((res) => {
+      if (res) {
+        this.response = 'generated ' + this.fakeCandidatesNo + ' candidates successfully!';
+        this.reloadPage();
+      }
+    });
   }
 }

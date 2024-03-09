@@ -4,6 +4,7 @@ import { map } from 'rxjs';
 import { User } from '../model/user.model';
 import { UsersService } from '../services/users.service';
 import { AddUserComponent } from './add/add-user.modal';
+import { Paging } from '../model/paging.model';
 
 @Component({
   selector: 'app-users',
@@ -13,6 +14,10 @@ import { AddUserComponent } from './add/add-user.modal';
 export class UsersComponent {
   users: User[] = [];
 
+  filter = new User();
+  paging = new Paging();
+  totalUsers = 0;
+
   constructor(
     private service: UsersService,
     private modalService: NgbModal,
@@ -21,7 +26,12 @@ export class UsersComponent {
   }
 
   reloadPage() {
-    this.getAll().subscribe();
+    this.getFiltered().subscribe();
+  }
+
+  onPageChange($event: number) {
+    this.paging.page = $event;
+    this.reloadPage();
   }
 
   add() {
@@ -44,10 +54,13 @@ export class UsersComponent {
     });
   }
 
-  getAll() {
-    return this.service.getAll().pipe(map((res) => {
-      if (res) {
-        this.users = User.fromArray(res);
+  getFiltered() {
+    return this.service.getFiltered(this.filter, this.paging).pipe(map((res) => {
+      if (res?.users) {
+        this.users = User.fromArray(res.users);
+        this.totalUsers = res.total;
+        // console.log('users: ', this.users);
+        // console.log('total users: ', this.totalUsers);
       }
     }));
   }

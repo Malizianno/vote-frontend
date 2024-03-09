@@ -4,6 +4,7 @@ import { CandidateService } from '../services/candidates.service';
 import { map } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddCandidateComponent } from './add/add-candidate.modal';
+import { Paging } from '../model/paging.model';
 
 @Component({
   selector: 'app-candidates',
@@ -13,6 +14,10 @@ import { AddCandidateComponent } from './add/add-candidate.modal';
 export class CandidatesComponent {
   candidates: Candidate[] = [];
 
+  filter = new Candidate();
+  paging = new Paging();
+  totalCandidates = 0;
+
   constructor(
     private service: CandidateService,
     private modalService: NgbModal,
@@ -21,13 +26,16 @@ export class CandidatesComponent {
   }
 
   reloadPage() {
-    this.getAll().subscribe();
+    this.getFiltered().subscribe();
+  }
+
+  onPageChange($event: number) {
+    this.paging.page = $event;
+    this.reloadPage();
   }
 
   add() {
     // open modal to add new candidate
-    console.log('add was pressed!');
-
     const modalref = this.modalService.open(AddCandidateComponent);
 
     modalref.result.then((res: Candidate) => {
@@ -47,10 +55,13 @@ export class CandidatesComponent {
     });
   }
 
-  getAll() {
-    return this.service.getAll().pipe(map((res) => {
-      if (res) {
-        this.candidates = Candidate.fromArray(res);
+  getFiltered() {
+    return this.service.getFiltered(this.filter, this.paging).pipe(map((res) => {
+      if (res?.candidates) {
+        this.candidates = Candidate.fromArray(res.candidates);
+        this.totalCandidates = res.total;
+        // console.log('canidates: ', this.candidates);
+        // console.log('total candidates: ', this.totalCandidates);
       }
     }));
   }

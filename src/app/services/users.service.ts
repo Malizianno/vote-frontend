@@ -25,7 +25,7 @@ export class UsersService {
     }
 
     getFiltered(user: User, paging: Paging): Observable<UserResponse> {
-        const filter = { user, paging };
+        const filter = { user, paging: { page: paging.page - 1, size: paging.size } };
 
         return this.http.post<UserResponse>(this.apiURL + '/filtered', filter, {});
     }

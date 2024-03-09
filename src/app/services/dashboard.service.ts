@@ -15,4 +15,12 @@ export class DashboardService {
     getTotals(): Observable<Totals> {
         return this.http.get<Totals>(this.apiURL + '/totals', {});
     }
+
+    fakeCandidates(no: number): Observable<boolean> {
+        return this.http.post<boolean>(this.apiURL + `/fake/candidates/${no}`, {});
+    }
+
+    fakeUsers(no: number): Observable<boolean> {
+        return this.http.post<boolean>(this.apiURL + `/fake/users/${no}`, {});
+    }
 }
