@@ -43,7 +43,7 @@ export class UsersComponent {
 
     modalref.result.then((res: User) => {
       if (null != res.id) {
-        console.log('user ' + res.id + ' was saved successfully!');
+        this.paging.page = 1; // reset to first page
         this.reloadPage();
       }
     })
@@ -52,7 +52,7 @@ export class UsersComponent {
   delete(id: number) {
     return this.service.delete(id).subscribe((res) => {
       if (res) {
-        console.log('User ' + id + ' deleted successfully!');
+        this.paging.page = 1; // reset to first page
         this.reloadPage();
       }
     });

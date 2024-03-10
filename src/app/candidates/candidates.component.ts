@@ -49,7 +49,7 @@ export class CandidatesComponent {
 
     modalref.result.then((res: Candidate) => {
       if (null != res.id) {
-        console.log('candidate ' + res.id + ' was saved successfully!');
+        this.paging.page = 1; // reset to first page
         this.reloadPage();
       }
     })
@@ -58,7 +58,7 @@ export class CandidatesComponent {
   delete(id: number) {
     return this.service.delete(id).subscribe((res) => {
       if (res) {
-        console.log('Candidate ' + id + ' deleted successfully!');
+        this.paging.page = 1; // reset to first page
         this.reloadPage();
       }
     });
@@ -75,7 +75,7 @@ export class CandidatesComponent {
 
   setPartyTypeForFilter(party: any) {
     this.filter.party = party as PartyTypeEnum;
-
+    this.paging.page = 1; // reset to first page
     this.reloadPage();
   }
 
