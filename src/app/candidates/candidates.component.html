@@ -26,7 +26,8 @@
                                 <span>{{ filter.party ? filter.party : 'ALL' }}</span>
                             </button>
                             <div ngbDropdownMenu aria-labelledby="dropdown-type" class="scrollable-menu">
-                                <button ngbDropdownItem *ngFor="let party of parties" (click)="setPartyTypeForFilter(party)">
+                                <button ngbDropdownItem *ngFor="let party of parties"
+                                    (click)="setPartyTypeForFilter(party)">
                                     {{ party }}
                                 </button>
                             </div>
@@ -34,10 +35,12 @@
                     </th>
                     <th scope="col">Image</th>
                     <th scope="col">Description</th>
-                    <th>
+                    <th scope="col" [colSpan]="2">
                         <div class="float-end">
-                            <button type="button" class="btn btn-dark" (click)="add()"><i
-                                    class="bi bi-plus"></i></button>
+                            <button type="button" class="btn btn-dark mx-1" (click)="resetFilter()"><i
+                                    class="bi bi-x-lg"></i></button>
+                            <button type="button" class="btn btn-dark mx-1" (click)="add()"><i
+                                    class="bi bi-plus-lg"></i></button>
                         </div>
                     </th>
                 </tr>
@@ -50,7 +53,7 @@
                     <td>{{ candidate.party }}</td>
                     <td><a href="{{ candidate.image }}">{{ candidate.image }}</a></td>
                     <td>{{ candidate.description }}</td>
-                    <td>
+                    <td [colSpan]="2">
                         <div class="float-end">
                             <button type="button" class="btn btn-danger" (click)="delete(candidate.id)"><i
                                     class="bi bi-trash"></i></button>

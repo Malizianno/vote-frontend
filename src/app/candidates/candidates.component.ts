@@ -38,6 +38,12 @@ export class CandidatesComponent {
     this.getFiltered().subscribe();
   }
 
+  resetFilter() {
+    this.filter = new Candidate();
+    this.paging.page = 1;
+    this.reloadPage();
+  }
+
   onPageChange($event: number) {
     this.paging.page = $event;
     this.reloadPage();
@@ -49,8 +55,7 @@ export class CandidatesComponent {
 
     modalref.result.then((res: Candidate) => {
       if (null != res.id) {
-        this.paging.page = 1; // reset to first page
-        this.reloadPage();
+        this.resetFilter();
       }
     })
   }
@@ -58,8 +63,7 @@ export class CandidatesComponent {
   delete(id: number) {
     return this.service.delete(id).subscribe((res) => {
       if (res) {
-        this.paging.page = 1; // reset to first page
-        this.reloadPage();
+        this.resetFilter();
       }
     });
   }

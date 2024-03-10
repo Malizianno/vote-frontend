@@ -33,6 +33,12 @@ export class UsersComponent {
     this.getFiltered().subscribe();
   }
 
+  resetFilter() {
+    this.filter = new User();
+    this.paging.page = 1;
+    this.reloadPage();
+  }
+
   onPageChange($event: number) {
     this.paging.page = $event;
     this.reloadPage();
@@ -43,8 +49,7 @@ export class UsersComponent {
 
     modalref.result.then((res: User) => {
       if (null != res.id) {
-        this.paging.page = 1; // reset to first page
-        this.reloadPage();
+        this.resetFilter();
       }
     })
   }
@@ -52,8 +57,7 @@ export class UsersComponent {
   delete(id: number) {
     return this.service.delete(id).subscribe((res) => {
       if (res) {
-        this.paging.page = 1; // reset to first page
-        this.reloadPage();
+        this.resetFilter();
       }
     });
   }
