@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="card my-4" *ngIf="totalCandidates > 0">
+    <div class="card my-4" *ngIf="showInfo && totalCandidates > 0">
         <div class="card-body row">
             <div class="col" *ngFor="let candidate of candidates">
                 <app-candidate-info [candidate]="candidate"></app-candidate-info>
@@ -12,9 +12,26 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Party</th>
+                    <th scope="col">
+                        <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="filter.firstName"
+                            (ngModelChange)="filterChangedSubject.next($event)" />
+                    </th>
+                    <th scope="col">
+                        <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="filter.lastName"
+                            (ngModelChange)="filterChangedSubject.next($event)" />
+                    </th>
+                    <th scope="col">
+                        <div ngbDropdown container="body" class="btn btn-light p-0 mr-1">
+                            <button class="btn btn-primary" id="dropdown-type" ngbDropdownToggle>
+                                <span>{{ filter.party ? filter.party : 'ALL' }}</span>
+                            </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdown-type" class="scrollable-menu">
+                                <button ngbDropdownItem *ngFor="let party of parties" (click)="setPartyTypeForFilter(party)">
+                                    {{ party }}
+                                </button>
+                            </div>
+                        </div>
+                    </th>
                     <th scope="col">Image</th>
                     <th scope="col">Description</th>
                     <th>
@@ -47,7 +64,9 @@
                 <div class="row">
                     <div class="col-4"></div>
                     <div class="col text-warning"><i class="bi bi-exclamation-circle-fill float-end"></i>&nbsp;</div>
-                    <div class="col text-warning"><div>Nu au fost găsite date!</div></div>
+                    <div class="col text-warning">
+                        <div>Nu au fost găsite date!</div>
+                    </div>
                     <div class="col-4"></div>
                 </div>
             </div>
@@ -56,7 +75,8 @@
         <div class="row mt-2" *ngIf="totalCandidates > 0">
             <div class="col">
                 <ngb-pagination class="d-flex justify-content-center" [(page)]="paging.page" [pageSize]="paging.size"
-                    (pageChange)="onPageChange($event)" [collectionSize]="totalCandidates" [maxSize]="5"></ngb-pagination>
+                    (pageChange)="onPageChange($event)" [collectionSize]="totalCandidates"
+                    [maxSize]="5"></ngb-pagination>
             </div>
         </div>
     </div>

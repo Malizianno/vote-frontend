@@ -4,7 +4,10 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Username</th>
+                    <th scope="col">
+                        <input type="text" class="form-control" placeholder="Username" [(ngModel)]="filter.username"
+                            (ngModelChange)="filterChangedSubject.next($event)" />
+                    </th>
                     <th>
                         <div class="float-end">
                             <button type="button" class="btn btn-dark" (click)="add()"><i
@@ -31,7 +34,9 @@
                 <div class="row">
                     <div class="col-4"></div>
                     <div class="col text-warning"><i class="bi bi-exclamation-circle-fill float-end"></i>&nbsp;</div>
-                    <div class="col text-warning"><div>Nu au fost găsite date!</div></div>
+                    <div class="col text-warning">
+                        <div>Nu au fost găsite date!</div>
+                    </div>
                     <div class="col-4"></div>
                 </div>
             </div>

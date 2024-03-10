@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { map } from 'rxjs';
+import { Subject, Subscription, debounceTime, distinctUntilChanged, map } from 'rxjs';
+import { Paging } from '../model/paging.model';
 import { User } from '../model/user.model';
 import { UsersService } from '../services/users.service';
 import { AddUserComponent } from './add/add-user.modal';
-import { Paging } from '../model/paging.model';
 
 @Component({
   selector: 'app-users',
@@ -18,10 +18,14 @@ export class UsersComponent {
   paging = new Paging();
   totalUsers = 0;
 
+  filterChangedSubject: Subject<string> = new Subject<string>();
+  filterChangedSubscription!: Subscription;
+
   constructor(
     private service: UsersService,
     private modalService: NgbModal,
   ) {
+    this.debounceSubscription();
     this.reloadPage();
   }
 
@@ -59,9 +63,16 @@ export class UsersComponent {
       if (res?.users) {
         this.users = User.fromArray(res.users);
         this.totalUsers = res.total;
-        // console.log('users: ', this.users);
-        // console.log('total users: ', this.totalUsers);
       }
     }));
+  }
+
+  private debounceSubscription() {
+    this.filterChangedSubscription = this.filterChangedSubject
+      .pipe(debounceTime(1000), distinctUntilChanged())
+      .subscribe(() => {
+        this.paging.page = 1; // reset to first page
+        this.reloadPage();
+      });
   }
 }

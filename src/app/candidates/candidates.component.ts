@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Candidate } from '../model/candidate.model';
 import { CandidateService } from '../services/candidates.service';
-import { map } from 'rxjs';
+import { Subject, Subscription, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddCandidateComponent } from './add/add-candidate.modal';
 import { Paging } from '../model/paging.model';
+import { PartyTypeEnum } from '../util/party-type.enum';
 
 @Component({
   selector: 'app-candidates',
@@ -13,16 +14,24 @@ import { Paging } from '../model/paging.model';
 })
 export class CandidatesComponent {
   candidates: Candidate[] = [];
+  parties = Object.keys(PartyTypeEnum).filter((v) => isNaN(Number(v)));
 
   filter = new Candidate();
   paging = new Paging();
   totalCandidates = 0;
+
+  filterChangedSubject: Subject<string> = new Subject<string>();
+  filterChangedSubscription!: Subscription;
+
+  // DEBUG BUTTON
+  showInfo = false;
 
   constructor(
     private service: CandidateService,
     private modalService: NgbModal,
   ) {
     this.reloadPage();
+    this.debounceSubscription();
   }
 
   reloadPage() {
@@ -60,9 +69,22 @@ export class CandidatesComponent {
       if (res?.candidates) {
         this.candidates = Candidate.fromArray(res.candidates);
         this.totalCandidates = res.total;
-        // console.log('canidates: ', this.candidates);
-        // console.log('total candidates: ', this.totalCandidates);
       }
     }));
+  }
+
+  setPartyTypeForFilter(party: any) {
+    this.filter.party = party as PartyTypeEnum;
+
+    this.reloadPage();
+  }
+
+  private debounceSubscription() {
+    this.filterChangedSubscription = this.filterChangedSubject
+      .pipe(debounceTime(1000), distinctUntilChanged())
+      .subscribe(() => {
+        this.paging.page = 1; // reset to first page
+        this.reloadPage();
+      });
   }
 }
