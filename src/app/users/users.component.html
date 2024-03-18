@@ -1,6 +1,7 @@
 <div class="container-fluid">
     <div class="card my-4">
         <table class="table table-striped">
+            <caption *ngIf="false">users table</caption>
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -8,11 +9,11 @@
                         <input type="text" class="form-control" placeholder="Username" [(ngModel)]="filter.username"
                             (ngModelChange)="filterChangedSubject.next($event)" />
                     </th>
-                    <th>
-                        <div class="float-end">
-                            <button type="button" class="btn btn-dark" (click)="add()"><i
-                                    class="bi bi-plus"></i></button>
-                        </div>
+                    <th scope="col">
+                        <button type="button" class="btn btn-dark float-end mx-1" (click)="add()"><i
+                                class="bi bi-plus-lg"></i></button>
+                        <button type="button" class="btn btn-dark float-end mx-1" (click)="resetFilter()"><i
+                                class="bi bi-x-lg"></i></button>
                     </th>
                 </tr>
             </thead>

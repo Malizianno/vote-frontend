@@ -7,22 +7,22 @@
         </div>
     </div>
 
-    <div class="card my-4">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">
+    <div class="card border my-4">
+        <div class="table table-striped border">
+            <div>
+                <div class="row">
+                    <div class="col-1">#</div>
+                    <div class="col-2">
                         <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="filter.firstName"
                             (ngModelChange)="filterChangedSubject.next($event)" />
-                    </th>
-                    <th scope="col">
+                    </div>
+                    <div class="col-2">
                         <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="filter.lastName"
                             (ngModelChange)="filterChangedSubject.next($event)" />
-                    </th>
-                    <th scope="col">
-                        <div ngbDropdown container="body" class="btn btn-light p-0 mr-1">
-                            <button class="btn btn-primary" id="dropdown-type" ngbDropdownToggle>
+                    </div>
+                    <div class="col-1">
+                        <div ngbDropdown container="body" class="btn btn-dark p-0 mr-1">
+                            <button class="btn btn-dark" id="dropdown-type" ngbDropdownToggle>
                                 <span>{{ filter.party ? filter.party : 'ALL' }}</span>
                             </button>
                             <div ngbDropdownMenu aria-labelledby="dropdown-type" class="scrollable-menu">
@@ -32,36 +32,38 @@
                                 </button>
                             </div>
                         </div>
-                    </th>
-                    <th scope="col">Image</th>
-                    <th scope="col">Description</th>
-                    <th scope="col" [colSpan]="2">
-                        <div class="float-end">
-                            <button type="button" class="btn btn-dark mx-1" (click)="resetFilter()"><i
-                                    class="bi bi-x-lg"></i></button>
-                            <button type="button" class="btn btn-dark mx-1" (click)="add()"><i
-                                    class="bi bi-plus-lg"></i></button>
+                    </div>
+                    <div class="col-3">Image</div>
+                    <div class="col-2">Description</div>
+                    <div class="col">
+                        <button type="button" class="btn btn-dark float-end mx-1" (click)="add()"><i
+                                class="bi bi-plus-lg"></i></button>
+                        <button type="button" class="btn btn-dark float-end mx-1" (click)="resetFilter()"><i
+                                class="bi bi-x-lg"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="totalCandidates > 0">
+                <div class="row border-bottom" *ngFor="let candidate of candidates">
+                    <div class="col-1">{{ candidate.id }}</div>
+                    <div class="col-2">{{ candidate.firstName }}</div>
+                    <div class="col-2">{{ candidate.lastName }}</div>
+                    <div class="col-1">{{ candidate.party }}</div>
+                    <div class="col-3"><a href="{{ candidate.image }}">{{ candidate.image }}</a></div>
+                    <div class="col-2">
+                        <div class="text-truncate">
+                            {{ candidate.description }}
                         </div>
-                    </th>
-                </tr>
-            </thead>
-            <tbody *ngIf="totalCandidates > 0">
-                <tr *ngFor="let candidate of candidates">
-                    <th scope="row">{{ candidate.id }}</th>
-                    <td>{{ candidate.firstName }}</td>
-                    <td>{{ candidate.lastName }}</td>
-                    <td>{{ candidate.party }}</td>
-                    <td><a href="{{ candidate.image }}">{{ candidate.image }}</a></td>
-                    <td>{{ candidate.description }}</td>
-                    <td [colSpan]="2">
+                    </div>
+                    <div class="col">
                         <div class="float-end">
                             <button type="button" class="btn btn-danger" (click)="delete(candidate.id)"><i
                                     class="bi bi-trash"></i></button>
                         </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="card" *ngIf="totalCandidates < 1">
             <div class="card-body bg-light">
                 <div class="row">
