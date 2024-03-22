@@ -1,19 +1,23 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorHandlerInterceptor } from './@shared/http/error-handler.interceptor';
+import { JwtInterceptor } from './@shared/http/jwt.interceptor';
+import { RouteReusableStrategy } from './@shared/route-reusable-strategy';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { CandidatesComponent } from './candidates/candidates.component';
-import { UsersComponent } from './users/users.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
 import { AddCandidateComponent } from './candidates/add/add-candidate.modal';
-import { AddUserComponent } from './users/add/add-user.modal';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CandidatesComponent } from './candidates/candidates.component';
 import { CandidateInfoComponent } from './components/candidate-info/candidate-info.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginComponent } from './login/login.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { AddUserComponent } from './users/add/add-user.modal';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +29,7 @@ import { CandidateInfoComponent } from './components/candidate-info/candidate-in
     AddCandidateComponent,
     AddUserComponent,
     CandidateInfoComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +42,22 @@ import { CandidateInfoComponent } from './components/candidate-info/candidate-in
   exports: [
     CandidateInfoComponent,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandlerInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true,
+    },
+    {
+      provide: RouteReuseStrategy,
+      useClass: RouteReusableStrategy,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

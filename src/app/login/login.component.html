@@ -1,0 +1,30 @@
+<div class="container-fluid h-100 border">
+    <div class="d-flex align-items-center justify-content-center">
+        <div class="card d-flex align-items-center justify-content-center">
+            <div class="card-title">
+                <span>vot.e ADMIN App v1.1.0</span>
+            </div>
+            <div class="card-body">
+                <div class="row my-1">
+                    <div class="col">Username:</div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Username" [(ngModel)]="dto.username" />
+                    </div>
+                </div>
+                <div class="row my-1">
+                    <div class="col">Password:</div>
+                    <div class="col">
+                        <input type="password" class="form-control" placeholder="Password" [(ngModel)]="dto.password" />
+                    </div>
+                </div>
+
+                <div class="row my-2">
+                    <div class="col">
+                        <button type="button" class="btn btn-dark float-end" [disabled]="!canSubmit()" (click)="submit()"><i
+                                class="bi bi-box-arrow-in-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
