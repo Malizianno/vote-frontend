@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top navbar-dark bg-dark">
+<nav class="navbar sticky-top navbar-dark bg-dark" *ngIf="isAuthenticated()">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="/">vot.e</a>
@@ -9,7 +9,15 @@
       <div class="col pointer"><span routerLink="/users" routerLinkActive="active">Useri</span></div>
     </div>
     <div class="navbar-right text-white">
-      <div>USER LOGOUT</div>
+      <div class="row">
+        <div class="col">
+          <i class="bi bi-person-circle mx-1"></i>
+          <span>{{ username }}</span>
+          <button type="button" class="btn btn-outline-light mx-1" (click)="logout()">
+            <i class="bi bi-x-octagon"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 

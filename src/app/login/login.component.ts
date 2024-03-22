@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { LoginRequestDTO, LoginResponseDTO } from '../model/login.dto';
-import { LoginService } from '../services/login.service';
-import { CredentialsService } from '../services/credentials.service';
 import { Router } from '@angular/router';
+import { LoginRequestDTO, LoginResponseDTO } from '../model/login.dto';
 import { UserRole } from '../model/user.model';
+import { CredentialsService } from '../services/credentials.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +13,9 @@ import { UserRole } from '../model/user.model';
 export class LoginComponent {
   dto = new LoginRequestDTO();
 
-  constructor(private service: LoginService, private credentialsService: CredentialsService, private router: Router,) { 
+  constructor(private service: LoginService, private credentialsService: CredentialsService, private router: Router,) {
     this.dto.role = UserRole.ADMIN;
   }
-
 
   submit() {
     this.service.login(this.dto).subscribe((res: LoginResponseDTO) => {

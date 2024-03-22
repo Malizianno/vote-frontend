@@ -15,8 +15,4 @@ export class LoginService {
     login(dto: LoginRequestDTO): Observable<LoginResponseDTO> {
         return this.http.post<LoginResponseDTO>(this.apiURL + '/', dto, {});
     }
-
-    logout(): Observable<boolean> {
-        return this.http.get<any>(AppConstants.BASE_URL + '/logout');
-    }
 }

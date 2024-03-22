@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { CredentialsService } from 'src/app/services/credentials.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ErrorHandlerInterceptor implements HttpInterceptor {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private credentials: CredentialsService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError((error) => this.errorHandler(error)));
@@ -21,6 +22,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       response instanceof HttpErrorResponse &&
       (response.status === 401 || response.error.message === 'Error: Unauthorized')
     ) {
+      this.credentials.setCredentials();
       this.router.navigate(['/login'], { queryParams: { error: '401', redirect: this.router.url }, replaceUrl: true });
     }
 

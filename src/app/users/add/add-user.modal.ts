@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { User } from "src/app/model/user.model";
+import { User, UserRole } from "src/app/model/user.model";
 import { UsersService } from "src/app/services/users.service";
 
 @Component({
@@ -14,7 +14,9 @@ export class AddUserComponent {
     constructor(
         private service: UsersService,
         public activeModal: NgbActiveModal,
-    ) { }
+    ) { 
+        this.user.role = UserRole.ADMIN;
+    }
 
     save() {
         this.service.add(this.user).subscribe((res: User) => {
