@@ -12,7 +12,8 @@ vot.e App is designed to be a three-part app known as microservice architecture 
 
 This app handles all data in the core app *vote.e backend* and exposes this to port 4090 (check more for spring cloud).
 
-this is ADMIN UI!
+### v1.1.0 - implemented ADMIN authentication and overall authorization.
+### v1.0.0 - basic Angular application with 3 screens dashboard + users + candidates.
 
 All rights reserved to Cristian Sterie
 
