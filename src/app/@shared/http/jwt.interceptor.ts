@@ -26,9 +26,18 @@ export class JwtInterceptor implements HttpInterceptor {
         setHeaders: {
           Authorization: `Bearer ${this.credentials.credentials?.token}`,
           principal: `${this.credentials.credentials?.username}`,
-          role: `${this.credentials.credentials?.role}`,
+          role: 'ADMIN',
+          apikey: 'frontendapikey',
         },
       });
+    }
+
+    if (!isLoggedIn && isApiUrl) {
+      request = request.clone({
+        setHeaders: {
+          apikey: 'frontendapikey',
+        }
+      })
     }
 
     return next.handle(request);
