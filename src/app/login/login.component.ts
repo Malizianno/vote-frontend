@@ -4,6 +4,7 @@ import { LoginRequestDTO, LoginResponseDTO } from '../model/login.dto';
 import { UserRole } from '../model/user.model';
 import { CredentialsService } from '../services/credentials.service';
 import { LoginService } from '../services/login.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ import { LoginService } from '../services/login.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  version = environment.version;
   dto = new LoginRequestDTO();
 
   constructor(private service: LoginService, private credentialsService: CredentialsService, private router: Router,) {
