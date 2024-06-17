@@ -9,3 +9,7 @@ export class Candidate extends GenericModel {
     image!: string;
     description!: string;
 }
+
+export class CandidateWithStatistics extends Candidate {
+    totalVotes!: number;
+}
