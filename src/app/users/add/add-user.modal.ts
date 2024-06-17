@@ -10,12 +10,13 @@ import { UsersService } from "src/app/services/users.service";
 })
 export class AddUserComponent {
     user = new User();
+    allRoles: UserRole[] = [UserRole.ADMIN, UserRole.VOTANT];
 
     constructor(
         private service: UsersService,
         public activeModal: NgbActiveModal,
-    ) { 
-        this.user.role = UserRole.ADMIN;
+    ) {
+        // empty
     }
 
     save() {
@@ -28,7 +29,11 @@ export class AddUserComponent {
         })
     }
 
+    selectUserRole(role: UserRole) {
+        this.user.role = role;
+    }
+
     canSave() {
-        return !!this.user && this.user.username;
+        return !!this.user && this.user.username && this.user.password && this.user.role;
     }
 }
