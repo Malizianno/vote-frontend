@@ -121,6 +121,7 @@ export class SettingsComponent {
     return this.election.cleanDB().subscribe((res: boolean) => {
       if (res) {
         // console.log('Successfully cleaned votes DB! Carefull with this! ', res);
+        this.votesCount = 0;
       }
     });
   }

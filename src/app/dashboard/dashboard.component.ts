@@ -53,7 +53,6 @@ export class DashboardComponent {
     }
 
     // console.log('totalVotes calculated: ', totalVotes);
-
     return idVotes / totalVotes;
   }
 
@@ -98,5 +97,13 @@ export class DashboardComponent {
         // console.log('got parsed results: ', this.candidatesWithStatistics);
       }
     });
+  }
+
+  getTotalVotesPercentage(): number {
+    if (this.totals.users === 0) {
+      return 0;
+    }
+
+    return this.votesCount / this.totals.users;
   }
 }

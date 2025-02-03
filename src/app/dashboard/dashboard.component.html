@@ -7,11 +7,19 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col">Total candidați: </div>
-                    <div class="col-2">{{ totals.candidates }}</div>
+                    <div class="col-3">{{ totals.candidates }}</div>
                 </div>
                 <div class="row">
-                    <div class="col">Total useri: </div>
-                    <div class="col-2">{{ totals.users }}</div>
+                    <div class="col">Total utilizatori: </div>
+                    <div class="col-3">{{ totals.users }}</div>
+                </div>
+                <div class="row">
+                    <div class="col">Total voturi: </div>
+                    <div class="col-3">{{ votesCount }}</div>
+                </div>
+                <div class="row">
+                    <div class="col">Procent votare: </div>
+                    <div class="col-3">{{ getTotalVotesPercentage() | percent: '1.0-1':'en' }}</div>
                 </div>
             </div>
         </div>
@@ -20,16 +28,10 @@
     <div class="row">
         <div class="col-3">
             <div class="row" *ngFor="let candidate of candidatesWithStatistics">
-                <div class="col-4">{{ candidate.firstName + ' ' + candidate.lastName }}</div>
-                <div class="col-4">{{ candidate.party }}</div>
-                <div class="col-4">{{ candidate.totalVotes }}</div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="row" *ngFor="let candidate of candidatesWithStatistics">
-                <div class="col-4">{{ candidate.firstName + ' ' + candidate.lastName }}</div>
-                <div class="col-4">{{ candidate.party }}</div>
-                <div class="col-4">{{ getVotesPercentage(candidate.id) | percent: '1.0-1':'en' }}</div>
+                <div class="col-6">{{ candidate.firstName + ' ' + candidate.lastName }}</div>
+                <div class="col-2">{{ candidate.party }}</div>
+                <div class="col-2">{{ candidate.totalVotes }}</div>
+                <div class="col-2">{{ getVotesPercentage(candidate.id) | percent: '1.0-1':'en' }}</div>
             </div>
         </div>
     </div>

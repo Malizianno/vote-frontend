@@ -27,14 +27,6 @@
                                 class="bi bi-person-plus-fill"></i></button>
                     </div>
                 </div>
-
-                <!-- DATA GENERATION CONFIRM -->
-                <div class="row" *ngIf="response.length > 0">
-                    <div class="col font-weight-bold">
-                        <div class="font-weight-bold">{{ response }}</div>
-                    </div>
-                </div>
-
             </div>
         </div>
 
@@ -71,5 +63,13 @@
             </div>
         </div>
 
+    </div>
+    <div class="row">
+        <!-- DATA GENERATION CONFIRM -->
+        <div class="row" *ngIf="response.length > 0">
+            <div class="col font-weight-bold">
+                <div class="font-weight-bold">{{ response }}</div>
+            </div>
+        </div>
     </div>
 </div>
