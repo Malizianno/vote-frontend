@@ -52,7 +52,7 @@ export class DashboardComponent {
       }
     }
 
-    console.log('totalVotes calculated: ', totalVotes);
+    // console.log('totalVotes calculated: ', totalVotes);
 
     return idVotes / totalVotes;
   }
@@ -139,7 +139,7 @@ export class DashboardComponent {
       if (res) {
         this.candidatesWithStatistics = CandidateWithStatistics.fromArray(res);
         this.candidatesWithStatistics.sort((a, b) => b.totalVotes - a.totalVotes);
-        console.log('got parsed results: ', this.candidatesWithStatistics);
+        // console.log('got parsed results: ', this.candidatesWithStatistics);
       }
     });
   }

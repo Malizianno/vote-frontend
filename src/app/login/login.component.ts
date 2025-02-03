@@ -22,7 +22,7 @@ export class LoginComponent {
   submit() {
     this.service.login(this.dto).subscribe((res: LoginResponseDTO) => {
       if (res && res.role && res.token && res.username) {
-        console.log('login response: ', res);
+        // console.log('login response: ', res);
 
         this.credentialsService.setCredentials(res, true);
 

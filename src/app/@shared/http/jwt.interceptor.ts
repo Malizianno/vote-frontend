@@ -16,7 +16,7 @@ export class JwtInterceptor implements HttpInterceptor {
       return next.handle(request);
     }
 
-    console.log('JWT Interceptor here...')
+    // console.log('JWT Interceptor here...')
     // add auth header with jwt if account is logged in and request is to the api url
     const isLoggedIn = this.credentials.isAuthenticated();
     const isApiUrl = request.url.startsWith(environment.serverUrl);
