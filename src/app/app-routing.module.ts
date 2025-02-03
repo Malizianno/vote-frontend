@@ -4,11 +4,13 @@ import { CandidatesComponent } from './candidates/candidates.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { UsersComponent } from './users/users.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'candidates', component: CandidatesComponent },
   { path: 'users', component: UsersComponent },
+  { path: 'settings', component: SettingsComponent },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**', component: LoginComponent },

@@ -1,0 +1,75 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <!-- COL 1 -->
+        <!-- DATA MANIPULATION -->
+        <div class="card col-3 mx-1 my-1">
+            <div class="card-body">
+
+                <!-- FAKE CANDIDATES -->
+                <div class="row my-1">
+                    <div class="col">Generează candidați</div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-dark" (click)="generateFakeCandidates()"><i
+                                class="bi bi-file-person"></i></button>
+                    </div>
+                </div>
+
+                <!-- FAKE USERS -->
+                <div class="row my-1">
+                    <form class="form-inline col container d-flex justify-content-center align-items-center">
+                        <span class="mr-2">Generează utilizatori:</span>
+                        <input type="text text-center" class="form-control" placeholder="0" [(ngModel)]="fakeUsersNo"
+                            [ngModelOptions]="{standalone: true}">
+                    </form>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-dark" (click)="generateFakeUsers()"><i
+                                class="bi bi-person-plus-fill"></i></button>
+                    </div>
+                </div>
+
+                <!-- DATA GENERATION CONFIRM -->
+                <div class="row" *ngIf="response.length > 0">
+                    <div class="col font-weight-bold">
+                        <div class="font-weight-bold">{{ response }}</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- COL 2 -->
+        <div class="card col-3 mx-1 my-1">
+            <div class="card-body">
+                <!-- ELECTION STATUS -->
+                <div class="row my-1 form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="electionEnabled"
+                        aria-checked="false" [(ngModel)]="electionEnabled" (click)="switchElectionStatus()">
+                    <label class="form-check-label" for="electionEnabled">Status alegeri</label>
+                </div>
+
+                <!-- FAKE VOTES -->
+                <div class="row my-1">
+                    <div class="col">Generează voturi:</div>
+                    <div class="col-2">
+                        <input type="text" class="form-control" placeholder="0" [(ngModel)]="fakeVotesNo">
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-dark" (click)="generateFakeVotes()"><i
+                                class="bi bi-envelope-plus"></i></button>
+                    </div>
+                </div>
+
+                <!-- CLEAN VOTES DB -->
+                <div class="row my-1">
+                    <div class="col">{{ 'Șterge ' + votesCount + ' voturi din DB' }}</div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-dark" (click)="cleanElectionDB()"><i
+                                class="bi bi-eraser-fill"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

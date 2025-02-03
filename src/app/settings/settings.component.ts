@@ -7,11 +7,11 @@ import { DashboardService } from '../services/dashboard.service';
 import { ElectionService } from '../services/elections.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'app-settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.scss']
 })
-export class DashboardComponent {
+export class SettingsComponent {
   totals = new Totals();
   electionEnabled = false;
 
@@ -72,11 +72,55 @@ export class DashboardComponent {
     }));
   }
 
+  generateFakeUsers() {
+    return this.service.fakeUsers(this.fakeUsersNo).subscribe((res) => {
+      if (res) {
+        this.response = 'generated ' + this.fakeUsersNo + ' users successfully!';
+        this.reloadPage();
+      }
+    });
+  }
+
+  generateFakeVotes() {
+    return this.service.fakeVotes(this.fakeVotesNo).subscribe((res) => {
+      if (res) {
+        this.response = 'generated ' + this.fakeVotesNo + ' votes by admin user successfully!';
+        this.reloadPage();
+      }
+    })
+  }
+
+  generateFakeCandidates() {
+    return this.service.fakeCandidates().subscribe((res) => {
+      if (res) {
+        this.response = 'generated candidates successfully!';
+        this.reloadPage();
+      }
+    });
+  }
+
+  switchElectionStatus() {
+    return this.election.switchStatus().subscribe((res: boolean) => {
+      if (res) {
+        // console.log('Successfully enabled / disabled Election Status: ', res);
+        this.reloadPage();
+      }
+    });
+  }
+
   countAllVotes() {
     return this.election.countAllVotes().subscribe((res: number) => {
       if (res) {
         this.votesCount = res;
         // this.reloadPage();
+      }
+    });
+  }
+
+  cleanElectionDB() {
+    return this.election.cleanDB().subscribe((res: boolean) => {
+      if (res) {
+        // console.log('Successfully cleaned votes DB! Carefull with this! ', res);
       }
     });
   }

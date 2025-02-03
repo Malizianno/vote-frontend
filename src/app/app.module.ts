@@ -18,6 +18,7 @@ import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AddUserComponent } from './users/add/add-user.modal';
 import { UsersComponent } from './users/users.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { UsersComponent } from './users/users.component';
     AddUserComponent,
     CandidateInfoComponent,
     LoginComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
