@@ -12,9 +12,10 @@ import packageInfo from '../../package.json';
 // bundle, and you should not use it for any sensitive information like passwords or keys.
 
 export const environment = {
-  production: false,
+  production: true,
   version: packageInfo.version + '-prod',
-  serverUrl: '/vote', // XXX: might configure this later
+  serverUrl: 'https://vote-backend-320485262997.us-central1.run.app/vote',
+  apiBaseUrl: 'https://vote-backend-320485262997.us-central1.run.app/vote',
   defaultLanguage: 'ro-RO',
   supportedLanguages: ['en-US', 'ro-RO'],
 };
