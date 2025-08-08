@@ -1,38 +1,134 @@
 <div class="container-fluid">
+  <!--  ROW 1:  -->
 
-    <!-- TOTALS -->
-    <div class="row">
-        <!-- COL 1 -->
-        <div class="card col-3 my-1 mx-1">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">Total candidați: </div>
-                    <div class="col-3">{{ totals.candidates }}</div>
-                </div>
-                <div class="row">
-                    <div class="col">Total utilizatori: </div>
-                    <div class="col-3">{{ totals.users }}</div>
-                </div>
-                <div class="row">
-                    <div class="col">Total voturi: </div>
-                    <div class="col-3">{{ votesCount }}</div>
-                </div>
-                <div class="row">
-                    <div class="col">Procent votare: </div>
-                    <div class="col-3">{{ getTotalVotesPercentage() | percent: '1.0-1':'en' }}</div>
-                </div>
+  <div class="row my-2">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">ROW 1 COL 1</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">ROW 1 COL 2</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">ROW 1 COL 3</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">ROW 1 COL 4</div>
+      </div>
+    </div>
+  </div>
+
+  <!--  ROW 2:  -->
+
+  <div class="row my-2">
+    <!--  CANDIDATES %  -->
+
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">candidat</th>
+                <th scope="col">partid</th>
+                <th scope="col">procent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let candidate of candidatesWithStatistics">
+                <td>{{ candidate.firstName + " " + candidate.lastName }}</td>
+                <td>
+                  {{ isTheCandidateIND(candidate) ? "-" : candidate.party }}
+                </td>
+                <td>
+                  {{
+                    getVotesPercentage(candidate.id) | percent : "1.0-1" : "en"
+                  }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- <div class="row" *ngFor="let candidate of candidatesWithStatistics">
+            <div class="col-6">
+              {{ candidate.firstName + " " + candidate.lastName }}
             </div>
+            <div class="col">{{ candidate.party }}</div>
+            <div class="col">
+              {{ getVotesPercentage(candidate.id) | percent : "1.0-1" : "en" }}
+            </div>
+          </div> -->
         </div>
+      </div>
     </div>
 
-    <div class="row">
-        <div class="col-3">
-            <div class="row" *ngFor="let candidate of candidatesWithStatistics">
-                <div class="col-6">{{ candidate.firstName + ' ' + candidate.lastName }}</div>
-                <div class="col-2">{{ candidate.party }}</div>
-                <div class="col-2">{{ candidate.totalVotes }}</div>
-                <div class="col-2">{{ getVotesPercentage(candidate.id) | percent: '1.0-1':'en' }}</div>
-            </div>
+    <!--  CANDIDATES TOTAL VOTES   -->
+
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">candidat</th>
+                <th scope="col">partid</th>
+                <th scope="col">voturi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let candidate of candidatesWithStatistics">
+                <td>{{ candidate.firstName + " " + candidate.lastName }}</td>
+                <td>
+                  {{ isTheCandidateIND(candidate) ? "-" : candidate.party }}
+                </td>
+                <td>
+                  {{ candidate.totalVotes }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
+
+    <!--  USERS EVENTS  -->
+
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">ROW 2 COL 3</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOTALS -->
+  <div class="row">
+    <!-- COL 1 -->
+    <div class="card col-3 my-1 mx-1">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">Total candidați:</div>
+          <div class="col-3">{{ totals.candidates }}</div>
+        </div>
+        <div class="row">
+          <div class="col">Total utilizatori:</div>
+          <div class="col-3">{{ totals.users }}</div>
+        </div>
+        <div class="row">
+          <div class="col">Total voturi:</div>
+          <div class="col-3">{{ votesCount }}</div>
+        </div>
+        <div class="row">
+          <div class="col">Procent votare:</div>
+          <div class="col-3">
+            {{ getTotalVotesPercentage() | percent : "1.0-1" : "en" }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

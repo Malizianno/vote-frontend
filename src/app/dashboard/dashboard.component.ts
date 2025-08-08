@@ -5,11 +5,12 @@ import { Totals } from '../model/dashboard-totals.model';
 import { CandidateService } from '../services/candidates.service';
 import { DashboardService } from '../services/dashboard.service';
 import { ElectionService } from '../services/elections.service';
+import { PartyTypeEnum } from '../util/party-type.enum';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
   totals = new Totals();
@@ -22,12 +23,12 @@ export class DashboardComponent {
   fakeVotesNo = 0;
   votesCount = 0;
 
-  response = "";
+  response = '';
 
   constructor(
     private service: DashboardService,
     private election: ElectionService,
-    private candidates: CandidateService,
+    private candidates: CandidateService
   ) {
     this.reloadPage();
   }
@@ -57,18 +58,22 @@ export class DashboardComponent {
   }
 
   getTotals() {
-    return this.service.getTotals().pipe(map((res) => {
-      if (res) {
-        this.totals = res;
-      }
-    }));
+    return this.service.getTotals().pipe(
+      map((res) => {
+        if (res) {
+          this.totals = res;
+        }
+      })
+    );
   }
 
   getElectionStatus() {
-    return this.election.status().pipe(map((res: boolean) => {
-      this.electionEnabled = res;
-      // console.log('got electionEnabled: ', res);
-    }));
+    return this.election.status().pipe(
+      map((res: boolean) => {
+        this.electionEnabled = res;
+        // console.log('got electionEnabled: ', res);
+      })
+    );
   }
 
   countAllVotes() {
@@ -90,13 +95,18 @@ export class DashboardComponent {
   }
 
   getParsedVotes() {
-    return this.election.getParsedVotes().subscribe((res: CandidateWithStatistics[]) => {
-      if (res) {
-        this.candidatesWithStatistics = CandidateWithStatistics.fromArray(res);
-        this.candidatesWithStatistics.sort((a, b) => b.totalVotes - a.totalVotes);
-        // console.log('got parsed results: ', this.candidatesWithStatistics);
-      }
-    });
+    return this.election
+      .getParsedVotes()
+      .subscribe((res: CandidateWithStatistics[]) => {
+        if (res) {
+          this.candidatesWithStatistics =
+            CandidateWithStatistics.fromArray(res);
+          this.candidatesWithStatistics.sort(
+            (a, b) => b.totalVotes - a.totalVotes
+          );
+          // console.log('got parsed results: ', this.candidatesWithStatistics);
+        }
+      });
   }
 
   getTotalVotesPercentage(): number {
@@ -105,5 +115,9 @@ export class DashboardComponent {
     }
 
     return this.votesCount / this.totals.users;
+  }
+
+  isTheCandidateIND(candidate: Candidate): boolean {
+    return PartyTypeEnum[candidate.party] == "" + PartyTypeEnum.IND;
   }
 }
