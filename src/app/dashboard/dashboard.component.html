@@ -4,18 +4,19 @@
   <!-- SMALL STATS -->
 
   <div class="row my-2">
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h1 class="fw-bold">{{ getTotalVotesPercentage() | percent : "1.0-1" : "en" }} voturi</h1>
+    <div class="col min-vh-30">
+      <div class="card h-100">
+        <div class="card-body d-flex align-items-center">
+          <div class="row w-100">
+            <div class="col-12 d-flex align-items-center">
+              <h1 class="fw-bold">
+                {{
+                  getTotalVotesPercentage() | percent : "1.0-1" : "en"
+                }}
+                voturi
+              </h1>
             </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              {{ votesCount }} / {{ totals.users }}
-            </div>
+            <div class="col-12 d-flex align-items-center">{{ votesCount }} / {{ totals.users }}</div>
           </div>
         </div>
       </div>
@@ -25,7 +26,12 @@
 
     <div class="col min-vh-30">
       <div class="card h-100">
-        <div class="card-body"></div>
+        <div class="card-body">
+          <div>
+            <canvas #chartCanvas style="width: 100%; max-height: 150px;"></canvas>
+            <div class="text-center">{{ votesCount }} / {{ totals.users }}</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -39,10 +45,10 @@
 
     <!--  TOTALS  -->
 
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
+    <div class="col min-vh-30">
+      <div class="card h-100">
+        <div class="card-body d-flex align-items-end">
+          <div class="row w-100">
             <div class="col">
               <h1 class="fw-bold">{{ totals.candidates }}</h1>
               <span>candidați</span>
@@ -130,5 +136,4 @@
       </div>
     </div>
   </div>
-
 </div>

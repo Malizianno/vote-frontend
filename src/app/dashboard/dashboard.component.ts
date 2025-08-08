@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { map } from 'rxjs';
 import { Candidate, CandidateWithStatistics } from '../model/candidate.model';
 import { Totals } from '../model/dashboard-totals.model';
@@ -6,13 +6,23 @@ import { CandidateService } from '../services/candidates.service';
 import { DashboardService } from '../services/dashboard.service';
 import { ElectionService } from '../services/elections.service';
 import { PartyTypeEnum } from '../util/party-type.enum';
+import {
+  ArcElement,
+  Chart,
+  DoughnutController,
+  Legend,
+  Title,
+  Tooltip,
+} from 'chart.js';
+
+Chart.register(DoughnutController, ArcElement, Tooltip, Legend, Title);
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit, OnDestroy {
   totals = new Totals();
   electionEnabled = false;
 
@@ -25,20 +35,102 @@ export class DashboardComponent {
 
   response = '';
 
+  @ViewChild('chartCanvas') chartCanvas!: ElementRef<HTMLCanvasElement>;
+  chart!: Chart;
+
+  ngOnInit(): void {
+    this.reloadPage();
+  }
+
+  // ngAfterViewInit(): void {
+  //   const ctx = this.chartCanvas.nativeElement.getContext('2d');
+  //   console.log('votes count: ', this.votesCount);
+  //   console.log('totals.users: ', this.totals.users);
+
+  //   this.chart = new Chart(ctx!, {
+  //     type: 'doughnut',
+  //     data: {
+  //       labels: ['voturi curente', 'voturi totale'],
+  //       datasets: [
+  //         {
+  //           label: 'Statistică voturi',
+  //           // data: [this.votesCount, this.totals.users],
+  //           data: [35, 74],
+  //           backgroundColor: ['rgb(134, 255, 86)', 'rgb(255, 99, 132)'],
+  //           hoverOffset: 4,
+  //         },
+  //       ],
+  //     },
+  //     options: {
+  //       rotation: -90, // Starts at the left
+  //       circumference: 180, // Only half the circle
+  //       cutout: '70%', // Optional: controls the inner radius
+  //       plugins: {
+  //         legend: {
+  //           display: false, // Hide legend if not needed
+  //         },
+  //       },
+  //     },
+  //   });
+  // }
+
   constructor(
     private service: DashboardService,
     private election: ElectionService,
     private candidates: CandidateService
   ) {
-    this.reloadPage();
+    // empty
+  }
+
+  ngOnDestroy(): void {
+    if (this.chart) {
+      this.chart.destroy();
+    }
   }
 
   reloadPage() {
-    this.getTotals().subscribe();
-    this.getElectionStatus().subscribe();
+    this.getElectionStatus().subscribe(res => {
+      this.getTotals().subscribe(res => {
+        this.countAllVotes().subscribe(res => {
+          this.getParsedVotes();
+  
+          // compute chart after data is here ;)
+          this.loadChart();
+        });
+      });
+    });
+  }
 
-    this.countAllVotes();
-    this.getParsedVotes();
+  loadChart() {
+     const ctx = this.chartCanvas.nativeElement.getContext('2d');
+    // console.log('votes count: ', this.votesCount);
+    // console.log('totals.users: ', this.totals.users);
+
+    this.chart = new Chart(ctx!, {
+      type: 'doughnut',
+      data: {
+        labels: ['voturi curente', 'voturi rămase'],
+        datasets: [
+          {
+            label: 'Statistică voturi',
+            data: [this.votesCount, this.totals.users - this.votesCount],
+            // data: [35, 74],
+            backgroundColor: ['rgb(134, 255, 86)', 'rgb(255, 99, 132)'],
+            hoverOffset: 4,
+          },
+        ],
+      },
+      options: {
+        rotation: -90, // Starts at the left
+        circumference: 180, // Only half the circle
+        cutout: '70%', // Optional: controls the inner radius
+        plugins: {
+          legend: {
+            display: false, // Hide legend if not needed
+          },
+        },
+      },
+    });
   }
 
   getVotesPercentage(id: number): number | undefined {
@@ -77,12 +169,12 @@ export class DashboardComponent {
   }
 
   countAllVotes() {
-    return this.election.countAllVotes().subscribe((res: number) => {
+    return this.election.countAllVotes().pipe(map((res: number) => {
       if (res) {
         this.votesCount = res;
         // this.reloadPage();
       }
-    });
+    }));
   }
 
   getVotingResult() {
@@ -118,6 +210,6 @@ export class DashboardComponent {
   }
 
   isTheCandidateIND(candidate: Candidate): boolean {
-    return PartyTypeEnum[candidate.party] == "" + PartyTypeEnum.IND;
+    return PartyTypeEnum[candidate.party] == '' + PartyTypeEnum.IND;
   }
 }
