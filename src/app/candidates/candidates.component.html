@@ -1,88 +1,127 @@
 <div class="container-fluid">
-    <div class="card my-4" *ngIf="showInfo && totalCandidates > 0">
-        <div class="card-body row">
-            <div class="col" *ngFor="let candidate of candidates">
-                <app-candidate-info [candidate]="candidate"></app-candidate-info>
+  <div class="card border my-4">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="First Name"
+              [(ngModel)]="filter.firstName"
+              (ngModelChange)="filterChangedSubject.next($event)"
+            />
+          </th>
+          <th scope="col">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Last Name"
+              [(ngModel)]="filter.lastName"
+              (ngModelChange)="filterChangedSubject.next($event)"
+            />
+          </th>
+          <th scope="col">
+            <div ngbDropdown container="body" class="btn btn-dark p-0 mr-1">
+              <button class="btn btn-dark" id="dropdown-type" ngbDropdownToggle>
+                <span>{{ filter.party ? filter.party : "ALL" }}</span>
+              </button>
+              <div
+                ngbDropdownMenu
+                aria-labelledby="dropdown-type"
+                class="scrollable-menu"
+              >
+                <button
+                  ngbDropdownItem
+                  *ngFor="let party of parties"
+                  (click)="setPartyTypeForFilter(party)"
+                >
+                  {{ party }}
+                </button>
+              </div>
             </div>
-        </div>
-    </div>
-
-    <div class="card border my-4">
-        <div class="table table-striped border">
-            <div>
-                <div class="row">
-                    <div class="col-1">#</div>
-                    <div class="col-2">
-                        <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="filter.firstName"
-                            (ngModelChange)="filterChangedSubject.next($event)" />
-                    </div>
-                    <div class="col-2">
-                        <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="filter.lastName"
-                            (ngModelChange)="filterChangedSubject.next($event)" />
-                    </div>
-                    <div class="col-1">
-                        <div ngbDropdown container="body" class="btn btn-dark p-0 mr-1">
-                            <button class="btn btn-dark" id="dropdown-type" ngbDropdownToggle>
-                                <span>{{ filter.party ? filter.party : 'ALL' }}</span>
-                            </button>
-                            <div ngbDropdownMenu aria-labelledby="dropdown-type" class="scrollable-menu">
-                                <button ngbDropdownItem *ngFor="let party of parties"
-                                    (click)="setPartyTypeForFilter(party)">
-                                    {{ party }}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">Image</div>
-                    <div class="col-2">Description</div>
-                    <div class="col">
-                        <button type="button" class="btn btn-dark float-end mx-1" (click)="add()"><i
-                                class="bi bi-plus-lg"></i></button>
-                        <button type="button" class="btn btn-dark float-end mx-1" (click)="resetFilter()"><i
-                                class="bi bi-x-lg"></i></button>
-                    </div>
-                </div>
+          </th>
+          <th scope="col">Image</th>
+          <th scope="col">Description</th>
+          <th scope="col">
+            <button
+              type="button"
+              class="btn btn-dark float-end mx-1"
+              (click)="add()"
+            >
+              <i class="bi bi-plus-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="btn btn-dark float-end mx-1"
+              (click)="resetFilter()"
+            >
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let candidate of candidates">
+          <th scope="row">{{ candidate.id }}</th>
+          <td>{{ candidate.firstName }}</td>
+          <td>{{ candidate.lastName }}</td>
+          <td>{{ candidate.party }}</td>
+          <td>
+            <a href="{{ candidate.image }}">{{ candidate.image }}</a>
+          </td>
+          <td>
+            <div class="text-truncate">
+              {{
+                candidate.description.length > 20
+                  ? (candidate.description | slice : 0 : 20) + "..."
+                  : candidate.description
+              }}
             </div>
-            <div *ngIf="totalCandidates > 0">
-                <div class="row border-bottom" *ngFor="let candidate of candidates">
-                    <div class="col-1">{{ candidate.id }}</div>
-                    <div class="col-2">{{ candidate.firstName }}</div>
-                    <div class="col-2">{{ candidate.lastName }}</div>
-                    <div class="col-1">{{ candidate.party }}</div>
-                    <div class="col-3"><a href="{{ candidate.image }}">{{ candidate.image }}</a></div>
-                    <div class="col-2">
-                        <div class="text-truncate">
-                            {{ candidate.description }}
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="float-end">
-                            <button type="button" class="btn btn-danger" (click)="delete(candidate.id)"><i
-                                    class="bi bi-trash"></i></button>
-                        </div>
-                    </div>
-                </div>
+          </td>
+          <td>
+            <div class="float-end">
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="delete(candidate.id)"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
             </div>
-        </div>
-        <div class="card" *ngIf="totalCandidates < 1">
+          </td>
+        </tr>
+        <tr *ngIf="totalCandidates < 1">
+          <td colspan="7">
             <div class="card-body bg-light">
-                <div class="row">
-                    <div class="col-4"></div>
-                    <div class="col text-warning"><i class="bi bi-exclamation-circle-fill float-end"></i>&nbsp;</div>
-                    <div class="col text-warning">
-                        <div>Nu au fost găsite date!</div>
-                    </div>
-                    <div class="col-4"></div>
+              <div class="row">
+                <div class="col-4"></div>
+                <div class="col text-warning">
+                  <i class="bi bi-exclamation-circle-fill float-end"></i>&nbsp;
                 </div>
+                <div class="col text-warning">
+                  <div>Nu au fost găsite date!</div>
+                </div>
+                <div class="col-4"></div>
+              </div>
             </div>
-        </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-        <div class="row mt-2" *ngIf="totalCandidates > 0">
-            <div class="col">
-                <ngb-pagination class="d-flex justify-content-center" [(page)]="paging.page" [pageSize]="paging.size"
-                    (pageChange)="onPageChange($event)" [collectionSize]="totalCandidates"
-                    [maxSize]="5"></ngb-pagination>
-            </div>
-        </div>
+    <div class="row mt-2" *ngIf="totalCandidates > 0">
+      <div class="col">
+        <ngb-pagination
+          class="d-flex justify-content-center"
+          [(page)]="paging.page"
+          [pageSize]="paging.size"
+          (pageChange)="onPageChange($event)"
+          [collectionSize]="totalCandidates"
+          [maxSize]="5"
+        ></ngb-pagination>
+      </div>
     </div>
+  </div>
 </div>
