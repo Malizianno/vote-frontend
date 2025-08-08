@@ -5,10 +5,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { UsersComponent } from './users/users.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ElectionsComponent } from './elections/elections.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'candidates', component: CandidatesComponent },
+  { path: 'elections', component: ElectionsComponent },
   { path: 'users', component: UsersComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'login', component: LoginComponent },

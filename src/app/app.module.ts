@@ -14,20 +14,24 @@ import { AddCandidateComponent } from './candidates/add/add-candidate.modal';
 import { CandidatesComponent } from './candidates/candidates.component';
 import { CandidateInfoComponent } from './components/candidate-info/candidate-info.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AddElectionComponent } from './elections/add/add-election.modal';
+import { ElectionsComponent } from './elections/elections.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { SettingsComponent } from './settings/settings.component';
 import { AddUserComponent } from './users/add/add-user.modal';
 import { UsersComponent } from './users/users.component';
-import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     CandidatesComponent,
+    ElectionsComponent,
     UsersComponent,
     NotFoundComponent,
     AddCandidateComponent,
+    AddElectionComponent,
     AddUserComponent,
     CandidateInfoComponent,
     LoginComponent,
@@ -41,9 +45,7 @@ import { SettingsComponent } from './settings/settings.component';
     NgbModule,
     HttpClientModule,
   ],
-  exports: [
-    CandidateInfoComponent,
-  ],
+  exports: [CandidateInfoComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -60,6 +62,6 @@ import { SettingsComponent } from './settings/settings.component';
       useClass: RouteReusableStrategy,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

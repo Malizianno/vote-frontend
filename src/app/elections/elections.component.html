@@ -1,0 +1,98 @@
+<div class="container-fluid">
+  <div class="card border my-4">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Name"
+              [(ngModel)]="filter.name"
+              (ngModelChange)="filterChangedSubject.next($event)"
+            />
+          </th>
+          <th scope="col">Activ</th>
+          <th scope="col">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Description"
+              [(ngModel)]="filter.description"
+              (ngModelChange)="filterChangedSubject.next($event)"
+            />
+          </th>
+          <th scope="col">Start</th>
+          <th scope="col">Final</th>
+          <th scope="col">
+            <button
+              type="button"
+              class="btn btn-dark float-end mx-1"
+              (click)="add()"
+            >
+              <i class="bi bi-plus-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="btn btn-dark float-end mx-1"
+              (click)="resetFilter()"
+            >
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let election of elections">
+          <th scope="row">{{ election.id }}</th>
+          <td>{{ election.name }}</td>
+          <td>{{ election.enabled }}</td>
+          <td>{{ election.description }}</td>
+          <td>{{ election.startDate | date : "dd.MM.yyyy" }}</td>
+          <td>{{ election.endDate | date : "dd.MM.y yyy" }}</td>
+          <td>
+            <div class="float-end">
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="delete(election.id)"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="totalElections < 1">
+          <td colspan="7">
+            <div class="card-body bg-light">
+              <div class="row">
+                <div class="col-4"></div>
+                <div class="col text-warning">
+                  <i class="bi bi-exclamation-circle-fill float-end"></i>&nbsp;
+                </div>
+                <div class="col text-warning">
+                  <div>Nu au fost găsite date!</div>
+                </div>
+                <div class="col-4"></div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="row mt-2" *ngIf="totalElections > 0">
+      <div class="col">
+        <ngb-pagination
+          class="d-flex justify-content-center"
+          [(page)]="paging.page"
+          [pageSize]="paging.size"
+          (pageChange)="onPageChange($event)"
+          [collectionSize]="totalElections"
+          [maxSize]="5"
+        ></ngb-pagination>
+      </div>
+    </div>
+  </div>
+</div>
