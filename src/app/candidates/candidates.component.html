@@ -20,7 +20,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="First Name"
+                  placeholder="prenume"
                   [(ngModel)]="filter.firstName"
                   (ngModelChange)="filterChangedSubject.next($event)"
                 />
@@ -29,7 +29,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="Last Name"
+                  placeholder="nume"
                   [(ngModel)]="filter.lastName"
                   (ngModelChange)="filterChangedSubject.next($event)"
                 />
@@ -41,7 +41,7 @@
                     id="dropdown-type"
                     ngbDropdownToggle
                   >
-                    <span>{{ filter.party ? filter.party : "ALL" }}</span>
+                    <span>{{ filter.party ? filter.party : "toate" }}</span>
                   </button>
                   <div
                     ngbDropdownMenu
@@ -53,13 +53,13 @@
                       *ngFor="let party of parties"
                       (click)="setPartyTypeForFilter(party)"
                     >
-                      {{ party }}
+                      {{ party == 'ALL' ? 'toate' : party }}
                     </button>
                   </div>
                 </div>
               </th>
-              <th scope="col">Image</th>
-              <th scope="col">Description</th>
+              <th scope="col">foto</th>
+              <th scope="col">descriere</th>
               <th scope="col">
                 <button
                   type="button"

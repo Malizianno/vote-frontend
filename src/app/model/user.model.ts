@@ -8,5 +8,5 @@ export class User extends GenericModel {
 }
 
 export enum UserRole {
-    ADMIN = "ADMIN", VOTANT = "VOTANT",
+    ADMIN = 'ADMIN', VOTANT = 'VOTANT', ALL = 'ALL',
 }

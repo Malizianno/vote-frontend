@@ -1,32 +1,48 @@
 <div class="modal-header">
-    <h4 class="modal-title" translate>Adaugă user</h4>
+    <h4 class="modal-title" translate>Adaugă utilizator</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 
 <div class="modal-body">
     <div class="row mb-3">
-        <div class="col">Username</div>
-        <div class="col">
-            <input type="text" class="form-control" [(ngModel)]="user.username" placeholder="Username" />
+        <div class="col-6">Utilizator</div>
+        <div class="col-6">
+            <input type="text" class="form-control" [(ngModel)]="user.username" placeholder="utilizator" />
         </div>
     </div>
 
     <div class="row mb-3">
-        <div class="col">Password</div>
-        <div class="col">
-            <input type="password" class="form-control" [(ngModel)]="user.password" placeholder="Password" />
+        <div class="col-6">Parolă</div>
+        <div class="col-6">
+            <input type="password" class="form-control" [(ngModel)]="user.password" placeholder="parolă" />
         </div>
     </div>
 
     <div class="row mb-3">
-        <div class="col">Role</div>
-        <div class="col">
-            <div ngbDropdown class="d-inline-block">
-                <input type="text" class="form-control" id="dropdownRole" [(ngModel)]="user.role" ngbDropdownToggle>
-                <div ngbDropdownMenu aria-labelledby="dropdownRole">
-                    <button ngbDropdownItem *ngFor="let role of allRoles" (click)="selectUserRole(role)">{{ role }}</button>
+        <div class="col-6">Rol</div>
+        <div class="col-6">
+            <div ngbDropdown container="body" class="btn btn-dark p-0 mr-1">
+                  <button
+                    class="btn btn-dark"
+                    id="dropdown-type"
+                    ngbDropdownToggle
+                  >
+                    <span>{{ user.role ? user.role : "rol" }}</span>
+                  </button>
+                  <div
+                    ngbDropdownMenu
+                    aria-labelledby="dropdown-type"
+                    class="scrollable-menu"
+                  >
+                    <button
+                      ngbDropdownItem
+                      *ngFor="let role of allRoles"
+                      (click)="selectUserRole(role)"
+                    >
+                      {{ role == 'ALL' ? 'toate' : role }}
+                    </button>
+                  </div>
                 </div>
-            </div>
         </div>
     </div>
 </div>
