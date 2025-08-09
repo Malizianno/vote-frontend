@@ -1,84 +1,115 @@
 <div class="container-fluid">
-  <div class="card my-4">
-    <table class="table">
-      <caption *ngIf="false">
-        users table
-      </caption>
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Username"
-              [(ngModel)]="filter.username"
-              (ngModelChange)="filterChangedSubject.next($event)"
-            />
-          </th>
-          <th scope="col">Clasă</th>
-          <th scope="col">
-            <button
-              type="button"
-              class="btn btn-dark float-end mx-1"
-              (click)="add()"
-            >
-              <i class="bi bi-plus-lg"></i>
-            </button>
-            <button
-              type="button"
-              class="btn btn-dark float-end mx-1"
-              (click)="resetFilter()"
-            >
-              <i class="bi bi-x-lg"></i>
-            </button>
-          </th>
-        </tr>
-      </thead>
-      <tbody *ngIf="totalUsers > 0">
-        <tr *ngFor="let user of users">
-          <th scope="row">{{ user.id }}</th>
-          <td>{{ user.username }}</td>
-          <td>{{ user.role }}</td>
-          <td>
-            <div class="float-end">
-              <button
-                type="button"
-                class="btn btn-danger"
-                (click)="delete(user.id)"
-              >
-                <i class="bi bi-trash"></i>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="card" *ngIf="totalUsers < 1">
-      <div class="card-body bg-light">
+  <div class="row">
+    <div class="col-12">
+      <div class="card border mt-2">
         <div class="row">
-          <div class="col-4"></div>
-          <div class="col text-warning">
-            <i class="bi bi-exclamation-circle-fill float-end"></i>&nbsp;
+          <div class="col-2">
+            <h1 class="ms-4">
+              {{ totalUsers }}<br />
+              <h2>utilizatori</h2>
+            </h1>
           </div>
-          <div class="col text-warning">
-            <div>Nu au fost găsite date!</div>
+  
+          <div class="col-2">
+            <h1 class="ms-4">
+              {{ adminUsersCount }}<br />
+              <h2>admin</h2>
+            </h1>
           </div>
-          <div class="col-4"></div>
+  
+          <div class="col-2">
+            <h1 class="ms-4">
+              {{ votantUsersCount }}<br />
+              <h2>votant</h2>
+            </h1>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="row mt-2" *ngIf="totalUsers > 0">
-      <div class="col">
-        <ngb-pagination
-          class="d-flex justify-content-center"
-          [(page)]="paging.page"
-          [pageSize]="paging.size"
-          (pageChange)="onPageChange($event)"
-          [collectionSize]="totalUsers"
-          [maxSize]="5"
-        ></ngb-pagination>
+    <div class="col-12">
+      <div class="card mt-3">
+        <table class="table">
+          <caption *ngIf="false">
+            users table
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Username"
+                  [(ngModel)]="filter.username"
+                  (ngModelChange)="filterChangedSubject.next($event)"
+                />
+              </th>
+              <th scope="col">Clasă</th>
+              <th scope="col">
+                <button
+                  type="button"
+                  class="btn btn-dark float-end mx-1"
+                  (click)="add()"
+                >
+                  <i class="bi bi-plus-lg"></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-dark float-end mx-1"
+                  (click)="resetFilter()"
+                >
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </th>
+            </tr>
+          </thead>
+          <tbody *ngIf="totalUsers > 0">
+            <tr *ngFor="let user of users">
+              <th scope="row">{{ user.id }}</th>
+              <td>{{ user.username }}</td>
+              <td>{{ user.role }}</td>
+              <td>
+                <div class="float-end">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="delete(user.id)"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="card" *ngIf="totalUsers < 1">
+          <div class="card-body bg-light">
+            <div class="row">
+              <div class="col-4"></div>
+              <div class="col text-warning">
+                <i class="bi bi-exclamation-circle-fill float-end"></i>&nbsp;
+              </div>
+              <div class="col text-warning">
+                <div>Nu au fost găsite date!</div>
+              </div>
+              <div class="col-4"></div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="row mt-2" *ngIf="totalUsers > 0">
+          <div class="col">
+            <ngb-pagination
+              class="d-flex justify-content-center"
+              [(page)]="paging.page"
+              [pageSize]="paging.size"
+              (pageChange)="onPageChange($event)"
+              [collectionSize]="totalUsers"
+              [maxSize]="5"
+            ></ngb-pagination>
+          </div>
+        </div>
       </div>
     </div>
   </div>

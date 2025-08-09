@@ -18,6 +18,10 @@ export class UsersComponent {
   paging = new Paging();
   totalUsers = 0;
 
+  // created only for the purpose of showing in the template
+  adminUsersCount = 0;
+  votantUsersCount = 0;
+
   filterChangedSubject: Subject<string> = new Subject<string>();
   filterChangedSubscription!: Subscription;
 
@@ -67,6 +71,9 @@ export class UsersComponent {
       if (res?.users) {
         this.users = User.fromArray(res.users);
         this.totalUsers = res.total;
+
+        this.adminUsersCount = res.adminUsersCount;
+        this.votantUsersCount = res.votantUsersCount
       }
     }));
   }
@@ -79,4 +86,12 @@ export class UsersComponent {
         this.reloadPage();
       });
   }
+
+  private isAdmin(user: User): boolean {
+    return user.role && user.role.includes('ADMIN');
+  }
+
+  private isVotant(user: User): boolean {
+    return user.role && user.role.includes('VOTANT');
+  } 
 }

@@ -87,11 +87,12 @@
                 <td>
                   {{ isTheCandidateIND(candidate) ? "-" : candidate.party }}
                 </td>
-                <td>
+                <td *ngIf="candidate.totalVotes > 0">
                   {{
                     getVotesPercentage(candidate.id) | percent : "1.0-1" : "en"
                   }}
                 </td>
+                <td *ngIf="candidate.totalVotes < 1">-</td>
               </tr>
             </tbody>
           </table>
