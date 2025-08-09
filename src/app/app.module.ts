@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddCandidateComponent } from './candidates/add/add-candidate.modal';
 import { CandidatesComponent } from './candidates/candidates.component';
+import { AlertComponent } from './components/alert/alert.component';
 import { CandidateInfoComponent } from './components/candidate-info/candidate-info.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddElectionComponent } from './elections/add/add-election.modal';
@@ -34,6 +35,7 @@ import { UsersComponent } from './users/users.component';
     AddElectionComponent,
     AddUserComponent,
     CandidateInfoComponent,
+    AlertComponent,
     LoginComponent,
     SettingsComponent,
   ],

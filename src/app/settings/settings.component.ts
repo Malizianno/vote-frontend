@@ -22,7 +22,9 @@ export class SettingsComponent {
   fakeVotesNo = 0;
   votesCount = 0;
 
-  response = "";
+  successAlert = '';
+  failedAlert = '';
+  idleAlert = '';
 
   constructor(
     private service: DashboardService,
@@ -75,7 +77,7 @@ export class SettingsComponent {
   generateFakeUsers() {
     return this.service.fakeUsers(this.fakeUsersNo).subscribe((res) => {
       if (res) {
-        this.response = 'generated ' + this.fakeUsersNo + ' users successfully!';
+        this.successAlert = 'generated ' + this.fakeUsersNo + ' users successfully!';
         this.reloadPage();
       }
     });
@@ -84,7 +86,7 @@ export class SettingsComponent {
   generateFakeVotes() {
     return this.service.fakeVotes(this.fakeVotesNo).subscribe((res) => {
       if (res) {
-        this.response = 'generated ' + this.fakeVotesNo + ' votes by admin user successfully!';
+        this.successAlert = 'generated ' + this.fakeVotesNo + ' votes by admin user successfully!';
         this.reloadPage();
       }
     })
@@ -93,7 +95,7 @@ export class SettingsComponent {
   generateFakeCandidates() {
     return this.service.fakeCandidates().subscribe((res) => {
       if (res) {
-        this.response = 'generated candidates successfully!';
+        this.successAlert = 'generated candidates successfully!';
         this.reloadPage();
       }
     });
@@ -103,7 +105,10 @@ export class SettingsComponent {
     return this.election.switchStatus().subscribe((res: boolean) => {
       if (res) {
         // console.log('Successfully enabled / disabled Election Status: ', res);
+        this.successAlert = 'Election status changed successfully!';
         this.reloadPage();
+      } else {
+        this.failedAlert = 'Failed to change election status!';
       }
     });
   }
@@ -121,7 +126,10 @@ export class SettingsComponent {
     return this.election.cleanDB().subscribe((res: boolean) => {
       if (res) {
         // console.log('Successfully cleaned votes DB! Carefull with this! ', res);
+        this.successAlert = 'Votes DB cleaned successfully!';
         this.votesCount = 0;
+      } else {
+        this.failedAlert = 'Failed to clean votes DB!';
       }
     });
   }

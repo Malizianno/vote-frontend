@@ -1,17 +1,5 @@
 <!-- ALERT -->
-<div
-  class="alert alert-primary alert-dismissible fade show"
-  role="alert"
-  *ngIf="response.length > 0"
->
-  {{ response }}
-  <button
-    type="button"
-    class="btn-close"
-    data-bs-dismiss="alert"
-    aria-label="Close"
-  ></button>
-</div>
+<app-alert [message]="successAlert" [type]="'success'"></app-alert>
 
 <div class="container-fluid">
   <div class="row">
