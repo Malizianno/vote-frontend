@@ -1,3 +1,29 @@
 .pointer:hover {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+// Custom styles for form-check-input (color: grey)
+.form-check-input .form-check-input:focus {
+  border-color: rgba(128, 128, 128, 0) !important;
+  box-shadow: 0 0 0 0.2rem rgba(128, 128, 128, 0) !important;
+  background-color: rgba(128, 128, 128, 0) !important;
+}
+
+.form-check-input:checked {
+  border-color: grey !important;
+  background-color: grey !important;
+}
+
+.form-check-input:active {
+  border-color: grey !important;
+  background-color: grey !important;
+}
+
+.form-check-input:focus:not(:checked) {
+  border-color: grey !important;
+}
+
+.form-check-input:not(:disabled):active {
+  border-color: grey !important;
+  background-color: grey !important;
 }

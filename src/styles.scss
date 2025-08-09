@@ -2,4 +2,9 @@
 
 ngb-pagination ::ng-deep ul > li.active > a {
     background-color: #212529 !important;
+    color:white !important;
+}
+
+.page-link {
+    color: black !important;
 }
