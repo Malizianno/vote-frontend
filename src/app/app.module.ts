@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddCandidateComponent } from './candidates/add/add-candidate.modal';
 import { CandidatesComponent } from './candidates/candidates.component';
+import { EditCandidateComponent } from './candidates/edit/edit-candidate.modal';
 import { AlertComponent } from './components/alert/alert.component';
 import { CandidateInfoComponent } from './components/candidate-info/candidate-info.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -22,6 +23,7 @@ import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AddUserComponent } from './users/add/add-user.modal';
+import { EditUserComponent } from './users/edit/edit-user.modal';
 import { UsersComponent } from './users/users.component';
 
 @NgModule({
@@ -33,9 +35,11 @@ import { UsersComponent } from './users/users.component';
     UsersComponent,
     NotFoundComponent,
     AddCandidateComponent,
+    EditCandidateComponent,
     AddElectionComponent,
     EditElectionComponent,
     AddUserComponent,
+    EditUserComponent,
     CandidateInfoComponent,
     AlertComponent,
     LoginComponent,

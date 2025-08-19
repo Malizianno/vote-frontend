@@ -1,16 +1,23 @@
 import { Component } from '@angular/core';
-import { Candidate } from '../model/candidate.model';
-import { CandidateService } from '../services/candidates.service';
-import { Subject, Subscription, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AddCandidateComponent } from './add/add-candidate.modal';
+import {
+  Subject,
+  Subscription,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+} from 'rxjs';
+import { Candidate } from '../model/candidate.model';
 import { Paging } from '../model/paging.model';
+import { CandidateService } from '../services/candidates.service';
 import { PartyTypeEnum } from '../util/party-type.enum';
+import { AddCandidateComponent } from './add/add-candidate.modal';
+import { EditCandidateComponent } from './edit/edit-candidate.modal';
 
 @Component({
   selector: 'app-candidates',
   templateUrl: './candidates.component.html',
-  styleUrls: ['./candidates.component.scss']
+  styleUrls: ['./candidates.component.scss'],
 })
 export class CandidatesComponent {
   candidates: Candidate[] = [];
@@ -28,7 +35,7 @@ export class CandidatesComponent {
 
   constructor(
     private service: CandidateService,
-    private modalService: NgbModal,
+    private modalService: NgbModal
   ) {
     this.reloadPage();
     this.debounceSubscription();
@@ -57,7 +64,19 @@ export class CandidatesComponent {
       if (null != res.id) {
         this.resetFilter();
       }
-    })
+    });
+  }
+
+  edit(id: number) {
+    // open modal to add new candidate
+    const modalref = this.modalService.open(EditCandidateComponent);
+    modalref.componentInstance.id = id; // pass the ID to the modal
+
+    modalref.result.then((res: Candidate) => {
+      if (null != res.id) {
+        this.resetFilter();
+      }
+    });
   }
 
   delete(id: number) {
@@ -69,12 +88,14 @@ export class CandidatesComponent {
   }
 
   getFiltered() {
-    return this.service.getFiltered(this.filter, this.paging).pipe(map((res) => {
-      if (res?.candidates) {
-        this.candidates = Candidate.fromArray(res.candidates);
-        this.totalCandidates = res.total;
-      }
-    }));
+    return this.service.getFiltered(this.filter, this.paging).pipe(
+      map((res) => {
+        if (res?.candidates) {
+          this.candidates = Candidate.fromArray(res.candidates);
+          this.totalCandidates = res.total;
+        }
+      })
+    );
   }
 
   setPartyTypeForFilter(party: any) {

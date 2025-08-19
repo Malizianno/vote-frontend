@@ -1,15 +1,22 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject, Subscription, debounceTime, distinctUntilChanged, map } from 'rxjs';
+import {
+  Subject,
+  Subscription,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+} from 'rxjs';
 import { Paging } from '../model/paging.model';
 import { User } from '../model/user.model';
 import { UsersService } from '../services/users.service';
 import { AddUserComponent } from './add/add-user.modal';
+import { EditUserComponent } from './edit/edit-user.modal';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent {
   users: User[] = [];
@@ -25,10 +32,7 @@ export class UsersComponent {
   filterChangedSubject: Subject<string> = new Subject<string>();
   filterChangedSubscription!: Subscription;
 
-  constructor(
-    private service: UsersService,
-    private modalService: NgbModal,
-  ) {
+  constructor(private service: UsersService, private modalService: NgbModal) {
     this.debounceSubscription();
     this.reloadPage();
   }
@@ -55,7 +59,19 @@ export class UsersComponent {
       if (null != res.id) {
         this.resetFilter();
       }
-    })
+    });
+  }
+
+  edit(id: number) {
+    // open modal to add new candidate
+    const modalref = this.modalService.open(EditUserComponent);
+    modalref.componentInstance.id = id; // pass the ID to the modal
+
+    modalref.result.then((res: User) => {
+      if (null != res.id) {
+        this.resetFilter();
+      }
+    });
   }
 
   delete(id: number) {
@@ -67,15 +83,17 @@ export class UsersComponent {
   }
 
   getFiltered() {
-    return this.service.getFiltered(this.filter, this.paging).pipe(map((res) => {
-      if (res?.users) {
-        this.users = User.fromArray(res.users);
-        this.totalUsers = res.total;
+    return this.service.getFiltered(this.filter, this.paging).pipe(
+      map((res) => {
+        if (res?.users) {
+          this.users = User.fromArray(res.users);
+          this.totalUsers = res.total;
 
-        this.adminUsersCount = res.adminUsersCount;
-        this.votantUsersCount = res.votantUsersCount
-      }
-    }));
+          this.adminUsersCount = res.adminUsersCount;
+          this.votantUsersCount = res.votantUsersCount;
+        }
+      })
+    );
   }
 
   private debounceSubscription() {
@@ -93,5 +111,5 @@ export class UsersComponent {
 
   private isVotant(user: User): boolean {
     return user.role && user.role.includes('VOTANT');
-  } 
+  }
 }

@@ -1,0 +1,69 @@
+<div class="modal-header">
+    <h4 class="modal-title" translate>Adaugă candidat</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+
+<div class="modal-body">
+    <div class="row mb-3">
+        <div class="col">Nume</div>
+        <div class="col">
+            <input type="text" class="form-control" [(ngModel)]="candidate.lastName" placeholder="Nume" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">Prenume</div>
+        <div class="col">
+            <input type="text" class="form-control" [(ngModel)]="candidate.firstName" placeholder="Prenume" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">Descriere</div>
+        <div class="col">
+            <input type="text" class="form-control" [(ngModel)]="candidate.description" placeholder="Descriere" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">Partid</div>
+        <div class="col">
+            <div
+        ngbDropdown
+        container="body"
+        class="btn btn-dark p-0 mr-1 w-100 text-end"
+      >
+        <button class="btn btn-dark text-dark bg-light border-light w-100 text-start" id="dropdown-type" ngbDropdownToggle>
+          <span>{{ candidate.party ? candidate.party : "" }}</span>
+        </button>
+        <div
+          ngbDropdownMenu
+          aria-labelledby="dropdown-type"
+          class="scrollable-menu"
+        >
+          <button
+            class="w-100"
+            ngbDropdownItem
+            *ngFor="let party of parties"
+            (click)="setPartyTypeForFilter(party)"
+          >
+            {{ party == 'ALL' ? '-' : party }}
+          </button>
+        </div>
+      </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">Foto</div>
+        <div class="col">
+            <input type="text" class="form-control" [(ngModel)]="candidate.image" placeholder="Foto" />
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-dark" id="save" (click)="save()" [disabled]="!canSave()" translate>
+        Salvează
+    </button>
+</div>
