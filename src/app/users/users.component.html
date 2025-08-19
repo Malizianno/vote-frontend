@@ -47,7 +47,34 @@
                   (ngModelChange)="filterChangedSubject.next($event)"
                 />
               </th>
-              <th scope="col">Clasă</th>
+              <th scope="col">
+                <div ngbDropdown container="body" class="btn btn-dark p-0 mr-1">
+                  <button
+                    class="btn btn-dark"
+                    id="dropdown-type"
+                    ngbDropdownToggle
+                  >
+                    <span>{{
+                      !filter.role || filter.role == "ALL"
+                        ? "toate"
+                        : filter.role
+                    }}</span>
+                  </button>
+                  <div
+                    ngbDropdownMenu
+                    aria-labelledby="dropdown-type"
+                    class="scrollable-menu"
+                  >
+                    <button
+                      ngbDropdownItem
+                      *ngFor="let role of roles"
+                      (click)="setRoleForFilter(role)"
+                    >
+                      {{ role == "ALL" ? "toate" : role }}
+                    </button>
+                  </div>
+                </div>
+              </th>
               <th scope="col">
                 <button
                   type="button"

@@ -1,0 +1,180 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card border mt-2">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <h1 class="ms-2">
+                {{ totalEvents }}<br />
+                <h2>evenimente</h2>
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="card mt-3">
+        <table class="table">
+          <caption *ngIf="false">
+            events table
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">timestamp</th>
+              <th scope="col">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="utilizator"
+                  [(ngModel)]="filter.username"
+                  (ngModelChange)="filterChangedSubject.next($event)"
+                />
+              </th>
+              <th scope="col">
+                <div ngbDropdown container="body" class="btn btn-dark p-0 mr-1">
+                  <button
+                    class="btn btn-dark"
+                    id="dropdown-type"
+                    ngbDropdownToggle
+                  >
+                    <span>{{
+                      !filter.role || filter.role == "ALL"
+                        ? "toate"
+                        : filter.role
+                    }}</span>
+                  </button>
+                  <div
+                    ngbDropdownMenu
+                    aria-labelledby="dropdown-type"
+                    class="scrollable-menu"
+                  >
+                    <button
+                      ngbDropdownItem
+                      *ngFor="let role of roles"
+                      (click)="setRoleForFilter(role)"
+                    >
+                      {{ role == "ALL" ? "toate" : role }}
+                    </button>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div ngbDropdown container="body" class="btn btn-dark p-0 mr-1">
+                  <button
+                    class="btn btn-dark"
+                    id="dropdown-type"
+                    ngbDropdownToggle
+                  >
+                    <span>{{
+                      !filter.action || filter.action == "ALL"
+                        ? "toate"
+                        : filter.action
+                    }}</span>
+                  </button>
+                  <div
+                    ngbDropdownMenu
+                    aria-labelledby="dropdown-type"
+                    class="scrollable-menu"
+                  >
+                    <button
+                      ngbDropdownItem
+                      *ngFor="let action of actions"
+                      (click)="setActionForFilter(action)"
+                    >
+                      {{ action == "ALL" ? "toate" : action }}
+                    </button>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div ngbDropdown container="body" class="btn btn-dark p-0 mr-1">
+                  <button
+                    class="btn btn-dark"
+                    id="dropdown-type"
+                    ngbDropdownToggle
+                  >
+                    <span>{{
+                      !filter.screen || filter.screen == "ALL"
+                        ? "toate"
+                        : filter.screen
+                    }}</span>
+                  </button>
+                  <div
+                    ngbDropdownMenu
+                    aria-labelledby="dropdown-type"
+                    class="scrollable-menu"
+                  >
+                    <button
+                      ngbDropdownItem
+                      *ngFor="let screen of screens"
+                      (click)="setScreenLocationForFilter(screen)"
+                    >
+                      {{ screen == "ALL" ? "toate" : screen }}
+                    </button>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">mesaj</th>
+              <th scope="col">
+                <button
+                  type="button"
+                  class="btn btn-dark bg-light text-dark float-end mx-1"
+                  (click)="resetFilter()"
+                >
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </th>
+            </tr>
+          </thead>
+          <tbody *ngIf="totalEvents > 0">
+            <tr *ngFor="let event of events">
+              <th scope="row">{{ event.id }}</th>
+              <td>
+                {{
+                  isDateValid(event.timestamp)
+                    ? (event.timestamp | date : "dd.MM.yyyy")
+                    : "-"
+                }}
+              </td>
+              <td>{{ event.username }}</td>
+              <td>{{ event.role }}</td>
+              <td>{{ event.action }}</td>
+              <td>{{ event.screen }}</td>
+              <td>{{ event.message }}</td>
+              <td>
+                <div class="float-end">
+                  <button
+                    type="button"
+                    class="btn btn-danger mx-1"
+                    (click)="delete(event.id)"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+                <div></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <app-no-data [condition]="totalEvents < 1" />
+
+        <div class="row mt-2" *ngIf="totalEvents > 0">
+          <div class="col">
+            <ngb-pagination
+              class="d-flex justify-content-center"
+              [(page)]="paging.page"
+              [pageSize]="paging.size"
+              (pageChange)="onPageChange($event)"
+              [collectionSize]="totalEvents"
+              [maxSize]="5"
+            ></ngb-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -20,6 +20,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddElectionComponent } from './elections/add/add-election.modal';
 import { EditElectionComponent } from './elections/edit/edit-election.modal';
 import { ElectionsComponent } from './elections/elections.component';
+import { EventsComponent } from './events/events.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -34,6 +35,7 @@ import { UsersComponent } from './users/users.component';
     CandidatesComponent,
     ElectionsComponent,
     UsersComponent,
+    EventsComponent,
     NotFoundComponent,
     AddCandidateComponent,
     EditCandidateComponent,

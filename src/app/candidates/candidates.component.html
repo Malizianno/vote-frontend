@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12">
       <div class="card border mt-2">
-        <div class="col-12 ">
+        <div class="col-12">
           <h1 class="ms-4">
             {{ totalCandidates }}<br />
             <h2>candidați</h2>
@@ -41,7 +41,11 @@
                     id="dropdown-type"
                     ngbDropdownToggle
                   >
-                    <span>{{ filter.party ? filter.party : "toate" }}</span>
+                    <span>{{
+                      !filter.party || filter.party.toString() == "ALL"
+                        ? "toate"
+                        : filter.party
+                    }}</span>
                   </button>
                   <div
                     ngbDropdownMenu
@@ -53,7 +57,7 @@
                       *ngFor="let party of parties"
                       (click)="setPartyTypeForFilter(party)"
                     >
-                      {{ party == 'ALL' ? 'toate' : party }}
+                      {{ party == "ALL" ? "toate" : party }}
                     </button>
                   </div>
                 </div>
@@ -62,19 +66,19 @@
               <th scope="col">descriere</th>
               <th scope="col">
                 <button
-                type="button"
-                class="btn btn-dark bg-light text-dark float-end mx-1"
-                (click)="resetFilter()"
+                  type="button"
+                  class="btn btn-dark bg-light text-dark float-end mx-1"
+                  (click)="resetFilter()"
                 >
-                <i class="bi bi-x-lg"></i>
-              </button>
-              <button
-                type="button"
-                class="btn btn-dark float-end mx-1"
-                (click)="add()"
-              >
-                <i class="bi bi-plus-lg"></i>
-              </button>
+                  <i class="bi bi-x-lg"></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-dark float-end mx-1"
+                  (click)="add()"
+                >
+                  <i class="bi bi-plus-lg"></i>
+                </button>
               </th>
             </tr>
           </thead>

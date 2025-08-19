@@ -8,7 +8,7 @@ import {
   map,
 } from 'rxjs';
 import { Paging } from '../model/paging.model';
-import { User } from '../model/user.model';
+import { User, UserRole } from '../model/user.model';
 import { UsersService } from '../services/users.service';
 import { AddUserComponent } from './add/add-user.modal';
 import { EditUserComponent } from './edit/edit-user.modal';
@@ -19,6 +19,8 @@ import { EditUserComponent } from './edit/edit-user.modal';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent {
+  roles = Object.keys(UserRole).filter((v) => isNaN(Number(v)));
+  
   users: User[] = [];
 
   filter = new User();
@@ -94,6 +96,12 @@ export class UsersComponent {
         }
       })
     );
+  }
+
+  setRoleForFilter(role: string) {
+    this.filter.role = role as UserRole;
+    this.paging.page = 1; // reset to first page
+    this.reloadPage();
   }
 
   private debounceSubscription() {
