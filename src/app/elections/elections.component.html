@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12">
       <div class="card border mt-2">
-        <div class="col-12 ">
+        <div class="col-12">
           <h1 class="ms-4">
             {{ totalElections }}<br />
             <h2>alegeri</h2>
@@ -40,17 +40,17 @@
               <th scope="col">
                 <button
                   type="button"
-                  class="btn btn-dark float-end mx-1"
-                  (click)="add()"
+                  class="btn btn-dark bg-light text-dark float-end mx-1"
+                  (click)="resetFilter()"
                 >
-                  <i class="bi bi-plus-lg"></i>
+                  <i class="bi bi-x-lg"></i>
                 </button>
                 <button
                   type="button"
                   class="btn btn-dark float-end mx-1"
-                  (click)="resetFilter()"
+                  (click)="add()"
                 >
-                  <i class="bi bi-x-lg"></i>
+                  <i class="bi bi-plus-lg"></i>
                 </button>
               </th>
             </tr>
@@ -61,16 +61,37 @@
               <td>{{ election.name }}</td>
               <td>{{ election.enabled }}</td>
               <td>{{ election.description }}</td>
-              <td>{{ election.startDate | date : "dd.MM.yyyy" }}</td>
-              <td>{{ election.endDate | date : "dd.MM.y yyy" }}</td>
+              <td>
+                {{
+                  isDateValid(election.startDate)
+                    ? (election.startDate | date : "dd.MM.yyyy")
+                    : "-"
+                }}
+              </td>
+              <td>
+                {{
+                  isDateValid(election.endDate)
+                    ? (election.endDate | date : "dd.MM.yyyy")
+                    : "-"
+                }}
+              </td>
               <td>
                 <div class="float-end">
                   <button
                     type="button"
-                    class="btn btn-danger"
+                    class="btn btn-danger float-end mx-1"
                     (click)="delete(election.id)"
                   >
                     <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+                <div class="float-end">
+                  <button
+                    type="button"
+                    class="btn btn-dark float-end mx-1"
+                    (click)="edit(election.id)"
+                  >
+                    <i class="bi bi-pencil-square"></i>
                   </button>
                 </div>
               </td>
@@ -81,7 +102,8 @@
                   <div class="row">
                     <div class="col-4"></div>
                     <div class="col text-warning">
-                      <i class="bi bi-exclamation-circle-fill float-end"></i>&nbsp;
+                      <i class="bi bi-exclamation-circle-fill float-end"></i
+                      >&nbsp;
                     </div>
                     <div class="col text-warning">
                       <div>Nu au fost găsite date!</div>
@@ -93,7 +115,7 @@
             </tr>
           </tbody>
         </table>
-    
+
         <div class="row mt-2" *ngIf="totalElections > 0">
           <div class="col">
             <ngb-pagination

@@ -11,8 +11,9 @@ import { Candidate } from '../model/candidate.model';
 import { Election } from '../model/election.model';
 import { Paging } from '../model/paging.model';
 import { ElectionService } from '../services/elections.service';
-import { PartyTypeEnum } from '../util/party-type.enum';
+import { DateUtil } from '../util/date.util';
 import { AddElectionComponent } from './add/add-election.modal';
+import { EditElectionComponent } from './edit/edit-election.modal';
 
 @Component({
   selector: 'app-elections',
@@ -63,6 +64,18 @@ export class ElectionsComponent {
     });
   }
 
+  edit(id: number) {
+    // open modal to add new candidate
+    const modalref = this.modalService.open(EditElectionComponent);
+    modalref.componentInstance.id = id; // pass the ID to the modal
+
+    modalref.result.then((res: Election) => {
+      if (null != res.id) {
+        this.resetFilter();
+      }
+    });
+  }
+
   delete(id: number) {
     return this.service.delete(id).subscribe((res) => {
       if (res) {
@@ -80,6 +93,10 @@ export class ElectionsComponent {
         }
       })
     );
+  }
+
+  isDateValid(date: any): boolean {
+    return DateUtil.isDateValid(date);
   }
 
   private debounceSubscription() {

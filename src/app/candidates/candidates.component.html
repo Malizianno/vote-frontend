@@ -62,19 +62,19 @@
               <th scope="col">descriere</th>
               <th scope="col">
                 <button
-                  type="button"
-                  class="btn btn-dark float-end mx-1"
-                  (click)="add()"
+                type="button"
+                class="btn btn-dark bg-light text-dark float-end mx-1"
+                (click)="resetFilter()"
                 >
-                  <i class="bi bi-plus-lg"></i>
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-dark float-end mx-1"
-                  (click)="resetFilter()"
-                >
-                  <i class="bi bi-x-lg"></i>
-                </button>
+                <i class="bi bi-x-lg"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-dark float-end mx-1"
+                (click)="add()"
+              >
+                <i class="bi bi-plus-lg"></i>
+              </button>
               </th>
             </tr>
           </thead>
@@ -100,7 +100,7 @@
                 <div class="float-end">
                   <button
                     type="button"
-                    class="btn btn-danger"
+                    class="btn btn-danger mx-1"
                     (click)="delete(candidate.id)"
                   >
                     <i class="bi bi-trash"></i>

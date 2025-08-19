@@ -8,3 +8,5 @@ ngb-pagination ::ng-deep ul > li.active > a {
 .page-link {
     color: black !important;
 }
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';

@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorHandlerInterceptor } from './@shared/http/error-handler.interceptor';
 import { JwtInterceptor } from './@shared/http/jwt.interceptor';
 import { RouteReusableStrategy } from './@shared/route-reusable-strategy';
@@ -16,6 +16,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { CandidateInfoComponent } from './components/candidate-info/candidate-info.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddElectionComponent } from './elections/add/add-election.modal';
+import { EditElectionComponent } from './elections/edit/edit-election.modal';
 import { ElectionsComponent } from './elections/elections.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -33,6 +34,7 @@ import { UsersComponent } from './users/users.component';
     NotFoundComponent,
     AddCandidateComponent,
     AddElectionComponent,
+    EditElectionComponent,
     AddUserComponent,
     CandidateInfoComponent,
     AlertComponent,
@@ -46,6 +48,7 @@ import { UsersComponent } from './users/users.component';
     FormsModule,
     NgbModule,
     HttpClientModule,
+    NgbDatepickerModule,
   ],
   exports: [CandidateInfoComponent],
   providers: [
