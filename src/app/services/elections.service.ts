@@ -1,11 +1,10 @@
-import { Injectable } from '@angular/core';
-import { AppConstants } from '../util/app-constants.util';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Candidate, CandidateWithStatistics } from '../model/candidate.model';
+import { ElectionResponse } from '../model/election-response.dto';
 import { Election } from '../model/election.model';
 import { Paging } from '../model/paging.model';
-import { ElectionResponse } from '../model/election-response.dto';
+import { AppConstants } from '../util/app-constants.util';
 
 @Injectable({
   providedIn: 'root',
@@ -45,34 +44,5 @@ export class ElectionService {
 
   delete(id: number): Observable<boolean> {
     return this.http.delete<boolean>(this.apiURL + `/delete/${id}`, {});
-  }
-
-  // WIP: helper area starts here
-
-  voteResult(): Observable<Candidate> {
-    return this.http.get<Candidate>(this.apiURL + '/result', {});
-  }
-
-  status(): Observable<boolean> {
-    return this.http.get<boolean>(this.apiURL + '/status', {});
-  }
-
-  switchStatus(): Observable<boolean> {
-    return this.http.get<boolean>(this.apiURL + '/switchStatus', {});
-  }
-
-  cleanDB(): Observable<boolean> {
-    return this.http.get<boolean>(this.apiURL + '/cleanDB', {});
-  }
-
-  countAllVotes(): Observable<number> {
-    return this.http.get<number>(this.apiURL + '/countAllVotes', {});
-  }
-
-  getParsedVotes(): Observable<CandidateWithStatistics[]> {
-    return this.http.get<CandidateWithStatistics[]>(
-      this.apiURL + '/getParsedVotes',
-      {}
-    );
   }
 }

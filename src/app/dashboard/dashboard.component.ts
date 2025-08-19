@@ -1,11 +1,10 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { map } from 'rxjs';
-import { Candidate, CandidateWithStatistics } from '../model/candidate.model';
-import { Totals } from '../model/dashboard-totals.model';
-import { CandidateService } from '../services/candidates.service';
-import { DashboardService } from '../services/dashboard.service';
-import { ElectionService } from '../services/elections.service';
-import { PartyTypeEnum } from '../util/party-type.enum';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   ArcElement,
   Chart,
@@ -14,6 +13,12 @@ import {
   Title,
   Tooltip,
 } from 'chart.js';
+import { map } from 'rxjs';
+import { Candidate, CandidateWithStatistics } from '../model/candidate.model';
+import { Totals } from '../model/dashboard-totals.model';
+import { DashboardService } from '../services/dashboard.service';
+import { ElectionHelperService } from '../services/elections-helper.service';
+import { PartyTypeEnum } from '../util/party-type.enum';
 
 Chart.register(DoughnutController, ArcElement, Tooltip, Legend, Title);
 
@@ -42,42 +47,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.reloadPage();
   }
 
-  // ngAfterViewInit(): void {
-  //   const ctx = this.chartCanvas.nativeElement.getContext('2d');
-  //   console.log('votes count: ', this.votesCount);
-  //   console.log('totals.users: ', this.totals.users);
-
-  //   this.chart = new Chart(ctx!, {
-  //     type: 'doughnut',
-  //     data: {
-  //       labels: ['voturi curente', 'voturi totale'],
-  //       datasets: [
-  //         {
-  //           label: 'Statistică voturi',
-  //           // data: [this.votesCount, this.totals.users],
-  //           data: [35, 74],
-  //           backgroundColor: ['rgb(134, 255, 86)', 'rgb(255, 99, 132)'],
-  //           hoverOffset: 4,
-  //         },
-  //       ],
-  //     },
-  //     options: {
-  //       rotation: -90, // Starts at the left
-  //       circumference: 180, // Only half the circle
-  //       cutout: '70%', // Optional: controls the inner radius
-  //       plugins: {
-  //         legend: {
-  //           display: false, // Hide legend if not needed
-  //         },
-  //       },
-  //     },
-  //   });
-  // }
-
   constructor(
     private service: DashboardService,
-    private election: ElectionService,
-    private candidates: CandidateService
+    private electionHelper: ElectionHelperService
   ) {
     // empty
   }
@@ -89,11 +61,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   reloadPage() {
-    this.getElectionStatus().subscribe(res => {
-      this.getTotals().subscribe(res => {
-        this.countAllVotes().subscribe(res => {
+    this.getElectionStatus().subscribe((res) => {
+      this.getTotals().subscribe((res) => {
+        this.countAllVotes().subscribe((res) => {
           this.getParsedVotes();
-  
+
           // compute chart after data is here ;)
           this.loadChart();
         });
@@ -102,7 +74,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   loadChart() {
-     const ctx = this.chartCanvas.nativeElement.getContext('2d');
+    const ctx = this.chartCanvas.nativeElement.getContext('2d');
     // console.log('votes count: ', this.votesCount);
     // console.log('totals.users: ', this.totals.users);
 
@@ -160,7 +132,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getElectionStatus() {
-    return this.election.status().pipe(
+    return this.electionHelper.status().pipe(
       map((res: boolean) => {
         this.electionEnabled = res;
         // console.log('got electionEnabled: ', res);
@@ -169,16 +141,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   countAllVotes() {
-    return this.election.countAllVotes().pipe(map((res: number) => {
-      if (res) {
-        this.votesCount = res;
-        // this.reloadPage();
-      }
-    }));
+    return this.electionHelper.countAllVotes().pipe(
+      map((res: number) => {
+        if (res) {
+          this.votesCount = res;
+          // this.reloadPage();
+        }
+      })
+    );
   }
 
   getVotingResult() {
-    return this.election.voteResult().subscribe((res: Candidate) => {
+    return this.electionHelper.voteResult().subscribe((res: Candidate) => {
       if (res) {
         this.winnerCandidate = res;
         // console.log('got winnerCandidate: ', res);
@@ -187,7 +161,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getParsedVotes() {
-    return this.election
+    return this.electionHelper
       .getParsedVotes()
       .subscribe((res: CandidateWithStatistics[]) => {
         if (res) {
