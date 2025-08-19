@@ -1,8 +1,10 @@
 import {
   Component,
   ElementRef,
+  OnChanges,
   OnDestroy,
   OnInit,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import {
@@ -27,7 +29,7 @@ Chart.register(DoughnutController, ArcElement, Tooltip, Legend, Title);
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
   totals = new Totals();
   electionEnabled = false;
 
@@ -43,15 +45,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild('chartCanvas') chartCanvas!: ElementRef<HTMLCanvasElement>;
   chart!: Chart;
 
-  ngOnInit(): void {
-    this.reloadPage();
-  }
-
   constructor(
     private service: DashboardService,
     private electionHelper: ElectionHelperService
   ) {
     // empty
+  }
+
+  ngOnInit(): void {
+    this.reloadPage();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // compute chart after data is here ;)
+    if (this.isDataReadyForChart()) {
+      this.loadChart();
+    }
   }
 
   ngOnDestroy(): void {
@@ -67,10 +76,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.getParsedVotes();
 
           // compute chart after data is here ;)
-          this.loadChart();
+          if (this.isDataReadyForChart()) {
+            this.loadChart();
+          }
         });
       });
     });
+  }
+
+  isDataReadyForChart(): boolean {
+    console.log('results ', this.votesCount > 0 && this.totals && this.totals.users > 0);
+    return this.votesCount > 0 && this.totals && this.totals.users > 0;
   }
 
   loadChart() {

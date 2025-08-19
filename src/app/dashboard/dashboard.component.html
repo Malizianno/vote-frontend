@@ -6,8 +6,8 @@
   <div class="row my-2">
     <div class="col min-vh-30">
       <div class="card h-100">
-        <div class="card-body d-flex align-items-center">
-          <div class="row w-100">
+        <div class="card-body">
+          <div class="row w-100 d-flex align-items-center" *ngIf="votesCount > 0">
             <div class="col-12 d-flex align-items-center">
               <h1 class="fw-bold">
                 {{
@@ -18,6 +18,7 @@
             </div>
             <div class="col-12 d-flex align-items-center">{{ votesCount }} / {{ totals.users }}</div>
           </div>
+          <app-no-data [condition]="votesCount < 1" />
         </div>
       </div>
     </div>
@@ -29,8 +30,9 @@
         <div class="card-body">
           <div>
             <canvas #chartCanvas style="width: 100%; max-height: 150px;"></canvas>
-            <div class="text-center">voturi {{ votesCount }} / {{ totals.users }} total</div>
+            <div *ngIf="votesCount > 0" class="text-center">voturi {{ votesCount }} / {{ totals.users }} total</div>
           </div>
+          <app-no-data [condition]="votesCount < 1" />
         </div>
       </div>
     </div>
@@ -39,7 +41,10 @@
 
     <div class="col min-vh-30">
       <div class="card h-100">
-        <div class="card-body"></div>
+        <div class="card-body d-flex align-items-center">
+          <!-- TODO: IMPLEMENT FEATURE -->
+          <app-no-data class="w-100" [condition]="true" />
+        </div>
       </div>
     </div>
 
@@ -47,8 +52,8 @@
 
     <div class="col min-vh-30">
       <div class="card h-100">
-        <div class="card-body d-flex align-items-end">
-          <div class="row w-100">
+        <div class="card-body">
+          <div class="row w-100 d-flex align-items-end" *ngIf="totals.candidates > 0 && totals.users > 0">
             <div class="col">
               <h1 class="fw-bold">{{ totals.candidates }}</h1>
               <span>candidați</span>
@@ -60,6 +65,7 @@
               <div class="text-end">votanți</div>
             </div>
           </div>
+          <app-no-data [condition]="totals.candidates < 1 || totals.users < 1" />
         </div>
       </div>
     </div>
@@ -73,7 +79,7 @@
     <div class="col">
       <div class="card">
         <div class="card-body">
-          <table class="table">
+          <table class="table" *ngIf="candidatesWithStatistics.length > 0">
             <thead>
               <tr>
                 <th scope="col">candidat</th>
@@ -96,6 +102,7 @@
               </tr>
             </tbody>
           </table>
+          <app-no-data [condition]="candidatesWithStatistics.length < 1" />
         </div>
       </div>
     </div>
@@ -105,7 +112,7 @@
     <div class="col">
       <div class="card">
         <div class="card-body">
-          <table class="table">
+          <table class="table" *ngIf="candidatesWithStatistics.length > 0">
             <thead>
               <tr>
                 <th scope="col">candidat</th>
@@ -125,6 +132,7 @@
               </tr>
             </tbody>
           </table>
+          <app-no-data [condition]="candidatesWithStatistics.length < 1" />
         </div>
       </div>
     </div>
@@ -133,7 +141,10 @@
 
     <div class="col-6 min-vh-30">
       <div class="card h-100">
-        <div class="card-body"></div>
+        <div class="card-body d-flex align-items-center">
+          <!-- TODO: IMPLEMENT FEATURE -->
+          <app-no-data class="w-100" [condition]="true" />
+        </div>
       </div>
     </div>
   </div>
