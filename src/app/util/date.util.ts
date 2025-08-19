@@ -4,7 +4,7 @@ export class DateUtil {
   public static DEFAULT_DATE: NgbDateStruct = { year: 1970, month: 1, day: 1 };
 
   public static isDateValid(date: any): boolean {
-    return date != null && !isNaN(new Date(date).getTime());
+    return date != null && (!isNaN(new Date(date).getTime()) || !isNaN(new Date(+date).getTime()));
   }
 
   public static isNgbDateValid(dateStruct: NgbDateStruct): boolean {

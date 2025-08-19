@@ -18,6 +18,7 @@ export enum EventAction {
     DELETE = 'DELETE',
     GET = 'GET',
     GET_ALL = 'GET_ALL',
+    GET_FILTERED = 'GET_FILTERED',
     VOTE = 'VOTE',
     LOGIN = 'LOGIN',
     LOGOUT = 'LOGOUT',

@@ -64,6 +64,7 @@ export class EventsComponent {
     return this.service.getFiltered(this.filter, this.paging).pipe(
       map((res) => {
         if (res?.events) {
+          console.log('Events fetched:', res);
           this.events = Event.fromArray(res.events);
           this.totalEvents = res.total;
         }
