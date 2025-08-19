@@ -94,20 +94,7 @@
             </tr>
           </tbody>
         </table>
-        <div class="card" *ngIf="totalUsers < 1">
-          <div class="card-body bg-light">
-            <div class="row">
-              <div class="col-4"></div>
-              <div class="col text-warning">
-                <i class="bi bi-exclamation-circle-fill float-end"></i>&nbsp;
-              </div>
-              <div class="col text-warning">
-                <div>Nu au fost găsite date!</div>
-              </div>
-              <div class="col-4"></div>
-            </div>
-          </div>
-        </div>
+        <app-no-data [condition]="totalUsers < 1" />
 
         <div class="row mt-2" *ngIf="totalUsers > 0">
           <div class="col">

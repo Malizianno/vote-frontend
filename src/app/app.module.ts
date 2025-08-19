@@ -15,6 +15,7 @@ import { CandidatesComponent } from './candidates/candidates.component';
 import { EditCandidateComponent } from './candidates/edit/edit-candidate.modal';
 import { AlertComponent } from './components/alert/alert.component';
 import { CandidateInfoComponent } from './components/candidate-info/candidate-info.component';
+import { NoDataComponent } from './components/no-data/no-data.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddElectionComponent } from './elections/add/add-election.modal';
 import { EditElectionComponent } from './elections/edit/edit-election.modal';
@@ -41,6 +42,7 @@ import { UsersComponent } from './users/users.component';
     AddUserComponent,
     EditUserComponent,
     CandidateInfoComponent,
+    NoDataComponent,
     AlertComponent,
     LoginComponent,
     SettingsComponent,
