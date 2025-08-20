@@ -18,8 +18,11 @@ import {
 import { map } from 'rxjs';
 import { Candidate, CandidateWithStatistics } from '../model/candidate.model';
 import { Totals } from '../model/dashboard-totals.model';
+import { Event } from '../model/event.model';
 import { DashboardService } from '../services/dashboard.service';
 import { ElectionHelperService } from '../services/elections-helper.service';
+import { EventsService } from '../services/events.service';
+import { DateUtil } from '../util/date.util';
 import { PartyTypeEnum } from '../util/party-type.enum';
 
 Chart.register(DoughnutController, ArcElement, Tooltip, Legend, Title);
@@ -33,6 +36,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
   totals = new Totals();
   electionEnabled = false;
 
+  last10Events: Event[] = [];
   candidatesWithStatistics: CandidateWithStatistics[] = [];
   winnerCandidate!: Candidate;
 
@@ -47,7 +51,8 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     private service: DashboardService,
-    private electionHelper: ElectionHelperService
+    private electionHelper: ElectionHelperService,
+    private events: EventsService
   ) {
     // empty
   }
@@ -82,10 +87,15 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
         });
       });
     });
+
+    this.loadLast10Events();
   }
 
   isDataReadyForChart(): boolean {
-    console.log('results ', this.votesCount > 0 && this.totals && this.totals.users > 0);
+    console.log(
+      'results ',
+      this.votesCount > 0 && this.totals && this.totals.users > 0
+    );
     return this.votesCount > 0 && this.totals && this.totals.users > 0;
   }
 
@@ -199,7 +209,19 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
     return this.votesCount / this.totals.users;
   }
 
+  isDateValid(date: any): boolean {
+    return DateUtil.isDateValid(date);
+  }
+
   isTheCandidateIND(candidate: Candidate): boolean {
     return PartyTypeEnum[candidate.party] == '' + PartyTypeEnum.IND;
+  }
+
+  loadLast10Events() {
+    return this.events.getLast10().subscribe((res: Event[]) => {
+      if (res) {
+        this.last10Events = Event.fromArray(res);
+      }
+    });
   }
 }
