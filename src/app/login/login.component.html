@@ -1,31 +1,54 @@
 <div class="container-fluid h-100 border">
-    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <div class="card text-center">
-            <div class="card-title pt-3">
-                <span class="fw-bold">vot.e</span>
-                <span>{{ ' ADMIN App v' + version }}</span>
-            </div>
-            <div class="card-body">
-                <div class="row my-1 py-1">
-                    <div class="col">Utilizator:</div>
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="Username" [(ngModel)]="dto.username" />
-                    </div>
-                </div>
-                <div class="row my-1 py-1">
-                    <div class="col">Parolă:</div>
-                    <div class="col">
-                        <input type="password" class="form-control" placeholder="Password" [(ngModel)]="dto.password" />
-                    </div>
-                </div>
-
-                <div class="row my-2 pt-3">
-                    <div class="col">
-                        <button type="button" class="btn btn-dark float-end" [disabled]="!canSubmit()" (click)="submit()"><i
-                                class="bi bi-box-arrow-in-right"></i></button>
-                    </div>
-                </div>
-            </div>
+  <div
+    class="container d-flex justify-content-center align-items-center"
+    style="height: 100vh"
+  >
+    <div class="card text-center">
+      <div class="card-title pt-3">
+        <img src="assets/logo.png" alt="vot.e Logo" width="150" height="150" />
+      </div>
+      <div class="card-body">
+        <div class="row my-1 py-1">
+          <div class="col">Utilizator:</div>
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Username"
+              [(ngModel)]="dto.username"
+            />
+          </div>
         </div>
+        <div class="row my-1 py-1">
+          <div class="col">Parolă:</div>
+          <div class="col">
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              [(ngModel)]="dto.password"
+            />
+          </div>
+        </div>
+
+        <div class="row my-2 pt-3">
+          <div class="col-12">
+            <button
+              type="button"
+              class="btn btn-dark float-end"
+              [disabled]="!canSubmit()"
+              (click)="submit()"
+            >
+              <i class="bi bi-box-arrow-in-right"></i>
+            </button>
+          </div>
+          <div class="col">
+            <figcaption class="blockquote-footer m-0 float-start">
+              {{ " ADMIN App v" + version }}
+            </figcaption>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
