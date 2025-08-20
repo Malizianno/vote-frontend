@@ -3,28 +3,28 @@
     <div class="col-12">
       <div class="card border mt-2">
         <div class="container-fluid">
-            <div class="row">
-              <div class="col">
-                <h1 class="ms-2">
-                  {{ totalUsers }}<br />
-                  <h2>utilizatori</h2>
-                </h1>
-              </div>
-    
-              <div class="col">
-                <h1 class="ms-2">
-                  {{ adminUsersCount }}<br />
-                  <h2>admin</h2>
-                </h1>
-              </div>
-    
-              <div class="col">
-                <h1 class="ms-2">
-                  {{ votantUsersCount }}<br />
-                  <h2>votant</h2>
-                </h1>
-              </div>
+          <div class="row">
+            <div class="col">
+              <h1 class="ms-2">
+                {{ totalUsers }}<br />
+                <h2>{{ "users.users" | translate }}</h2>
+              </h1>
             </div>
+
+            <div class="col">
+              <h1 class="ms-2">
+                {{ adminUsersCount }}<br />
+                <h2>{{ "users.admins" | translate }}</h2>
+              </h1>
+            </div>
+
+            <div class="col">
+              <h1 class="ms-2">
+                {{ votantUsersCount }}<br />
+                <h2>{{ "users.voters" | translate }}</h2>
+              </h1>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -32,9 +32,6 @@
     <div class="col-12">
       <div class="card mt-3">
         <table class="table">
-          <caption *ngIf="false">
-            users table
-          </caption>
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -42,7 +39,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="utilizator"
+                  placeholder="{{ 'users.user' | translate }}"
                   [(ngModel)]="filter.username"
                   (ngModelChange)="filterChangedSubject.next($event)"
                 />
@@ -56,7 +53,7 @@
                   >
                     <span>{{
                       !filter.role || filter.role == "ALL"
-                        ? "toate"
+                        ? ("all" | translate)
                         : filter.role
                     }}</span>
                   </button>
@@ -70,7 +67,7 @@
                       *ngFor="let role of roles"
                       (click)="setRoleForFilter(role)"
                     >
-                      {{ role == "ALL" ? "toate" : role }}
+                      {{ role == "ALL" ? ('all' | translate) : role }}
                     </button>
                   </div>
                 </div>

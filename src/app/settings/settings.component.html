@@ -5,7 +5,9 @@
   <div class="row">
     <div class="col-12">
       <div class="card border mt-2">
-        <h1 class="ms-2"><i class="bi bi-gear"></i>&nbsp;Setări</h1>
+        <h1 class="ms-2">
+          <i class="bi bi-gear"></i>&nbsp;{{ "settings.settings" | translate }}
+        </h1>
       </div>
     </div>
   </div>
@@ -24,14 +26,14 @@
             [(ngModel)]="electionEnabled"
             (click)="switchElectionStatus()"
           />
-          <label class="form-check-label" for="electionEnabled"
-            >Status alegeri</label
-          >
+          <label class="form-check-label" for="electionEnabled">{{
+            "settings.status" | translate
+          }}</label>
         </div>
 
         <!-- FAKE CANDIDATES -->
         <div class="row my-1 ms-2">
-          <div class="col-4">Generează candidați</div>
+          <div class="col-4">{{ 'settings.generate-candidates' | translate }}</div>
           <div class="col-1">
             <button
               type="button"
@@ -45,7 +47,7 @@
 
         <!-- FAKE USERS -->
         <div class="row my-1 ms-2">
-          <div class="col-2 mr-2">Generează utilizatori:</div>
+          <div class="col-2 mr-2">{{ 'settings.generate-users' | translate }}</div>
           <div class="col-2">
             <input
               type="text text-center"
@@ -68,7 +70,7 @@
 
         <!-- FAKE VOTES -->
         <div class="row my-1 ms-2">
-          <div class="col-2">Generează voturi:</div>
+          <div class="col-2">{{ 'settings.generate-votes' | translate }}</div>
           <div class="col-2">
             <input
               type="text"
@@ -91,7 +93,7 @@
         <!-- CLEAN VOTES DB -->
         <div class="row mt-1 mb-4 ms-2">
           <div class="col-4">
-            {{ "Șterge " + votesCount + " voturi din DB" }}
+            {{ ('settings.clean-db' | translate) + '(' + votesCount + ')' }}
           </div>
           <div class="col-1">
             <button

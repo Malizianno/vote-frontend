@@ -1,0 +1,99 @@
+{
+  "version": "versiune",
+  "all": "Toate",
+  "modal-btn": {
+    "save": "Salvează"
+  },
+  "login": {
+    "user-label": "Utilizator: ",
+    "user-placeholder": "Utilizator",
+    "pass-label": "Parolă: ",
+    "pass-placeholder": "Parolă"
+  },
+  "header": {
+    "name": "vot.e",
+    "elections": "Alegeri",
+    "candidates": "Candidați",
+    "users": "Utilizatori",
+    "events": "Evenimente",
+    "settings": "Setări"
+  },
+  "components": {
+    "no-data": {
+      "message": "Nu au fost găsite date!"
+    }
+  },
+  "dashboard": {
+    "votes": "voturi",
+    "candidates": "candidați",
+    "voters": "votanți", 
+    "total": "total",
+    "candidate": "candidat",
+    "party": "partid",
+    "percent": "procent",
+    "timestamp": "timestamp",
+    "action": "acțiune",
+    "screen": "ecran",
+    "user": "utilizator",
+    "message": "mesaj"
+  },
+  "elections": {
+    "elections": "alegeri",
+    "name": "nume",
+    "enabled": "activ",
+    "description": "descriere",
+    "startDate": "start",
+    "endDate" : "final",
+    "modal": {
+      "add": "Adaugă alegeri",
+      "edit": "Modifică alegeri",
+      "name": "Nume",
+      "description": "Descriere",
+      "start-date": "Dată început",
+      "end-date": "Dată final"
+    }
+  },
+  "candidates": {
+    "candidates": "candidați",
+    "firstname": "Prenume",
+    "lastname": "Nume",
+    "image": "Foto",
+    "description": "Descriere",
+    "modal": {
+      "add": "Adaugă candidat",
+      "edit": "Modifică candidat",
+      "lastname": "Nume",
+      "firstname": "Prenume",
+      "description": "Descriere",
+      "party": "Partid",
+      "image": "Foto"
+    }
+  },
+  "users": {
+    "users": "utilizatori",
+    "admins": "admin",
+    "voters": "votant",
+    "user": "utilizator",
+    "modal": {
+      "add": "Adaugă utilizator",
+      "edit":"Modifică utilizator",
+      "username": "Utilizator",
+      "password": "Parolă",
+      "role": "Rol"
+    }
+  },
+  "events": {
+    "events": "evenimente",
+    "timestamp": "Timestamp",
+    "username": "Utilizator",
+    "message": "Mesaj"
+  },
+  "settings": {
+    "settings": "Setări",
+    "status": "Status alegeri",
+    "generate-candidates": "Generează candidați",
+    "generate-users": "Generează utilizatori",
+    "generate-votes": "Generează voturi",
+    "clean-db": "Șterge voturile din DB "
+  }
+}

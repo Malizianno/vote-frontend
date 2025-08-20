@@ -14,11 +14,13 @@ import { ElectionService } from '../services/elections.service';
 import { DateUtil } from '../util/date.util';
 import { AddElectionComponent } from './add/add-election.modal';
 import { EditElectionComponent } from './edit/edit-election.modal';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-elections',
   templateUrl: './elections.component.html',
   styleUrls: ['./elections.component.scss'],
+
 })
 export class ElectionsComponent {
   elections: Election[] = [];

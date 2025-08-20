@@ -13,15 +13,20 @@
           >
             <div class="col-12 d-flex align-items-center">
               <h1 class="fw-bold">
-                {{ getTotalVotesPercentage() | percent : "1.0-1" : "en" }}
-                voturi
+                {{
+                  (getTotalVotesPercentage() | percent : "1.0-1" : "en") +
+                    " " +
+                    ("dashboard.votes" | translate)
+                }}
               </h1>
             </div>
             <div class="col-12 d-flex align-items-center">
               {{ votesCount }} / {{ totals.users }}
             </div>
           </div>
-          <app-no-data [condition]="votesCount < 1" />
+          <div class="h-100 d-flex align-items-center">
+            <app-no-data class="w-100" [condition]="votesCount < 1" />
+          </div>
         </div>
       </div>
     </div>
@@ -37,10 +42,20 @@
               style="width: 100%; max-height: 150px"
             ></canvas>
             <div *ngIf="votesCount > 0" class="text-center">
-              voturi {{ votesCount }} / {{ totals.users }} total
+              {{
+                ("dashboard.votes" | translate) +
+                  " " +
+                  votesCount +
+                  " / " +
+                  totals.users +
+                  " " +
+                  ("dashboard.total" | translate)
+              }}
+            </div>
+            <div class="h-100 d-flex align-items-center">
+              <app-no-data class="w-100" [condition]="votesCount < 1" />
             </div>
           </div>
-          <app-no-data [condition]="votesCount < 1" />
         </div>
       </div>
     </div>
@@ -67,18 +82,21 @@
           >
             <div class="col">
               <h1 class="fw-bold">{{ totals.candidates }}</h1>
-              <span>candidați</span>
+              <span>{{ 'dashboard.candidates' | translate }}</span>
             </div>
             <div class="col">
               <h1 class="w-100 text-end fw-bold">
                 <span class="">{{ totals.users }}</span>
               </h1>
-              <div class="text-end">votanți</div>
+              <div class="text-end">{{ 'dashboard.voters' | translate }}</div>
             </div>
           </div>
-          <app-no-data
-            [condition]="totals.candidates < 1 || totals.users < 1"
-          />
+          <div class="h-100 d-flex align-items-center">
+            <app-no-data
+              class="w-100"
+              [condition]="totals.candidates < 1 || totals.users < 1"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -95,9 +113,9 @@
           <table class="table" *ngIf="candidatesWithStatistics.length > 0">
             <thead>
               <tr>
-                <th scope="col">candidat</th>
-                <th scope="col">partid</th>
-                <th scope="col">procent</th>
+                <th scope="col">{{ 'dashboard.candidate' | translate }}</th>
+                <th scope="col">{{ 'dashboard.party' | translate }}</th>
+                <th scope="col">{{ 'dashboard.percent' | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -117,7 +135,12 @@
               </tr>
             </tbody>
           </table>
-          <app-no-data [condition]="candidatesWithStatistics.length < 1" />
+          <div class="h-100 d-flex align-items-center">
+            <app-no-data
+              class="w-100"
+              [condition]="candidatesWithStatistics.length < 1"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -130,9 +153,9 @@
           <table class="table" *ngIf="candidatesWithStatistics.length > 0">
             <thead>
               <tr>
-                <th scope="col">candidat</th>
-                <th scope="col">partid</th>
-                <th scope="col">voturi</th>
+                <th scope="col">{{ 'dashboard.candidate' | translate }}</th>
+                <th scope="col">{{ 'dashboard.party' | translate }}</th>
+                <th scope="col">{{ 'dashboard.votes' | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -147,7 +170,12 @@
               </tr>
             </tbody>
           </table>
-          <app-no-data [condition]="candidatesWithStatistics.length < 1" />
+          <div class="h-100 d-flex align-items-center">
+            <app-no-data
+              class="w-100"
+              [condition]="candidatesWithStatistics.length < 1"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -161,11 +189,11 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">timestamp</th>
-                <th scope="col">acțiune</th>
-                <th scope="col">ecran</th>
-                <th scope="col">utilizator</th>
-                <th scope="col">mesaj</th>
+                <th scope="col">{{ 'dashboard.timestamp' | translate }}</th>
+                <th scope="col">{{ 'dashboard.action' | translate }}</th>
+                <th scope="col">{{ 'dashboard.screen' | translate }}</th>
+                <th scope="col">{{ 'dashboard.user' | translate }}</th>
+                <th scope="col">{{ 'dashboard.message' | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -191,7 +219,9 @@
               </tr>
             </tbody>
           </table>
-          <app-no-data class="w-100" [condition]="last10Events.length < 1" />
+          <div class="h-100 d-flex align-items-center">
+            <app-no-data class="w-100" [condition]="last10Events.length < 1" />
+          </div>
         </div>
       </div>
     </div>

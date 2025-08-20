@@ -1,0 +1,100 @@
+{
+  "version": "version",
+  "all": "All",
+  "modal-btn": {
+    "save": "Save"
+  },
+  "login": {
+    "user-label": "Username: ",
+    "user-placeholder": "Username",
+    "pass-label": "Password: ",
+    "pass-placeholder": "Password"
+  },
+  "header": {
+    "name": "vot.e",
+    "elections": "Elections",
+    "candidates": "Candidates",
+    "users": "Users",
+    "events": "Events",
+    "settings": "Settings"
+  },
+  "components": {
+    "no-data": {
+      "message": "No data found!"
+    }
+  },
+  "dashboard": {
+    "votes": "votes",
+    "candidates": "candidates",
+    "voters": "voters", 
+    "total": "total",
+    "candidate": "candidate",
+    "party": "party",
+    "percent": "percentage",
+    "timestamp": "timestamp",
+    "action": "action",
+    "screen": "screen",
+    "user": "user",
+    "message": "message"
+  },
+  "elections": {
+    "elections": "elections",
+    "name": "name",
+    "enabled": "enabled",
+    "description": "description",
+    "startDate": "start",
+    "endDate": "end",
+    "modal": {
+      "add": "Add election",
+      "edit": "Edit election",
+      "name": "Name",
+      "description": "Description",
+      "start-date": "Start Date",
+      "end-date": "End Date"
+    }
+  },
+  "candidates": {
+    "candidates": "candidates",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "image": "Image",
+    "description": "Description",
+    "modal": {
+      "add": "Add candidat",
+      "edit": "Edit candidate",
+      "lastname": "Lastname",
+      "firstname": "Firstname",
+      "description": "Description",
+      "party": "Party",
+      "image": "Image"
+    }
+  },
+  "users": {
+    "users": "users",
+    "admins": "admin",
+    "voters": "votant",
+    "user": "username",
+    "modal": {
+      "add": "Add user",
+      "edit":"Edit user",
+      "username": "Username",
+      "password": "Password",
+      "role": "Role"
+    }
+  },
+  "events": {
+    "events": "events",
+    "timestamp": "Timestamp",
+    "username": "Username",
+    "message": "Message"
+  }
+  ,
+  "settings": {
+    "settings": "Settings",
+    "status": "Election status",
+    "generate-candidates": "Generate candidates",
+    "generate-users": "Generate users",
+    "generate-votes": "Generate votes",
+    "clean-db": "Delete votes from DB "
+  }
+}

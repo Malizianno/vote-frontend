@@ -1,27 +1,48 @@
 <div class="modal-header">
-    <h4 class="modal-title" translate>Adaugă alegeri</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+  <h4 class="modal-title" translate>{{ 'elections.modal.add' | translate }}</h4>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  ></button>
 </div>
 
 <div class="modal-body">
-    <div class="row mb-3">
-        <div class="col">Nume</div>
-        <div class="col">
-            <input type="text" class="form-control" [(ngModel)]="election.name" placeholder="Nume" />
-        </div>
+  <div class="row mb-3">
+    <div class="col">{{ 'elections.modal.name' | translate }}</div>
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="election.name"
+        placeholder="{{ 'elections.modal.name' | translate }}"
+      />
     </div>
+  </div>
 
-    <div class="row mb-3">
-        <div class="col">Descriere</div>
-        <div class="col">
-            <input type="text" class="form-control" [(ngModel)]="election.description" placeholder="Descriere" />
-        </div>
+  <div class="row mb-3">
+    <div class="col">{{ 'elections.modal.description' | translate }}</div>
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="election.description"
+        placeholder="{{ 'elections.modal.description' | translate }}"
+      />
     </div>
-
+  </div>
 </div>
 
 <div class="modal-footer">
-    <button type="button" class="btn btn-dark" id="save" (click)="save()" [disabled]="!canSave()" translate>
-        Salvează
-    </button>
+  <button
+    type="button"
+    class="btn btn-dark"
+    id="save"
+    (click)="save()"
+    [disabled]="!canSave()"
+    translate
+  >
+    {{'modal-btn.save' | translate }}
+  </button>
 </div>

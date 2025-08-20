@@ -1,39 +1,65 @@
 <div class="modal-header">
-    <h4 class="modal-title" translate>Adaugă candidat</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+  <h4 class="modal-title" translate>
+    {{ 'candidates.modal.edit' | translate }}
+  </h4>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  ></button>
 </div>
 
 <div class="modal-body">
-    <div class="row mb-3">
-        <div class="col">Nume</div>
-        <div class="col">
-            <input type="text" class="form-control" [(ngModel)]="candidate.lastName" placeholder="Nume" />
-        </div>
+  <div class="row mb-3">
+    <div class="col">{{ 'candidates.modal.lastname' | translate }}</div>
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="candidate.lastName"
+        placeholder="{{ 'candidates.modal.lastname' | translate }}"
+      />
     </div>
+  </div>
 
-    <div class="row mb-3">
-        <div class="col">Prenume</div>
-        <div class="col">
-            <input type="text" class="form-control" [(ngModel)]="candidate.firstName" placeholder="Prenume" />
-        </div>
+  <div class="row mb-3">
+    <div class="col">{{ 'candidates.modal.firstname' | translate }}</div>
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="candidate.firstName"
+        placeholder="{{ 'candidates.modal.firstname' | translate }}"
+      />
     </div>
+  </div>
 
-    <div class="row mb-3">
-        <div class="col">Descriere</div>
-        <div class="col">
-            <input type="text" class="form-control" [(ngModel)]="candidate.description" placeholder="Descriere" />
-        </div>
+  <div class="row mb-3">
+    <div class="col">{{ 'candidates.modal.description' | translate }}</div>
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="candidate.description"
+        placeholder="{{ 'candidates.modal.description' | translate }}"
+      />
     </div>
+  </div>
 
-    <div class="row mb-3">
-        <div class="col">Partid</div>
-        <div class="col">
-            <div
+  <div class="row mb-3">
+    <div class="col">{{ 'candidates.modal.party' | translate }}</div>
+    <div class="col">
+      <div
         ngbDropdown
         container="body"
         class="btn btn-dark p-0 mr-1 w-100 text-end"
       >
-        <button class="btn btn-dark text-dark bg-light border-light w-100 text-start" id="dropdown-type" ngbDropdownToggle>
+        <button
+          class="btn btn-dark text-dark bg-light border-light w-100 text-start"
+          id="dropdown-type"
+          ngbDropdownToggle
+        >
           <span>{{ candidate.party ? candidate.party : "" }}</span>
         </button>
         <div
@@ -47,23 +73,35 @@
             *ngFor="let party of parties"
             (click)="setPartyTypeForFilter(party)"
           >
-            {{ party == 'ALL' ? '-' : party }}
+            {{ party == ( 'all' | translate ) ? '-' : party }}
           </button>
         </div>
       </div>
-        </div>
     </div>
+  </div>
 
-    <div class="row mb-3">
-        <div class="col">Foto</div>
-        <div class="col">
-            <input type="text" class="form-control" [(ngModel)]="candidate.image" placeholder="Foto" />
-        </div>
+  <div class="row mb-3">
+    <div class="col">{{ 'candidates.modal.image' | translate }}</div>
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="candidate.image"
+        placeholder="{{ 'candidates.modal.image' | translate }}"
+      />
     </div>
+  </div>
 </div>
 
 <div class="modal-footer">
-    <button type="button" class="btn btn-dark" id="save" (click)="save()" [disabled]="!canSave()" translate>
-        Salvează
-    </button>
+  <button
+    type="button"
+    class="btn btn-dark"
+    id="save"
+    (click)="save()"
+    [disabled]="!canSave()"
+    translate
+  >
+    {{ 'modal-btn.save' | translate }}
+  </button>
 </div>

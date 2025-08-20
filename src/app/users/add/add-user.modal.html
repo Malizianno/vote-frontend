@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title" translate>Adaugă utilizator</h4>
+  <h4 class="modal-title" translate>{{ 'users.modal.add' | translate }}</h4>
   <button
     type="button"
     class="btn-close"
@@ -10,31 +10,31 @@
 
 <div class="modal-body">
   <div class="row mb-3">
-    <div class="col-6">Utilizator</div>
+    <div class="col-6">{{ 'users.modal.username' | translate }}</div>
     <div class="col-6">
       <input
         type="text"
         class="form-control"
         [(ngModel)]="user.username"
-        placeholder="utilizator"
+        placeholder="{{ 'users.modal.username' | translate }}"
       />
     </div>
   </div>
 
   <div class="row mb-3">
-    <div class="col-6">Parolă</div>
+    <div class="col-6">{{ 'users.modal.password' | translate }}</div>
     <div class="col-6">
       <input
         type="password"
         class="form-control"
         [(ngModel)]="user.password"
-        placeholder="parolă"
+        placeholder="{{ 'users.modal.password' | translate }}"
       />
     </div>
   </div>
 
   <div class="row mb-3">
-    <div class="col-6">Rol</div>
+    <div class="col-6">{{ 'users.modal.role' | translate }}</div>
     <div class="col-6">
       <div ngbDropdown container="body" class="btn btn-dark p-0 mr-1 w-100">
         <button
@@ -72,6 +72,6 @@
     [disabled]="!canSave()"
     translate
   >
-    Salvează
+    {{ 'modal-btn.save' | translate }}
   </button>
 </div>

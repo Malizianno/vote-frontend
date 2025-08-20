@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class NoDataComponent {
   @Input() condition: boolean = false;
-  @Input() message: string = 'Nu au fost găsite date!';
+  @Input() message: string | null = null;
 
   constructor() {
     // empty constructor

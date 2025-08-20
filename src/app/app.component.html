@@ -1,29 +1,55 @@
 <nav class="navbar sticky-top navbar-dark bg-dark" *ngIf="isAuthenticated()">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">vot.e</a>
+      <a class="navbar-brand" href="/">{{ "header.name" | translate }}</a>
     </div>
     <div class="row me-auto mb-2 mb-lg-0 text-white">
       <!-- <div class="col pointer"><span routerLink="/dashboard" routerLinkActive="active">Acasă</span> </div> -->
-      <div class="col pointer"><span routerLink="/elections" routerLinkActive="active">Alegeri</span></div>
-      <div class="col pointer"><span routerLink="/candidates" routerLinkActive="active">Candidați</span></div>
-      <div class="col pointer"><span routerLink="/users" routerLinkActive="active">Utilizatori</span></div>
-      <div class="col pointer"><span routerLink="/events" routerLinkActive="active">Evenimente</span></div>
-      <div class="col pointer"><span routerLink="/settings" routerLinkActive="active">Setări</span></div>
+      <div class="col pointer">
+        <span routerLink="/elections" routerLinkActive="active">{{
+          "header.elections" | translate
+        }}</span>
+      </div>
+      <div class="col pointer">
+        <span routerLink="/candidates" routerLinkActive="active">{{
+          "header.candidates" | translate
+        }}</span>
+      </div>
+      <div class="col pointer">
+        <span routerLink="/users" routerLinkActive="active">{{
+          "header.users" | translate
+        }}</span>
+      </div>
+      <div class="col pointer">
+        <span routerLink="/events" routerLinkActive="active">{{
+          "header.events" | translate
+        }}</span>
+      </div>
+      <div class="col pointer">
+        <span routerLink="/settings" routerLinkActive="active">{{
+          "header.settings" | translate
+        }}</span>
+      </div>
     </div>
     <div class="navbar-right text-white">
       <div class="row">
-        <div class="col">
+        <app-language-switcher class="col"></app-language-switcher>
+        <div class="col d-flex align-items-center">
           <i class="bi bi-person-circle mx-1"></i>
           <span>{{ username }}</span>
-          <button type="button" class="btn btn-outline-light mx-1" (click)="logout()">
+        </div>
+        <div class="col d-flex align-items-center">
+          <button
+            type="button"
+            class="btn btn-outline-light mx-1"
+            (click)="logout()"
+          >
             <i class="bi bi-x-octagon"></i>
           </button>
         </div>
       </div>
     </div>
   </div>
-
 </nav>
 
 <router-outlet></router-outlet>

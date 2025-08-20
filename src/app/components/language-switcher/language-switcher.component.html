@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col px-0">
+    <button
+      [class]="'px-1 mx-0 border border-0 btn btn-outline-' + style"
+      (click)="switchLanguage('en')"
+    >
+      🇬🇧 <span *ngIf="withText">English</span>
+    </button>
+  </div>
+  <div class="col px-0">
+    <button
+      [class]="'px-1 mx-0 border border-0 btn btn-outline-' + style"
+      (click)="switchLanguage('ro')"
+    >
+      🇷🇴 <span *ngIf="withText">Română</span>
+    </button>
+  </div>
+</div>

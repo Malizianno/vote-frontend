@@ -9,23 +9,29 @@
       </div>
       <div class="card-body">
         <div class="row my-1 py-1">
-          <div class="col">Utilizator:</div>
+          <app-language-switcher
+            [withText]="true"
+            [style]="'dark'"
+          ></app-language-switcher>
+        </div>
+        <div class="row my-1 py-1">
+          <div class="col">{{ "login.user-label" | translate }}</div>
           <div class="col">
             <input
               type="text"
               class="form-control"
-              placeholder="Username"
+              placeholder="{{ 'login.user-placeholder' | translate }}"
               [(ngModel)]="dto.username"
             />
           </div>
         </div>
         <div class="row my-1 py-1">
-          <div class="col">Parolă:</div>
+          <div class="col">{{ "login.pass-label" | translate }}</div>
           <div class="col">
             <input
               type="password"
               class="form-control"
-              placeholder="Password"
+              placeholder="{{ 'login.pass-placeholder' | translate }}"
               [(ngModel)]="dto.password"
             />
           </div>

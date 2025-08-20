@@ -54,11 +54,11 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
     private electionHelper: ElectionHelperService,
     private events: EventsService
   ) {
-    // empty
+    this.reloadPage();
   }
 
   ngOnInit(): void {
-    this.reloadPage();
+    // empty
   }
 
   ngOnChanges(changes: SimpleChanges): void {

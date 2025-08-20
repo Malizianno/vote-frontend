@@ -5,7 +5,7 @@
         <div class="col-12">
           <h1 class="ms-4">
             {{ totalCandidates }}<br />
-            <h2>candidați</h2>
+            <h2>{{ 'candidates.candidates' | translate }}</h2>
           </h1>
         </div>
       </div>
@@ -20,7 +20,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="prenume"
+                  placeholder="{{ 'candidates.firstname' | translate }}"
                   [(ngModel)]="filter.firstName"
                   (ngModelChange)="filterChangedSubject.next($event)"
                 />
@@ -29,7 +29,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="nume"
+                  placeholder="{{ 'candidates.lastname' | translate }}"
                   [(ngModel)]="filter.lastName"
                   (ngModelChange)="filterChangedSubject.next($event)"
                 />
@@ -43,7 +43,7 @@
                   >
                     <span>{{
                       !filter.party || filter.party.toString() == "ALL"
-                        ? "toate"
+                        ? ('all' | translate)
                         : filter.party
                     }}</span>
                   </button>
@@ -57,13 +57,13 @@
                       *ngFor="let party of parties"
                       (click)="setPartyTypeForFilter(party)"
                     >
-                      {{ party == "ALL" ? "toate" : party }}
+                      {{ party == "ALL" ? ('all' | translate) : party }}
                     </button>
                   </div>
                 </div>
               </th>
-              <th scope="col">foto</th>
-              <th scope="col">descriere</th>
+              <th scope="col">{{ 'candidates.image' | translate }}</th>
+              <th scope="col">{{ 'candidates.description' | translate }}</th>
               <th scope="col">
                 <button
                   type="button"

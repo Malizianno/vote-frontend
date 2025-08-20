@@ -5,7 +5,7 @@
         <div class="col-12">
           <h1 class="ms-4">
             {{ totalElections }}<br />
-            <h2>alegeri</h2>
+            <h2>{{ 'elections.elections' | translate }}</h2>
           </h1>
         </div>
       </div>
@@ -20,23 +20,23 @@
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="nume"
+                  placeholder="{{ 'elections.name' | translate }}"
                   [(ngModel)]="filter.name"
                   (ngModelChange)="filterChangedSubject.next($event)"
                 />
               </th>
-              <th scope="col">activ</th>
+              <th scope="col">{{ 'elections.enabled' | translate }}</th>
               <th scope="col">
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="descriere"
+                  placeholder="{{ 'elections.description' | translate }}"
                   [(ngModel)]="filter.description"
                   (ngModelChange)="filterChangedSubject.next($event)"
                 />
               </th>
-              <th scope="col">start</th>
-              <th scope="col">final</th>
+              <th scope="col">{{ 'elections.startDate' | translate }}</th>
+              <th scope="col">{{ 'elections.endDate' | translate }}</th>
               <th scope="col">
                 <button
                   type="button"

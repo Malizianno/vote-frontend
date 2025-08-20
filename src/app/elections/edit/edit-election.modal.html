@@ -1,5 +1,7 @@
 <div class="modal-header">
-  <h4 class="modal-title" translate>Modifică alegeri</h4>
+  <h4 class="modal-title" translate>
+    {{ 'elections.modal.edit' | translate }}
+  </h4>
   <button
     type="button"
     class="btn-close"
@@ -10,30 +12,30 @@
 
 <div class="modal-body">
   <div class="row mb-3">
-    <div class="col">Nume</div>
+    <div class="col">{{ 'elections.modal.name' | translate }}</div>
     <div class="col">
       <input
         type="text"
         class="form-control"
         [(ngModel)]="election.name"
-        placeholder="Nume"
+        placeholder="{{ 'elections.modal.name' | translate }}"
       />
     </div>
   </div>
 
   <div class="row mb-3">
-    <div class="col">Descriere</div>
+    <div class="col">{{ 'elections.modal.description' | translate }}</div>
     <div class="col">
       <input
         type="text"
         class="form-control"
         [(ngModel)]="election.description"
-        placeholder="Descriere"
+        placeholder="{{ 'elections.modal.description' | translate }}"
       />
     </div>
   </div>
   <div class="row mb-3">
-    <div class="col">Dată început</div>
+    <div class="col">{{ 'elections.modal.start-date' | translate }}</div>
     <div class="col">
       <input
         type="text"
@@ -48,7 +50,7 @@
     </div>
   </div>
   <div class="row mb-3">
-    <div class="col">Dată final</div>
+    <div class="col">{{ 'elections.modal.end-date' | translate }}</div>
     <div class="col">
       <input
         type="text"
@@ -74,6 +76,6 @@
     [disabled]="!canSave()"
     translate
   >
-    Salvează
+    {{ 'modal-btn.save' | translate }}
   </button>
 </div>

@@ -1,10 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ErrorHandlerInterceptor } from './@shared/http/error-handler.interceptor';
 import { JwtInterceptor } from './@shared/http/jwt.interceptor';
 import { RouteReusableStrategy } from './@shared/route-reusable-strategy';
@@ -15,6 +21,7 @@ import { CandidatesComponent } from './candidates/candidates.component';
 import { EditCandidateComponent } from './candidates/edit/edit-candidate.modal';
 import { AlertComponent } from './components/alert/alert.component';
 import { CandidateInfoComponent } from './components/candidate-info/candidate-info.component';
+import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
 import { NoDataComponent } from './components/no-data/no-data.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddElectionComponent } from './elections/add/add-election.modal';
@@ -27,6 +34,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { AddUserComponent } from './users/add/add-user.modal';
 import { EditUserComponent } from './users/edit/edit-user.modal';
 import { UsersComponent } from './users/users.component';
+import { HttpLoaderFactory } from './@shared/translate-loader.factory';
 
 @NgModule({
   declarations: [
@@ -46,6 +54,7 @@ import { UsersComponent } from './users/users.component';
     CandidateInfoComponent,
     NoDataComponent,
     AlertComponent,
+    LanguageSwitcherComponent,
     LoginComponent,
     SettingsComponent,
   ],
@@ -57,8 +66,15 @@ import { UsersComponent } from './users/users.component';
     NgbModule,
     HttpClientModule,
     NgbDatepickerModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
-  exports: [CandidateInfoComponent],
+  exports: [CandidateInfoComponent, LanguageSwitcherComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

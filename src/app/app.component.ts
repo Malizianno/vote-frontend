@@ -1,18 +1,22 @@
 import { Component } from '@angular/core';
-import { CredentialsService } from './services/credentials.service';
-import { LoginService } from './services/login.service';
 import { Router } from '@angular/router';
+import { CredentialsService } from './services/credentials.service';
+import { LanguageService } from './@shared/i18n/language.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'vote-frontend';
 
-  constructor(private router: Router, private loginService: LoginService, private credentials: CredentialsService) {
-
+  constructor(
+    private router: Router,
+    private credentials: CredentialsService,
+    private translate: LanguageService,
+  ) {
+    this.translate.init();
   }
 
   get username(): string | undefined {

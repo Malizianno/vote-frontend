@@ -2,8 +2,9 @@
   <div class="card-body bg-light">
     <div class="row">
       <div class="col-12 text-center text-warning">
-        <i class="bi bi-exclamation-circle-fill"></i
-        >&nbsp;{{ message }}
+        <i class="bi bi-exclamation-circle-fill"></i>&nbsp;{{
+          message == null ? ('components.no-data.message' | translate) : message
+        }}
       </div>
     </div>
   </div>

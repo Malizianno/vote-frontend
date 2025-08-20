@@ -7,7 +7,7 @@
             <div class="col">
               <h1 class="ms-2">
                 {{ totalEvents }}<br />
-                <h2>evenimente</h2>
+                <h2>{{ 'events.events' | translate }}</h2>
               </h1>
             </div>
           </div>
@@ -18,18 +18,15 @@
     <div class="col-12">
       <div class="card mt-3">
         <table class="table">
-          <caption *ngIf="false">
-            events table
-          </caption>
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">timestamp</th>
+              <th scope="col">{{ 'events.timestamp' | translate }}</th>
               <th scope="col">
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="utilizator"
+                  placeholder="{{ 'events.username' | translate }}"
                   [(ngModel)]="filter.username"
                   (ngModelChange)="filterChangedSubject.next($event)"
                 />
@@ -43,7 +40,7 @@
                   >
                     <span>{{
                       !filter.role || filter.role == "ALL"
-                        ? "toate"
+                        ? ('all' | translate)
                         : filter.role
                     }}</span>
                   </button>
@@ -57,7 +54,7 @@
                       *ngFor="let role of roles"
                       (click)="setRoleForFilter(role)"
                     >
-                      {{ role == "ALL" ? "toate" : role }}
+                      {{ role == "ALL" ? ('all' | translate) : role }}
                     </button>
                   </div>
                 </div>
@@ -71,7 +68,7 @@
                   >
                     <span>{{
                       !filter.action || filter.action == "ALL"
-                        ? "toate"
+                        ? ('all' | translate)
                         : filter.action
                     }}</span>
                   </button>
@@ -85,7 +82,7 @@
                       *ngFor="let action of actions"
                       (click)="setActionForFilter(action)"
                     >
-                      {{ action == "ALL" ? "toate" : action }}
+                      {{ action == "ALL" ? ('all' | translate) : action }}
                     </button>
                   </div>
                 </div>
@@ -99,7 +96,7 @@
                   >
                     <span>{{
                       !filter.screen || filter.screen == "ALL"
-                        ? "toate"
+                        ? ('all' | translate)
                         : filter.screen
                     }}</span>
                   </button>
@@ -113,12 +110,12 @@
                       *ngFor="let screen of screens"
                       (click)="setScreenLocationForFilter(screen)"
                     >
-                      {{ screen == "ALL" ? "toate" : screen }}
+                      {{ screen == "ALL" ? ('all' | translate) : screen }}
                     </button>
                   </div>
                 </div>
               </th>
-              <th scope="col">mesaj</th>
+              <th scope="col">{{ 'events.message' | translate }}</th>
               <th scope="col">
                 <button
                   type="button"
