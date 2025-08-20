@@ -82,13 +82,13 @@
           >
             <div class="col">
               <h1 class="fw-bold">{{ totals.candidates }}</h1>
-              <span>{{ 'dashboard.candidates' | translate }}</span>
+              <span>{{ "dashboard.candidates" | translate }}</span>
             </div>
             <div class="col">
               <h1 class="w-100 text-end fw-bold">
                 <span class="">{{ totals.users }}</span>
               </h1>
-              <div class="text-end">{{ 'dashboard.voters' | translate }}</div>
+              <div class="text-end">{{ "dashboard.voters" | translate }}</div>
             </div>
           </div>
           <div class="h-100 d-flex align-items-center">
@@ -113,9 +113,9 @@
           <table class="table" *ngIf="candidatesWithStatistics.length > 0">
             <thead>
               <tr>
-                <th scope="col">{{ 'dashboard.candidate' | translate }}</th>
-                <th scope="col">{{ 'dashboard.party' | translate }}</th>
-                <th scope="col">{{ 'dashboard.percent' | translate }}</th>
+                <th scope="col">{{ "dashboard.candidate" | translate }}</th>
+                <th scope="col">{{ "dashboard.party" | translate }}</th>
+                <th scope="col">{{ "dashboard.percent" | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -124,13 +124,14 @@
                 <td>
                   {{ isTheCandidateIND(candidate) ? "-" : candidate.party }}
                 </td>
-                <td *ngIf="candidate.totalVotes >= 0">
-                  {{
-                    getVotesPercentage(candidate.id) | percent : "1.0-1" : "en"
-                  }}
-                </td>
-                <td *ngIf="!candidate.totalVotes || candidate.totalVotes < 0">
-                  -
+                <td
+                  class="text-end"
+                  *ngIf="candidate.totalVotes >= 0"
+                >
+                    {{
+                      getVotesPercentage(candidate.id)
+                        | percent : "1.0-1" : "en"
+                    }}
                 </td>
               </tr>
             </tbody>
@@ -153,9 +154,9 @@
           <table class="table" *ngIf="candidatesWithStatistics.length > 0">
             <thead>
               <tr>
-                <th scope="col">{{ 'dashboard.candidate' | translate }}</th>
-                <th scope="col">{{ 'dashboard.party' | translate }}</th>
-                <th scope="col">{{ 'dashboard.votes' | translate }}</th>
+                <th scope="col">{{ "dashboard.candidate" | translate }}</th>
+                <th scope="col">{{ "dashboard.party" | translate }}</th>
+                <th scope="col">{{ "dashboard.votes" | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -164,7 +165,7 @@
                 <td>
                   {{ isTheCandidateIND(candidate) ? "-" : candidate.party }}
                 </td>
-                <td>
+                <td class="text-end">
                   {{ candidate.totalVotes }}
                 </td>
               </tr>
@@ -189,11 +190,11 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">{{ 'dashboard.timestamp' | translate }}</th>
-                <th scope="col">{{ 'dashboard.action' | translate }}</th>
-                <th scope="col">{{ 'dashboard.screen' | translate }}</th>
-                <th scope="col">{{ 'dashboard.user' | translate }}</th>
-                <th scope="col">{{ 'dashboard.message' | translate }}</th>
+                <th scope="col">{{ "dashboard.timestamp" | translate }}</th>
+                <th scope="col">{{ "dashboard.action" | translate }}</th>
+                <th scope="col">{{ "dashboard.screen" | translate }}</th>
+                <th scope="col">{{ "dashboard.user" | translate }}</th>
+                <th scope="col">{{ "dashboard.message" | translate }}</th>
               </tr>
             </thead>
             <tbody>
