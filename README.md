@@ -14,6 +14,10 @@ This app handles all data in the core app *vote.e backend* and exposes this to p
 
 ### v1.1.0 - implemented ADMIN authentication and overall authorization.
 ### v1.0.0 - basic Angular application with 3 screens: dashboard + users + candidates.
+### v1.1.0 - visual fixes and added settings buttons to live test the app.
+### v1.2.0 - added i18n.
+### v1.3.0 - added events.
+### v2.0.0 - changed the logo and bring a new face to the app.
 
 All rights reserved to Cristian Sterie
 
