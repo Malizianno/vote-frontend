@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { AppConstants } from "../util/app-constants.util";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { LoginRequestDTO, LoginResponseDTO } from "../model/login.dto";
+import { LoginRequestDTO, LoginResponseDTO, LogoutRequestDTO, LogoutResponseDTO } from "../model/login.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -14,5 +14,9 @@ export class LoginService {
 
     login(dto: LoginRequestDTO): Observable<LoginResponseDTO> {
         return this.http.post<LoginResponseDTO>(this.apiURL + '/', dto, {});
+    }
+
+    logout(dto: LogoutRequestDTO): Observable<LogoutResponseDTO> {
+        return this.http.post<LogoutResponseDTO>(this.apiURL + '/logout', dto, {});
     }
 }

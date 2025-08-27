@@ -11,3 +11,12 @@ export class LoginResponseDTO {
     token!: string;
     role!: UserRole;
 }
+
+export class LogoutRequestDTO {
+    username!: string;
+}
+
+export class LogoutResponseDTO {
+    username!: string;
+    response!: boolean;
+}
