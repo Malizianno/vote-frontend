@@ -77,66 +77,108 @@ export class SettingsComponent {
   }
 
   generateFakeUsers() {
-    return this.service.fakeUsers(this.fakeUsersNo).subscribe((res) => {
-      if (res) {
-        this.successAlert =
-          'generated ' + this.fakeUsersNo + ' users successfully!';
-        this.reloadPage();
-      }
+    return this.service.fakeUsers(this.fakeUsersNo).subscribe({
+      next: (res) => {
+        if (res) {
+          this.successAlert =
+            'generated ' + this.fakeUsersNo + ' users successfully!';
+          this.reloadPage();
+        } else {
+          this.failedAlert =
+            'Failed to generate ' + this.fakeUsersNo + ' fake users!';
+        }
+      },
+      error: (error) => {
+        this.failedAlert =
+          'Error occurred while generating fake users! ' + error;
+      },
     });
   }
 
   generateFakeVotes() {
-    return this.service.fakeVotes(this.fakeVotesNo).subscribe((res) => {
-      if (res) {
-        this.successAlert =
-          'generated ' +
-          this.fakeVotesNo +
-          ' votes by admin user successfully!';
-        this.reloadPage();
-      }
+    return this.service.fakeVotes(this.fakeVotesNo).subscribe({
+      next: (res) => {
+        if (res) {
+          this.successAlert =
+            'generated ' +
+            this.fakeVotesNo +
+            ' votes by admin user successfully!';
+          this.reloadPage();
+        } else {
+          this.failedAlert =
+            'Failed to generate ' + this.fakeVotesNo + ' fake votes!';
+        }
+      },
+      error: (error) => {
+        this.failedAlert =
+          'Error occurred while generating fake votes! ' + error;
+      },
     });
   }
 
   generateFakeCandidates() {
-    return this.service.fakeCandidates().subscribe((res) => {
-      if (res) {
-        this.successAlert = 'generated candidates successfully!';
-        this.reloadPage();
-      }
+    return this.service.fakeCandidates().subscribe({
+      next: (res) => {
+        if (res) {
+          this.successAlert = 'generated candidates successfully!';
+          this.reloadPage();
+        } else {
+          this.failedAlert = 'Failed to generate candidates!';
+        }
+      },
+      error: (error) => {
+        this.failedAlert =
+          'Error occurred while generating fake votes! ' + error;
+      },
     });
   }
 
   switchElectionStatus() {
-    return this.electionHelper.switchStatus().subscribe((res: boolean) => {
-      if (res) {
-        // console.log('Successfully enabled / disabled Election Status: ', res);
-        this.successAlert = 'Election status changed successfully!';
-        this.reloadPage();
-      } else {
-        this.failedAlert = 'Failed to change election status!';
-      }
+    return this.electionHelper.switchStatus().subscribe({
+      next: (res: boolean) => {
+        if (res) {
+          // console.log('Successfully enabled / disabled Election Status: ', res);
+          this.successAlert = 'Election status changed successfully!';
+          this.reloadPage();
+        } else {
+          this.failedAlert = 'Failed to change election status!';
+        }
+      },
+      error: (error) => {
+        this.failedAlert =
+          'Error occurred while changing election status! ' + error;
+      },
     });
   }
 
   countAllVotes() {
-    return this.electionHelper.countAllVotes().subscribe((res: number) => {
-      if (res) {
-        this.votesCount = res;
-        // this.reloadPage();
-      }
+    return this.electionHelper.countAllVotes().subscribe({
+      next: (res: number) => {
+        if (res) {
+          this.votesCount = res;
+          // this.reloadPage();
+        }
+      },
+      error: (error) => {
+        this.failedAlert = 'Error occurred while counting votes! ' + error;
+      },
     });
   }
 
   cleanElectionDB() {
-    return this.electionHelper.cleanDB().subscribe((res: boolean) => {
-      if (res) {
-        // console.log('Successfully cleaned votes DB! Carefull with this! ', res);
-        this.successAlert = 'Votes DB cleaned successfully!';
-        this.votesCount = 0;
-      } else {
-        this.failedAlert = 'Failed to clean votes DB!';
-      }
+    return this.electionHelper.cleanDB().subscribe({
+      next: (res: boolean) => {
+        if (res) {
+          // console.log('Successfully cleaned votes DB! Carefull with this! ', res);
+          this.successAlert = 'Votes DB cleaned successfully!';
+          this.votesCount = 0;
+        } else {
+          this.failedAlert = 'Failed to clean votes DB!';
+        }
+      },
+      error: (error) => {
+        this.failedAlert = 'Error occurred while cleaning votes DB! ' + error;
+      },
     });
   }
 
