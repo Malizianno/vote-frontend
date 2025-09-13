@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs';
+import { ElectionCampaignDTO } from '../model/campaign.model';
 import { Candidate, CandidateWithStatistics } from '../model/candidate.model';
 import { Totals } from '../model/dashboard-totals.model';
 import { DashboardService } from '../services/dashboard.service';
 import { ElectionHelperService } from '../services/elections-helper.service';
+import { Election } from '../model/election.model';
 
 @Component({
   selector: 'app-settings',
@@ -12,7 +14,8 @@ import { ElectionHelperService } from '../services/elections-helper.service';
 })
 export class SettingsComponent {
   totals = new Totals();
-  electionEnabled = false;
+  electionCampaign = new ElectionCampaignDTO();
+  currentElection = new Election();
 
   candidatesWithStatistics: CandidateWithStatistics[] = [];
   winnerCandidate!: Candidate;
@@ -33,11 +36,13 @@ export class SettingsComponent {
   }
 
   reloadPage() {
-    this.getTotals().subscribe();
-    this.getElectionStatus().subscribe();
+    // first call is mandatory for this page (getElectionStatus)
+    this.getElectionStatus().subscribe(() => {
+      this.getTotals().subscribe();
+      this.countAllVotes();
+      this.getParsedVotes();
+    });
 
-    this.countAllVotes();
-    this.getParsedVotes();
   }
 
   getVotesPercentage(id: number): number | undefined {
@@ -69,9 +74,9 @@ export class SettingsComponent {
 
   getElectionStatus() {
     return this.electionHelper.status().pipe(
-      map((res: boolean) => {
-        this.electionEnabled = res;
-        // console.log('got electionEnabled: ', res);
+      map((res: ElectionCampaignDTO) => {
+        this.electionCampaign = res;
+        console.log('got campaign: ', res);
       })
     );
   }
@@ -129,24 +134,6 @@ export class SettingsComponent {
       error: (error) => {
         this.failedAlert =
           'Error occurred while generating fake votes! ' + error;
-      },
-    });
-  }
-
-  switchElectionStatus() {
-    return this.electionHelper.switchStatus().subscribe({
-      next: (res: boolean) => {
-        if (res) {
-          // console.log('Successfully enabled / disabled Election Status: ', res);
-          this.successAlert = 'Election status changed successfully!';
-          this.reloadPage();
-        } else {
-          this.failedAlert = 'Failed to change election status!';
-        }
-      },
-      error: (error) => {
-        this.failedAlert =
-          'Error occurred while changing election status! ' + error;
       },
     });
   }

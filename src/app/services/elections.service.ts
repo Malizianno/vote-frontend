@@ -45,4 +45,8 @@ export class ElectionService {
   delete(id: number): Observable<boolean> {
     return this.http.delete<boolean>(this.apiURL + `/delete/${id}`, {});
   }
+
+  changeStatus(id: number, enabled: boolean): Observable<boolean> {
+    return this.http.post<boolean>(this.apiURL + `/changeStatus/${id}/${enabled}`, {});
+  }
 }

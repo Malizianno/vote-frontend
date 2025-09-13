@@ -110,6 +110,14 @@ export class ElectionsComponent {
     return DateUtil.isDateValid(date);
   }
 
+  changeStatus(id: number, enabled: boolean) {
+    this.service.changeStatus(id, enabled).subscribe((res) => {
+      if (res) {
+        this.reloadPage();
+      }
+    });
+  }
+
   private debounceSubscription() {
     this.filterChangedSubscription = this.filterChangedSubject
       .pipe(debounceTime(1000), distinctUntilChanged())

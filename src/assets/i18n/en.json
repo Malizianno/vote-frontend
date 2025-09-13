@@ -92,6 +92,7 @@
   "settings": {
     "settings": "Settings",
     "status": "Election status",
+    "current-election": "Current Election",
     "generate-candidates": "Generate candidates",
     "generate-users": "Generate users",
     "generate-votes": "Generate votes",

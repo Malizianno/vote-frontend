@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Candidate, CandidateWithStatistics } from '../model/candidate.model';
 import { AppConstants } from '../util/app-constants.util';
+import { Election } from '../model/election.model';
+import { ElectionCampaignDTO } from '../model/campaign.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,12 +18,8 @@ export class ElectionHelperService {
     return this.http.get<Candidate>(this.apiURL + '/result', {});
   }
 
-  status(): Observable<boolean> {
-    return this.http.get<boolean>(this.apiURL + '/status', {});
-  }
-
-  switchStatus(): Observable<boolean> {
-    return this.http.get<boolean>(this.apiURL + '/switchStatus', {});
+  status(): Observable<ElectionCampaignDTO> {
+    return this.http.get<ElectionCampaignDTO>(this.apiURL + '/status', {});
   }
 
   cleanDB(): Observable<boolean> {

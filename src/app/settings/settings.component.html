@@ -17,93 +17,136 @@
     <div class="col-12">
       <div class="card border mt-2">
         <!-- ELECTION STATUS -->
-        <div class="row mt-2 mb-4 ms-4 form-check form-switch">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            role="switch"
-            id="electionEnabled"
-            aria-checked="false"
-            [(ngModel)]="electionEnabled"
-            (click)="switchElectionStatus()"
-          />
-          <label class="form-check-label" for="electionEnabled">{{
-            "settings.status" | translate
-          }}</label>
-        </div>
-
-        <!-- FAKE CANDIDATES -->
         <div class="row my-1 ms-2">
-          <div class="col-4">{{ 'settings.generate-candidates' | translate }}</div>
-          <div class="col-1">
-            <button
-              type="button"
-              class="btn btn-dark"
-              (click)="generateFakeCandidates()"
-            >
-              <i class="bi bi-file-person"></i>
-            </button>
+          <div class="col fw-bolder">
+            <i
+              *ngIf="electionCampaign.enabled"
+              class="bi bi-check-circle text-success"
+            ></i>
+            <i
+              *ngIf="!electionCampaign.enabled"
+              class="bi bi-ban text-danger"
+            ></i>
+            &nbsp;
+            <label class="col form-check-label" for="electionEnabled">{{
+              "settings.status" | translate
+            }}</label>
           </div>
         </div>
 
-        <!-- FAKE USERS -->
-        <div class="row my-1 ms-2">
-          <div class="col-2 mr-2">{{ 'settings.generate-users' | translate }}</div>
-          <div class="col-2">
-            <input
-              type="text text-center"
-              class="form-control col-2"
-              placeholder="0"
-              [(ngModel)]="fakeUsersNo"
-              [ngModelOptions]="{ standalone: true }"
-            />
-          </div>
-          <div class="col-1">
-            <button
-              type="button"
-              class="btn btn-dark"
-              (click)="generateFakeUsers()"
-            >
-              <i class="bi bi-person-plus-fill"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- FAKE VOTES -->
-        <div class="row my-1 ms-2">
-          <div class="col-2">{{ 'settings.generate-votes' | translate }}</div>
-          <div class="col-2">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="0"
-              [(ngModel)]="fakeVotesNo"
-            />
-          </div>
-          <div class="col-1">
-            <button
-              type="button"
-              class="btn btn-dark"
-              (click)="generateFakeVotes()"
-            >
-              <i class="bi bi-envelope-plus"></i>
-            </button>
+        <div *ngIf="electionCampaign.enabled" class="row my-1 ms-2">
+          <div class="col">
+            <div class="dropdown">
+              <button
+                class="btn btn-success dropdown-toggle"
+                type="button"
+                id="dynamicDropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {{ "settings.current-election" | translate }}
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dynamicDropdown">
+                <li *ngFor="let item of electionCampaign.elections">
+                  <a class="dropdown-item" (click)="currentElection = item">{{
+                    item.name
+                  }}</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <!-- CLEAN VOTES DB -->
-        <div class="row mt-1 mb-4 ms-2">
-          <div class="col-4">
-            {{ ('settings.clean-db' | translate) + '(' + votesCount + ')' }}
-          </div>
-          <div class="col-1">
-            <button
-              type="button"
-              class="btn btn-dark"
-              (click)="cleanElectionDB()"
-            >
-              <i class="bi bi-eraser-fill"></i>
-            </button>
+        <div *ngIf="currentElection.enabled" class="row my-1 ms-2">
+          <div class="col">
+            <!-- FAKE CANDIDATES -->
+            <div class="row my-1 ms-2">
+              <div class="col-4">
+                {{ "settings.generate-candidates" | translate }}
+              </div>
+              <div class="col-1">
+                <button
+                  [disabled]="!currentElection.enabled"
+                  type="button"
+                  class="btn btn-dark"
+                  (click)="generateFakeCandidates()"
+                >
+                  <i class="bi bi-file-person"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- FAKE USERS -->
+            <div class="row my-1 ms-2">
+              <div class="col-2 mr-2">
+                {{ "settings.generate-users" | translate }}
+              </div>
+              <div class="col-2">
+                <input
+                  type="text text-center"
+                  class="form-control col-2"
+                  placeholder="0"
+                  [(ngModel)]="fakeUsersNo"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+              <div class="col-1">
+                <button
+                  [disabled]="!currentElection.enabled"
+                  type="button"
+                  class="btn btn-dark"
+                  (click)="generateFakeUsers()"
+                >
+                  <i class="bi bi-person-plus-fill"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- FAKE VOTES -->
+            <div class="row my-1 ms-2">
+              <div class="col-2">
+                {{ "settings.generate-votes" | translate }}
+              </div>
+              <div class="col-2">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="0"
+                  [(ngModel)]="fakeVotesNo"
+                />
+              </div>
+              <div class="col-1">
+                <button
+                  [disabled]="
+                    !currentElection.enabled ||
+                    totals.candidates < 1 ||
+                    totals.users < 1
+                  "
+                  type="button"
+                  class="btn btn-dark"
+                  (click)="generateFakeVotes()"
+                >
+                  <i class="bi bi-envelope-plus"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- CLEAN VOTES DB -->
+            <div class="row mt-1 mb-4 ms-2">
+              <div class="col-4">
+                {{ ("settings.clean-db" | translate) + "(" + votesCount + ")" }}
+              </div>
+              <div class="col-1">
+                <button
+                  [disabled]="votesCount === 0"
+                  type="button"
+                  class="btn btn-dark"
+                  (click)="cleanElectionDB()"
+                >
+                  <i class="bi bi-eraser-fill"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -26,7 +26,7 @@
   "dashboard": {
     "votes": "voturi",
     "candidates": "candidați",
-    "voters": "votanți", 
+    "voters": "votanți",
     "total": "total",
     "candidate": "candidat",
     "party": "partid",
@@ -43,7 +43,7 @@
     "enabled": "activ",
     "description": "descriere",
     "startDate": "start",
-    "endDate" : "final",
+    "endDate": "final",
     "modal": {
       "add": "Adaugă alegeri",
       "edit": "Modifică alegeri",
@@ -76,7 +76,7 @@
     "user": "utilizator",
     "modal": {
       "add": "Adaugă utilizator",
-      "edit":"Modifică utilizator",
+      "edit": "Modifică utilizator",
       "username": "Utilizator",
       "password": "Parolă",
       "role": "Rol"
@@ -91,6 +91,7 @@
   "settings": {
     "settings": "Setări",
     "status": "Status alegeri",
+    "current-election": "Alegeri curente",
     "generate-candidates": "Generează candidați",
     "generate-users": "Generează utilizatori",
     "generate-votes": "Generează voturi",

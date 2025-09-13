@@ -24,6 +24,8 @@ import { ElectionHelperService } from '../services/elections-helper.service';
 import { EventsService } from '../services/events.service';
 import { DateUtil } from '../util/date.util';
 import { PartyTypeEnum } from '../util/party-type.enum';
+import { Election } from '../model/election.model';
+import { ElectionCampaignDTO } from '../model/campaign.model';
 
 Chart.register(DoughnutController, ArcElement, Tooltip, Legend, Title);
 
@@ -92,10 +94,10 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   isDataReadyForChart(): boolean {
-    console.log(
-      'results ',
-      this.votesCount > 0 && this.totals && this.totals.users > 0
-    );
+    // console.log(
+    //   'results ',
+    //   this.votesCount > 0 && this.totals && this.totals.users > 0
+    // );
     return this.votesCount > 0 && this.totals && this.totals.users > 0;
   }
 
@@ -159,8 +161,8 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 
   getElectionStatus() {
     return this.electionHelper.status().pipe(
-      map((res: boolean) => {
-        this.electionEnabled = res;
+      map((res: ElectionCampaignDTO) => {
+        this.electionEnabled = res.enabled;
         // console.log('got electionEnabled: ', res);
       })
     );
