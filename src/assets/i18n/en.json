@@ -16,7 +16,8 @@
     "candidates": "Candidates",
     "users": "Users",
     "events": "Events",
-    "settings": "Settings"
+    "settings": "Settings",
+    "no-election-selected-message": "No election selected! Please select an election to proceed."
   },
   "components": {
     "no-data": {

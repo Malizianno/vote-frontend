@@ -8,6 +8,7 @@ export class Candidate extends GenericModel {
     party!: PartyTypeEnum;
     image!: string;
     description!: string;
+    electionId!: number;
 }
 
 export class CandidateWithStatistics extends Candidate {

@@ -14,26 +14,30 @@ export class ElectionHelperService {
 
   constructor(private http: HttpClient) {}
 
-  voteResult(): Observable<Candidate> {
-    return this.http.get<Candidate>(this.apiURL + '/result', {});
+  voteResult(electionId: number): Observable<Candidate> {
+    return this.http.get<Candidate>(this.apiURL + `/result/${electionId}`, {});
   }
 
   status(): Observable<ElectionCampaignDTO> {
     return this.http.get<ElectionCampaignDTO>(this.apiURL + '/status', {});
   }
 
-  cleanDB(): Observable<boolean> {
-    return this.http.get<boolean>(this.apiURL + '/cleanDB', {});
+  cleanDB(electionId: number): Observable<boolean> {
+    return this.http.get<boolean>(this.apiURL + `/cleanDB/${electionId}`, {});
   }
 
-  countAllVotes(): Observable<number> {
-    return this.http.get<number>(this.apiURL + '/countAllVotes', {});
+  countAllVotes(electionId: number): Observable<number> {
+    return this.http.get<number>(this.apiURL + `/countAllVotes/${electionId}`, {});
   }
 
-  getParsedVotes(): Observable<CandidateWithStatistics[]> {
+  getParsedVotes(electionId: number): Observable<CandidateWithStatistics[]> {
     return this.http.get<CandidateWithStatistics[]>(
-      this.apiURL + '/getParsedVotes',
+      this.apiURL + `/getParsedVotes/${electionId}`,
       {}
     );
+  }
+
+  lastElection(): Observable<Election> {
+    return this.http.get<Election>(this.apiURL + '/lastElection', {});
   }
 }

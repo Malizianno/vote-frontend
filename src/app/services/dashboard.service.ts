@@ -12,19 +12,19 @@ export class DashboardService {
 
     constructor(private http: HttpClient) { }
 
-    getTotals(): Observable<Totals> {
-        return this.http.get<Totals>(this.apiURL + '/totals', {});
+    getTotals(electionID: number): Observable<Totals> {
+        return this.http.get<Totals>(this.apiURL + `/totals/${electionID}`, {});
     }
 
-    fakeCandidates(): Observable<boolean> {
-        return this.http.post<boolean>(this.apiURL + `/fake/candidates`, {});
+    fakeCandidates(electionId: number): Observable<boolean> {
+        return this.http.post<boolean>(this.apiURL + `/fake/candidates/${electionId}`, {});
     }
 
     fakeUsers(no: number): Observable<boolean> {
         return this.http.post<boolean>(this.apiURL + `/fake/users/${no}`, {});
     }
 
-    fakeVotes(no: number): Observable<boolean> {
-        return this.http.post<boolean>(this.apiURL + `/fake/votes/${no}`, {});
+    fakeVotes(no: number, electionId: number): Observable<boolean> {
+        return this.http.post<boolean>(this.apiURL + `/fake/votes/${no}/${electionId}`, {});
     }
 }

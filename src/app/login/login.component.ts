@@ -5,17 +5,25 @@ import { UserRole } from '../model/user.model';
 import { CredentialsService } from '../services/credentials.service';
 import { LoginService } from '../services/login.service';
 import { environment } from 'src/environments/environment';
+import { ElectionService } from '../services/elections.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
   version = environment.version;
   dto = new LoginRequestDTO();
 
-  constructor(private service: LoginService, private credentialsService: CredentialsService, private router: Router,) {
+  constructor(
+    private service: LoginService,
+    private credentialsService: CredentialsService,
+    private router: Router,
+    private electionService: ElectionService,
+    private dataService: DataService,
+  ) {
     this.dto.role = UserRole.ADMIN;
   }
 
@@ -26,6 +34,9 @@ export class LoginComponent {
 
         this.credentialsService.setCredentials(res, true);
 
+        // get election list
+        this.loadElections();
+
         this.router.navigate(['/dashboard'], { replaceUrl: true });
       }
     });
@@ -33,5 +44,19 @@ export class LoginComponent {
 
   canSubmit(): boolean {
     return !!this.dto && !!this.dto.username && !!this.dto.password;
+  }
+
+  loadElections() {
+    this.electionService.getAll().subscribe({
+      next: (res) => {
+        if (res && res.length > 0) {
+          this.dataService.emitElectionList(res);
+          // console.log('loaded elections: ', res);
+        }
+      },
+      error: (err) => {
+        console.error('loadElections error: ', err);
+      },
+    });
   }
 }

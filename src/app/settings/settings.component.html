@@ -3,6 +3,12 @@
 <app-alert [message]="failedAlert" [type]="'danger'"></app-alert>
 
 <div class="container-fluid">
+  <app-no-selected-election-message
+    [condition]="!(selectedElection!.id > 0)"
+  ></app-no-selected-election-message>
+</div>
+
+<div *ngIf="selectedElection!.id > 0" class="container-fluid">
   <div class="row">
     <div class="col-12">
       <div class="card border mt-2">
@@ -34,30 +40,7 @@
           </div>
         </div>
 
-        <div *ngIf="electionCampaign.enabled" class="row my-1 ms-2">
-          <div class="col">
-            <div class="dropdown">
-              <button
-                class="btn btn-success dropdown-toggle"
-                type="button"
-                id="dynamicDropdown"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                {{ "settings.current-election" | translate }}
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dynamicDropdown">
-                <li *ngFor="let item of electionCampaign.elections">
-                  <a class="dropdown-item" (click)="currentElection = item">{{
-                    item.name
-                  }}</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div *ngIf="currentElection.enabled" class="row my-1 ms-2">
+        <div *ngIf="selectedElection.enabled" class="row my-1 ms-2">
           <div class="col">
             <!-- FAKE CANDIDATES -->
             <div class="row my-1 ms-2">
@@ -66,7 +49,7 @@
               </div>
               <div class="col-1">
                 <button
-                  [disabled]="!currentElection.enabled"
+                  [disabled]="!selectedElection.enabled"
                   type="button"
                   class="btn btn-dark"
                   (click)="generateFakeCandidates()"
@@ -92,7 +75,7 @@
               </div>
               <div class="col-1">
                 <button
-                  [disabled]="!currentElection.enabled"
+                  [disabled]="!selectedElection.enabled"
                   type="button"
                   class="btn btn-dark"
                   (click)="generateFakeUsers()"
@@ -118,7 +101,7 @@
               <div class="col-1">
                 <button
                   [disabled]="
-                    !currentElection.enabled ||
+                    !selectedElection.enabled ||
                     totals.candidates < 1 ||
                     totals.users < 1
                   "

@@ -1,4 +1,10 @@
 <div class="container-fluid">
+  <app-no-selected-election-message
+    [condition]="!(selectedElection!.id > 0)"
+  ></app-no-selected-election-message>
+</div>
+
+<div *ngIf="selectedElection!.id > 0" class="container-fluid">
   <!--  ROW 1:  -->
 
   <!-- COL 1: SMALL STATS -->
@@ -124,14 +130,10 @@
                 <td>
                   {{ isTheCandidateIND(candidate) ? "-" : candidate.party }}
                 </td>
-                <td
-                  class="text-end"
-                  *ngIf="candidate.totalVotes >= 0"
-                >
-                    {{
-                      getVotesPercentage(candidate.id)
-                        | percent : "1.0-1" : "en"
-                    }}
+                <td class="text-end" *ngIf="candidate.totalVotes >= 0">
+                  {{
+                    getVotesPercentage(candidate.id) | percent : "1.0-1" : "en"
+                  }}
                 </td>
               </tr>
             </tbody>

@@ -18,10 +18,6 @@ export class CandidateService {
         return this.http.get<Candidate>(this.apiURL + `/${id}`, {});
     }
 
-    getAll(): Observable<Candidate[]> {
-        return this.http.get<Candidate[]>(this.apiURL + '/all', {});
-    }
-
     getFiltered(candidate: Candidate, paging: Paging): Observable<CandidateResponse> {
         const filter = { candidate, paging: { page: paging.page - 1, size: paging.size } };
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   Subject,
@@ -13,15 +13,19 @@ import { CandidateService } from '../services/candidates.service';
 import { PartyTypeEnum } from '../util/party-type.enum';
 import { AddCandidateComponent } from './add/add-candidate.modal';
 import { EditCandidateComponent } from './edit/edit-candidate.modal';
+import { Election } from '../model/election.model';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-candidates',
   templateUrl: './candidates.component.html',
   styleUrls: ['./candidates.component.scss'],
 })
-export class CandidatesComponent {
+export class CandidatesComponent implements OnInit {
   candidates: Candidate[] = [];
   parties = Object.keys(PartyTypeEnum).filter((v) => isNaN(Number(v)));
+
+  selectedElection: Election = new Election();
 
   filter = new Candidate();
   paging = new Paging();
@@ -35,10 +39,20 @@ export class CandidatesComponent {
 
   constructor(
     private service: CandidateService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private dataService: DataService,
   ) {
     this.reloadPage();
     this.debounceSubscription();
+  }
+
+  ngOnInit(): void {
+    this.dataService.selectedElection$.subscribe(election => {
+      if (election.id > 0) {
+        this.selectedElection = election;
+        this.filter.electionId = election.id;
+        this.reloadPage();}
+    });
   }
 
   reloadPage() {

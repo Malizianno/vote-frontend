@@ -1,7 +1,7 @@
 <nav class="navbar sticky-top navbar-dark bg-dark" *ngIf="isAuthenticated()">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">{{ "header.name" | translate }}</a>
+      <a class="navbar-brand" routerLink="/">{{ "header.name" | translate }}</a>
     </div>
     <div class="row me-auto mb-2 mb-lg-0 text-white">
       <!-- <div class="col pointer"><span routerLink="/dashboard" routerLinkActive="active">Acasă</span> </div> -->
@@ -26,9 +26,38 @@
         }}</span>
       </div>
       <div class="col pointer">
-        <span routerLink="/settings" routerLinkActive="active">{{
+        <span disabled-span routerLink="/settings" routerLinkActive="active">{{
           "header.settings" | translate
         }}</span>
+      </div>
+
+      <div class="col">
+        <div class="row">
+          <div class="col">
+            <div class="dropdown">
+              <button
+                class="btn btn-success dropdown-toggle"
+                type="button"
+                id="dynamicDropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {{
+                  selectedElectionObject.id > 0
+                    ? selectedElectionObject.name
+                    : ("settings.current-election" | translate)
+                }}
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dynamicDropdown">
+                <li *ngFor="let item of allElections">
+                  <a class="dropdown-item" (click)="selectNewElection(item)">{{
+                    item.name
+                  }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="navbar-right text-white">

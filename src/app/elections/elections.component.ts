@@ -14,6 +14,7 @@ import { ElectionService } from '../services/elections.service';
 import { DateUtil } from '../util/date.util';
 import { AddElectionComponent } from './add/add-election.modal';
 import { EditElectionComponent } from './edit/edit-election.modal';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-elections',
@@ -32,7 +33,8 @@ export class ElectionsComponent {
 
   constructor(
     private service: ElectionService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private dataService: DataService
   ) {
     this.reloadPage();
     this.debounceSubscription();
@@ -101,6 +103,9 @@ export class ElectionsComponent {
           console.log('Elections fetched:', res);
           this.elections = Candidate.fromArray(res.elections);
           this.totalElections = res.total;
+
+          // XXX: this might be a bug if filtering is active :)))
+          this.dataService.emitElectionList(this.elections);
         }
       })
     );

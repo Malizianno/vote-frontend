@@ -35,6 +35,7 @@ import { AddUserComponent } from './users/add/add-user.modal';
 import { EditUserComponent } from './users/edit/edit-user.modal';
 import { UsersComponent } from './users/users.component';
 import { HttpLoaderFactory } from './@shared/translate-loader.factory';
+import { NoSelectedElectionMessageComponent } from './components/no-selected-election-message/no-selected-election-message.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { HttpLoaderFactory } from './@shared/translate-loader.factory';
     LanguageSwitcherComponent,
     LoginComponent,
     SettingsComponent,
+    NoSelectedElectionMessageComponent,
   ],
   imports: [
     BrowserModule,

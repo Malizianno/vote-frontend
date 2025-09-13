@@ -1,21 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
 import { ElectionCampaignDTO } from '../model/campaign.model';
 import { Candidate, CandidateWithStatistics } from '../model/candidate.model';
 import { Totals } from '../model/dashboard-totals.model';
-import { DashboardService } from '../services/dashboard.service';
-import { ElectionHelperService } from '../services/elections-helper.service';
 import { Election } from '../model/election.model';
+import { DashboardService } from '../services/dashboard.service';
+import { DataService } from '../services/data.service';
+import { ElectionHelperService } from '../services/elections-helper.service';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
   totals = new Totals();
   electionCampaign = new ElectionCampaignDTO();
-  currentElection = new Election();
+  selectedElection: Election = new Election();
 
   candidatesWithStatistics: CandidateWithStatistics[] = [];
   winnerCandidate!: Candidate;
@@ -30,18 +31,28 @@ export class SettingsComponent {
 
   constructor(
     private service: DashboardService,
-    private electionHelper: ElectionHelperService
+    private electionHelper: ElectionHelperService,
+    private dataService: DataService
   ) {
     this.reloadPage();
   }
+  ngOnInit(): void {
+    this.dataService.selectedElection$.subscribe((election) => {
+      if (election.id > 0) {
+        this.selectedElection = election;
+        this.reloadPage();
+      }
+    });
+  }
 
   reloadPage() {
-    // first call is mandatory for this page (getElectionStatus)
-    this.getElectionStatus().subscribe(() => {
-      this.getTotals().subscribe();
-      this.countAllVotes();
-      this.getParsedVotes();
-    });
+    if (this.selectedElection!.id > 0) {
+      this.getElectionStatus().subscribe(() => {
+        this.getTotals().subscribe();
+        this.countAllVotes();
+        this.getParsedVotes();
+      });
+    }
   }
 
   getVotesPercentage(id: number): number | undefined {
@@ -62,7 +73,7 @@ export class SettingsComponent {
   }
 
   getTotals() {
-    return this.service.getTotals().pipe(
+    return this.service.getTotals(this.selectedElection!.id).pipe(
       map((res) => {
         if (res) {
           this.totals = res;
@@ -100,25 +111,27 @@ export class SettingsComponent {
   }
 
   generateFakeVotes() {
-    return this.service.fakeVotes(this.fakeVotesNo).subscribe({
-      next: (res) => {
-        if (res) {
-          this.successAlert =
-            'generated ' +
-            this.fakeVotesNo +
-            ' votes by admin user successfully!';
-          this.reloadPage();
-        } else {
-          this.failedAlert =
-            'Failed to generate ' + this.fakeVotesNo + ' fake votes!';
-          this.reloadPage();
-        }
-      }
-    });
+    return this.service
+      .fakeVotes(this.fakeVotesNo, this.selectedElection!.id)
+      .subscribe({
+        next: (res) => {
+          if (res) {
+            this.successAlert =
+              'generated ' +
+              this.fakeVotesNo +
+              ' votes by admin user successfully!';
+            this.reloadPage();
+          } else {
+            this.failedAlert =
+              'Failed to generate ' + this.fakeVotesNo + ' fake votes!';
+            this.reloadPage();
+          }
+        },
+      });
   }
 
   generateFakeCandidates() {
-    return this.service.fakeCandidates().subscribe({
+    return this.service.fakeCandidates(this.selectedElection!.id).subscribe({
       next: (res) => {
         if (res) {
           this.successAlert = 'generated candidates successfully!';
@@ -135,21 +148,23 @@ export class SettingsComponent {
   }
 
   countAllVotes() {
-    return this.electionHelper.countAllVotes().subscribe({
-      next: (res: number) => {
-        if (res) {
-          this.votesCount = res;
-          // this.reloadPage();
-        }
-      },
-      error: (error) => {
-        this.failedAlert = 'Error occurred while counting votes! ' + error;
-      },
-    });
+    return this.electionHelper
+      .countAllVotes(this.selectedElection!.id)
+      .subscribe({
+        next: (res: number) => {
+          if (res) {
+            this.votesCount = res;
+            // this.reloadPage();
+          }
+        },
+        error: (error) => {
+          this.failedAlert = 'Error occurred while counting votes! ' + error;
+        },
+      });
   }
 
   cleanElectionDB() {
-    return this.electionHelper.cleanDB().subscribe({
+    return this.electionHelper.cleanDB(this.selectedElection!.id).subscribe({
       next: (res: boolean) => {
         if (res) {
           // console.log('Successfully cleaned votes DB! Carefull with this! ', res);
@@ -166,17 +181,19 @@ export class SettingsComponent {
   }
 
   getVotingResult() {
-    return this.electionHelper.voteResult().subscribe((res: Candidate) => {
-      if (res) {
-        this.winnerCandidate = res;
-        // console.log('got winnerCandidate: ', res);
-      }
-    });
+    return this.electionHelper
+      .voteResult(this.selectedElection!.id)
+      .subscribe((res: Candidate) => {
+        if (res) {
+          this.winnerCandidate = res;
+          // console.log('got winnerCandidate: ', res);
+        }
+      });
   }
 
   getParsedVotes() {
     return this.electionHelper
-      .getParsedVotes()
+      .getParsedVotes(this.selectedElection!.id)
       .subscribe((res: CandidateWithStatistics[]) => {
         if (res) {
           this.candidatesWithStatistics =

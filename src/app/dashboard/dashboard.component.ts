@@ -16,16 +16,17 @@ import {
   Tooltip,
 } from 'chart.js';
 import { map } from 'rxjs';
+import { ElectionCampaignDTO } from '../model/campaign.model';
 import { Candidate, CandidateWithStatistics } from '../model/candidate.model';
 import { Totals } from '../model/dashboard-totals.model';
+import { Election } from '../model/election.model';
 import { Event } from '../model/event.model';
 import { DashboardService } from '../services/dashboard.service';
+import { DataService } from '../services/data.service';
 import { ElectionHelperService } from '../services/elections-helper.service';
 import { EventsService } from '../services/events.service';
 import { DateUtil } from '../util/date.util';
 import { PartyTypeEnum } from '../util/party-type.enum';
-import { Election } from '../model/election.model';
-import { ElectionCampaignDTO } from '../model/campaign.model';
 
 Chart.register(DoughnutController, ArcElement, Tooltip, Legend, Title);
 
@@ -37,6 +38,7 @@ Chart.register(DoughnutController, ArcElement, Tooltip, Legend, Title);
 export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
   totals = new Totals();
   electionEnabled = false;
+  selectedElection: Election = new Election();
 
   last10Events: Event[] = [];
   candidatesWithStatistics: CandidateWithStatistics[] = [];
@@ -54,13 +56,20 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private service: DashboardService,
     private electionHelper: ElectionHelperService,
-    private events: EventsService
+    private events: EventsService,
+    private dataService: DataService
   ) {
     this.reloadPage();
   }
 
-  ngOnInit(): void {
-    // empty
+  ngOnInit() {
+    this.dataService.selectedElection$.subscribe((election) => {
+      if (election.id > 0) {
+        this.selectedElection = election;
+
+        this.reloadPage();
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -77,20 +86,22 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   reloadPage() {
-    this.getElectionStatus().subscribe((res) => {
-      this.getTotals().subscribe((res) => {
-        this.countAllVotes().subscribe((res) => {
-          this.getParsedVotes();
+    if (this.selectedElection.id > 0) {
+      this.getElectionStatus().subscribe((res) => {
+        this.getTotals().subscribe((res) => {
+          this.countAllVotes().subscribe((res) => {
+            this.getParsedVotes();
 
-          // compute chart after data is here ;)
-          if (this.isDataReadyForChart()) {
-            this.loadChart();
-          }
+            // compute chart after data is here ;)
+            if (this.isDataReadyForChart()) {
+              this.loadChart();
+            }
+          });
         });
       });
-    });
 
-    this.loadLast10Events();
+      this.loadLast10Events();
+    }
   }
 
   isDataReadyForChart(): boolean {
@@ -150,7 +161,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   getTotals() {
-    return this.service.getTotals().pipe(
+    return this.service.getTotals(this.selectedElection.id).pipe(
       map((res) => {
         if (res) {
           this.totals = res;
@@ -169,7 +180,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   countAllVotes() {
-    return this.electionHelper.countAllVotes().pipe(
+    return this.electionHelper.countAllVotes(this.selectedElection!.id).pipe(
       map((res: number) => {
         if (res) {
           this.votesCount = res;
@@ -180,17 +191,19 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   getVotingResult() {
-    return this.electionHelper.voteResult().subscribe((res: Candidate) => {
-      if (res) {
-        this.winnerCandidate = res;
-        // console.log('got winnerCandidate: ', res);
-      }
-    });
+    return this.electionHelper
+      .voteResult(this.selectedElection!.id)
+      .subscribe((res: Candidate) => {
+        if (res) {
+          this.winnerCandidate = res;
+          // console.log('got winnerCandidate: ', res);
+        }
+      });
   }
 
   getParsedVotes() {
     return this.electionHelper
-      .getParsedVotes()
+      .getParsedVotes(this.selectedElection!.id)
       .subscribe((res: CandidateWithStatistics[]) => {
         if (res) {
           this.candidatesWithStatistics =

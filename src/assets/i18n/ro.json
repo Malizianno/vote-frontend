@@ -16,7 +16,8 @@
     "candidates": "Candidați",
     "users": "Utilizatori",
     "events": "Evenimente",
-    "settings": "Setări"
+    "settings": "Setări",
+    "no-election-selected-message": "Alegeri neselectate! Vă rugăm să selectați alegerile pentru a continua."
   },
   "components": {
     "no-data": {
