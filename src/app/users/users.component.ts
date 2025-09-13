@@ -20,7 +20,7 @@ import { EditUserComponent } from './edit/edit-user.modal';
 })
 export class UsersComponent {
   roles = Object.keys(UserRole).filter((v) => isNaN(Number(v)));
-  
+
   users: User[] = [];
 
   filter = new User();
@@ -57,11 +57,16 @@ export class UsersComponent {
   add() {
     const modalref = this.modalService.open(AddUserComponent);
 
-    modalref.result.then((res: User) => {
-      if (null != res.id) {
-        this.resetFilter();
+    modalref.result.then(
+      (res: User) => {
+        if (null != res.id) {
+          this.resetFilter();
+        }
+      },
+      (err: any) => {
+        // Handle the error case if needed
       }
-    });
+    );
   }
 
   edit(id: number) {
@@ -69,11 +74,16 @@ export class UsersComponent {
     const modalref = this.modalService.open(EditUserComponent);
     modalref.componentInstance.id = id; // pass the ID to the modal
 
-    modalref.result.then((res: User) => {
-      if (null != res.id) {
-        this.resetFilter();
+    modalref.result.then(
+      (res: User) => {
+        if (null != res.id) {
+          this.resetFilter();
+        }
+      },
+      (err: any) => {
+        // Handle the error case if needed
       }
-    });
+    );
   }
 
   delete(id: number) {

@@ -14,13 +14,11 @@ import { ElectionService } from '../services/elections.service';
 import { DateUtil } from '../util/date.util';
 import { AddElectionComponent } from './add/add-election.modal';
 import { EditElectionComponent } from './edit/edit-election.modal';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-elections',
   templateUrl: './elections.component.html',
   styleUrls: ['./elections.component.scss'],
-
 })
 export class ElectionsComponent {
   elections: Election[] = [];
@@ -59,11 +57,16 @@ export class ElectionsComponent {
     // open modal to add new candidate
     const modalref = this.modalService.open(AddElectionComponent);
 
-    modalref.result.then((res: Election) => {
-      if (null != res.id) {
-        this.resetFilter();
+    modalref.result.then(
+      (res: Election) => {
+        if (null != res.id) {
+          this.resetFilter();
+        }
+      },
+      (err: any) => {
+        // Handle the error case if needed
       }
-    });
+    );
   }
 
   edit(id: number) {
@@ -71,11 +74,16 @@ export class ElectionsComponent {
     const modalref = this.modalService.open(EditElectionComponent);
     modalref.componentInstance.id = id; // pass the ID to the modal
 
-    modalref.result.then((res: Election) => {
-      if (null != res.id) {
-        this.resetFilter();
+    modalref.result.then(
+      (res: Election) => {
+        if (null != res.id) {
+          this.resetFilter();
+        }
+      },
+      (err: any) => {
+        // Handle the error case if needed
       }
-    });
+    );
   }
 
   delete(id: number) {

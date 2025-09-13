@@ -60,11 +60,16 @@ export class CandidatesComponent {
     // open modal to add new candidate
     const modalref = this.modalService.open(AddCandidateComponent);
 
-    modalref.result.then((res: Candidate) => {
-      if (null != res.id) {
-        this.resetFilter();
+    modalref.result.then(
+      (res: Candidate) => {
+        if (null != res.id) {
+          this.resetFilter();
+        }
+      },
+      (err: any) => {
+        // Handle the error case if needed
       }
-    });
+    );
   }
 
   edit(id: number) {
@@ -72,11 +77,16 @@ export class CandidatesComponent {
     const modalref = this.modalService.open(EditCandidateComponent);
     modalref.componentInstance.id = id; // pass the ID to the modal
 
-    modalref.result.then((res: Candidate) => {
-      if (null != res.id) {
-        this.resetFilter();
+    modalref.result.then(
+      (res: Candidate) => {
+        if (null != res.id) {
+          this.resetFilter();
+        }
+      },
+      (err: any) => {
+        // Handle the error case if needed
       }
-    });
+    );
   }
 
   delete(id: number) {
