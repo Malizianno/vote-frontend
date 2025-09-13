@@ -42,7 +42,6 @@ export class SettingsComponent {
       this.countAllVotes();
       this.getParsedVotes();
     });
-
   }
 
   getVotesPercentage(id: number): number | undefined {
@@ -112,12 +111,9 @@ export class SettingsComponent {
         } else {
           this.failedAlert =
             'Failed to generate ' + this.fakeVotesNo + ' fake votes!';
+          this.reloadPage();
         }
-      },
-      error: (error) => {
-        this.failedAlert =
-          'Error occurred while generating fake votes! ' + error;
-      },
+      }
     });
   }
 
