@@ -18,6 +18,10 @@ export class ElectionService {
     return this.http.get<Election>(this.apiURL + `/${id}`, {});
   }
 
+  getLastActive(): Observable<Election> {
+    return this.http.get<Election>(this.apiURL + '/last', {});
+  }
+
   getAll(): Observable<Election[]> {
     return this.http.get<Election[]>(this.apiURL + '/all', {});
   }
@@ -47,6 +51,9 @@ export class ElectionService {
   }
 
   changeStatus(id: number, enabled: boolean): Observable<boolean> {
-    return this.http.post<boolean>(this.apiURL + `/changeStatus/${id}/${enabled}`, {});
+    return this.http.post<boolean>(
+      this.apiURL + `/changeStatus/${id}/${enabled}`,
+      {}
+    );
   }
 }

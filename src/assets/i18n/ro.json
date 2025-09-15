@@ -93,6 +93,7 @@
     "settings": "Setări",
     "status": "Status alegeri",
     "current-election": "Alegeri curente",
+    "no-election-available": "Adaugă alegeri",
     "generate-candidates": "Generează candidați",
     "generate-users": "Generează utilizatori",
     "generate-votes": "Generează voturi",

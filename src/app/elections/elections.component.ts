@@ -100,7 +100,8 @@ export class ElectionsComponent {
     return this.service.getFiltered(this.filter, this.paging).pipe(
       map((res) => {
         if (res?.elections) {
-          console.log('Elections fetched:', res);
+          // console.log('Elections fetched:', res);
+
           this.elections = Candidate.fromArray(res.elections);
           this.totalElections = res.total;
 

@@ -26,44 +26,52 @@
         }}</span>
       </div>
       <div class="col pointer">
-        <span disabled-span routerLink="/settings" routerLinkActive="active">{{
+        <span routerLink="/settings" routerLinkActive="active">{{
           "header.settings" | translate
         }}</span>
-      </div>
-
-      <div class="col">
-        <div class="row">
-          <div class="col">
-            <div class="dropdown">
-              <button
-                class="btn btn-success dropdown-toggle"
-                type="button"
-                id="dynamicDropdown"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                {{
-                  selectedElectionObject.id > 0
-                    ? selectedElectionObject.name
-                    : ("settings.current-election" | translate)
-                }}
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dynamicDropdown">
-                <li *ngFor="let item of allElections">
-                  <a class="dropdown-item" (click)="selectNewElection(item)">{{
-                    item.name
-                  }}</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
     <div class="navbar-right text-white">
       <div class="row">
-        <app-language-switcher class="col"></app-language-switcher>
-        <div class="col d-flex align-items-center">
+        <div *ngIf="allElections.length === 0" class="col">
+          <button class="btn btn-outline-warning" type="button" routerLink="/elections">
+            {{ "settings.no-election-available" | translate }}
+          </button>
+        </div>
+        <div *ngIf="allElections.length > 0" class="col">
+          <div class="row">
+            <div class="col">
+              <div class="dropdown">
+                <button
+                  class="btn btn-outline-success dropdown-toggle"
+                  type="button"
+                  id="dynamicDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {{
+                    selectedElectionObject.id > 0
+                      ? selectedElectionObject.name
+                      : ("settings.current-election" | translate)
+                  }}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dynamicDropdown">
+                  <li *ngFor="let item of allElections">
+                    <a
+                      class="dropdown-item"
+                      (click)="selectNewElection(item)"
+                      >{{ item.name }}</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col d-flex align-items-center ms-3">
+          <app-language-switcher></app-language-switcher>
+        </div>
+        <div class="col d-flex align-items-center px-0 mx-2">
           <i class="bi bi-person-circle mx-1"></i>
           <span>{{ username }}</span>
         </div>

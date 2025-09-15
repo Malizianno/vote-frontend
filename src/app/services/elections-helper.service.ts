@@ -36,8 +36,4 @@ export class ElectionHelperService {
       {}
     );
   }
-
-  lastElection(): Observable<Election> {
-    return this.http.get<Election>(this.apiURL + '/lastElection', {});
-  }
 }

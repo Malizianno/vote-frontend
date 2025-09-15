@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { switchMap, timer } from 'rxjs';
 import { LanguageService } from './@shared/i18n/language.service';
 import { Election } from './model/election.model';
 import { LogoutRequestDTO } from './model/login.dto';
 import { CredentialsService } from './services/credentials.service';
 import { DataService } from './services/data.service';
+import { ElectionService } from './services/elections.service';
 import { LoginService } from './services/login.service';
-import { switchMap, timer } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterViewInit {
   title = 'vote-frontend';
 
   allElections: Election[] = [];
@@ -24,17 +25,29 @@ export class AppComponent implements OnInit {
     private credentials: CredentialsService,
     private translate: LanguageService,
     private loginService: LoginService,
-    private dataService: DataService
+    private dataService: DataService,
+    private electionService: ElectionService
   ) {
     this.translate.init();
+
+    this.loadElections();
+    this.loadLastActive();
   }
 
-  ngOnInit(): void {
-    timer(0, 2000)
+  ngAfterViewInit(): void {
+    timer(0, 1000)
       .pipe(switchMap(() => this.dataService.electionsList$))
       .subscribe((electionList) => {
         if (electionList) {
           this.allElections = electionList;
+        }
+      });
+
+    timer(0, 1000)
+      .pipe(switchMap(() => this.dataService.selectedElection$))
+      .subscribe((active) => {
+        if (active) {
+          this.selectedElectionObject = active;
         }
       });
   }
@@ -74,5 +87,37 @@ export class AppComponent implements OnInit {
     this.selectedElectionObject = election;
     this.dataService.emitElection(this.selectedElectionObject);
     // console.log('selected new election: ', election);
+  }
+
+  loadElections(): void {
+    if (this.isAuthenticated()) {
+      this.electionService.getAll().subscribe({
+        next: (res) => {
+          if (res && res.length > 0) {
+            this.dataService.emitElectionList(res);
+            // console.log('loaded elections: ', res);
+          }
+        },
+        error: (err) => {
+          // console.log('loadElections error: ', err);
+        },
+      });
+    }
+  }
+
+  loadLastActive(): void {
+    if (this.isAuthenticated()) {
+      this.electionService.getLastActive().subscribe({
+        next: (res) => {
+          if (res && res.id) {
+            this.dataService.emitElection(res);
+            // console.log('loaded active election: ', res);
+          }
+        },
+        error: (err) => {
+          console.log('loadLastActiveElection error: not found');
+        },
+      });
+    }
   }
 }
