@@ -7,6 +7,7 @@ import { Election } from '../model/election.model';
 import { DashboardService } from '../services/dashboard.service';
 import { DataService } from '../services/data.service';
 import { ElectionHelperService } from '../services/elections-helper.service';
+import { SettingsService } from '../services/settings.service';
 
 @Component({
   selector: 'app-settings',
@@ -32,6 +33,7 @@ export class SettingsComponent implements OnInit {
   constructor(
     private service: DashboardService,
     private electionHelper: ElectionHelperService,
+    private settings: SettingsService,
     private dataService: DataService
   ) {
     this.reloadPage();
@@ -92,7 +94,7 @@ export class SettingsComponent implements OnInit {
   }
 
   generateFakeUsers() {
-    return this.service.fakeUsers(this.fakeUsersNo).subscribe({
+    return this.settings.fakeUsers(this.fakeUsersNo).subscribe({
       next: (res) => {
         if (res) {
           this.successAlert =
@@ -111,7 +113,7 @@ export class SettingsComponent implements OnInit {
   }
 
   generateFakeVotes() {
-    return this.service
+    return this.settings
       .fakeVotes(this.fakeVotesNo, this.selectedElection!.id)
       .subscribe({
         next: (res) => {
@@ -131,7 +133,7 @@ export class SettingsComponent implements OnInit {
   }
 
   generateFakeCandidates() {
-    return this.service.fakeCandidates(this.selectedElection!.id).subscribe({
+    return this.settings.fakeCandidates(this.selectedElection!.id).subscribe({
       next: (res) => {
         if (res) {
           this.successAlert = 'generated candidates successfully!';

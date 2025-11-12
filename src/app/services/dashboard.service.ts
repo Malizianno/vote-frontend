@@ -1,30 +1,18 @@
-import { Injectable } from "@angular/core";
-import { AppConstants } from "../util/app-constants.util";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { Totals } from "../model/dashboard-totals.model";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Totals } from '../model/dashboard-totals.model';
+import { AppConstants } from '../util/app-constants.util';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class DashboardService {
-    private apiURL = AppConstants.BASE_URL + '/dashboard';
+  private apiURL = AppConstants.BASE_URL + '/dashboard';
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-    getTotals(electionID: number): Observable<Totals> {
-        return this.http.get<Totals>(this.apiURL + `/totals/${electionID}`, {});
-    }
-
-    fakeCandidates(electionId: number): Observable<boolean> {
-        return this.http.post<boolean>(this.apiURL + `/fake/candidates/${electionId}`, {});
-    }
-
-    fakeUsers(no: number): Observable<boolean> {
-        return this.http.post<boolean>(this.apiURL + `/fake/users/${no}`, {});
-    }
-
-    fakeVotes(no: number, electionId: number): Observable<boolean> {
-        return this.http.post<boolean>(this.apiURL + `/fake/votes/${no}/${electionId}`, {});
-    }
+  getTotals(electionID: number): Observable<Totals> {
+    return this.http.get<Totals>(this.apiURL + `/totals/${electionID}`, {});
+  }
 }

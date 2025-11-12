@@ -15,7 +15,7 @@
         <div class="card-body">
           <div
             class="row w-100 d-flex align-items-center"
-            *ngIf="votesCount > 0"
+            *ngIf="totals.users > 0"
           >
             <div class="col-12 d-flex align-items-center">
               <h1 class="fw-bold">
@@ -31,7 +31,7 @@
             </div>
           </div>
           <div class="h-100 d-flex align-items-center">
-            <app-no-data class="w-100" [condition]="votesCount < 1" />
+            <app-no-data class="w-100" [condition]="totals.users < 1" />
           </div>
         </div>
       </div>
@@ -47,7 +47,7 @@
               #chartCanvas
               style="width: 100%; max-height: 150px"
             ></canvas>
-            <div *ngIf="votesCount > 0" class="text-center">
+            <div *ngIf="totals.users > 0" class="text-center">
               {{
                 ("dashboard.votes" | translate) +
                   " " +
