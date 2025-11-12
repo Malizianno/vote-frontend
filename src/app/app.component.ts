@@ -37,15 +37,15 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     timer(0, 1000)
       .pipe(switchMap(() => this.dataService.electionsList$))
-      .subscribe((electionList) => {
+      .subscribe((electionList: Election[]) => {
         if (electionList) {
           this.allElections = electionList;
         }
       });
 
-    timer(0, 1000)
+    timer(0, 3000)
       .pipe(switchMap(() => this.dataService.selectedElection$))
-      .subscribe((active) => {
+      .subscribe((active: Election) => {
         if (active) {
           this.selectedElectionObject = active;
         }
