@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ElectionResponse } from '../model/election-response.dto';
+import {
+  ElectionRequest,
+  ElectionResponse,
+} from '../model/election-response.dto';
 import { Election } from '../model/election.model';
 import { Paging } from '../model/paging.model';
 import { AppConstants } from '../util/app-constants.util';

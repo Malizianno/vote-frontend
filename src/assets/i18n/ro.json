@@ -15,6 +15,7 @@
     "elections": "Alegeri",
     "candidates": "Candidați",
     "users": "Utilizatori",
+    "newsfeed": "Știri",
     "events": "Evenimente",
     "settings": "Setări",
     "no-election-selected-message": "Alegeri neselectate! Vă rugăm să selectați alegerile pentru a continua."
@@ -98,5 +99,20 @@
     "generate-users": "Generează utilizatori",
     "generate-votes": "Generează voturi",
     "clean-db": "Șterge voturile din DB "
+  },
+
+  "newsfeed": {
+    "post:": {
+      "title": "Titlu",
+      "content": "Conținut",
+      "imageUrl": "URL imagine"
+    },
+    "modal": {
+      "add": "Adaugă postare",
+      "edit": "Modifică postare",
+      "title": "Titlu",
+      "content": "Conținut",
+      "imageUrl": "URL imagine"
+    }
   }
 }

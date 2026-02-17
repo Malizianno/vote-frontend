@@ -5,16 +5,15 @@ import {
   Subscription,
   debounceTime,
   distinctUntilChanged,
-  map,
 } from 'rxjs';
 import { Candidate } from '../model/candidate.model';
 import { Election } from '../model/election.model';
 import { Paging } from '../model/paging.model';
+import { DataService } from '../services/data.service';
 import { ElectionService } from '../services/elections.service';
 import { DateUtil } from '../util/date.util';
 import { AddElectionComponent } from './add/add-election.modal';
 import { EditElectionComponent } from './edit/edit-election.modal';
-import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-elections',
@@ -36,12 +35,12 @@ export class ElectionsComponent {
     private modalService: NgbModal,
     private dataService: DataService
   ) {
-    this.reloadPage();
     this.debounceSubscription();
+    this.resetFilter();
   }
 
   reloadPage() {
-    this.getFiltered().subscribe();
+    this.getFiltered();
   }
 
   resetFilter() {
@@ -97,8 +96,9 @@ export class ElectionsComponent {
   }
 
   getFiltered() {
-    return this.service.getFiltered(this.filter, this.paging).pipe(
-      map((res) => {
+    return this.service
+      .getFiltered(this.filter, this.paging)
+      .subscribe((res) => {
         if (res?.elections) {
           // console.log('Elections fetched:', res);
 
@@ -108,8 +108,7 @@ export class ElectionsComponent {
           // XXX: this might be a bug if filtering is active :)))
           this.dataService.emitElectionList(this.elections);
         }
-      })
-    );
+      });
   }
 
   isDateValid(date: any): boolean {

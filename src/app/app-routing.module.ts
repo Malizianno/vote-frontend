@@ -7,6 +7,7 @@ import { EventsComponent } from './events/events.component';
 import { LoginComponent } from './login/login.component';
 import { SettingsComponent } from './settings/settings.component';
 import { UsersComponent } from './users/users.component';
+import { NewsfeedPostsComponent } from './newsfeed/newsfeed-post.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'events', component: EventsComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'newsfeed', component: NewsfeedPostsComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**', component: LoginComponent },
 ];

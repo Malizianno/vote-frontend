@@ -1,0 +1,62 @@
+<div class="modal-header">
+  <h4 class="modal-title" translate>
+    {{ 'newsfeed.modal.edit' | translate }}
+  </h4>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  ></button>
+</div>
+
+<div class="modal-body">
+  <div class="row mb-3">
+    <div class="col">{{ 'newsfeed.modal.title' | translate }}</div>
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="newsfeedPost.title"
+        placeholder="{{ 'newsfeed.modal.title' | translate }}"
+      />
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">{{ 'newsfeed.modal.content' | translate }}</div>
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="newsfeedPost.content"
+        placeholder="{{ 'newsfeed.modal.content' | translate }}"
+      />
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">{{ 'newsfeed.modal.imageUrl' | translate }}</div>
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="newsfeedPost.imageUrl"
+        placeholder="{{ 'newsfeed.modal.imageUrl' | translate }}"
+      />
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-dark"
+    id="save"
+    (click)="save()"
+    [disabled]="!canSave()"
+    translate
+  >
+    {{ 'modal-btn.save' | translate }}
+  </button>
+</div>

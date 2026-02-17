@@ -15,6 +15,7 @@
     "elections": "Elections",
     "candidates": "Candidates",
     "users": "Users",
+    "newsfeed": "Newsfeed",
     "events": "Events",
     "settings": "Settings",
     "no-election-selected-message": "No election selected! Please select an election to proceed."
@@ -99,5 +100,21 @@
     "generate-users": "Generate users",
     "generate-votes": "Generate votes",
     "clean-db": "Delete votes from DB "
+  },
+
+  "newsfeed": {
+    "newsfeed": "posts",
+    "post:": {
+      "title": "Title",
+      "content": "Content",
+      "imageUrl": "Image URL"
+    },
+    "modal": {
+      "add": "Add newsfeed post",
+      "edit": "Edit newsfeed post",
+      "title": "Title",
+      "content": "Content",
+      "imageUrl": "Image URL"
+    }
   }
 }
