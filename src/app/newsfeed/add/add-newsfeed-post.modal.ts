@@ -33,7 +33,8 @@ export class AddNewsfeedPostComponent {
       !!this.newsfeedPostFilter &&
       this.newsfeedPostFilter.title &&
       this.newsfeedPostFilter.content &&
-      this.newsfeedPostFilter.imageUrl
+      this.newsfeedPostFilter.imageUrl &&
+      this.newsfeedPostFilter.electionId
     );
   }
 }

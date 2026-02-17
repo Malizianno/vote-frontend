@@ -37,8 +37,8 @@ export class NewsfeedPostsComponent implements OnInit {
     private modalService: NgbModal,
     private dataService: DataService
   ) {
-    this.reloadPage();
     this.debounceSubscription();
+    this.reloadPage();
   }
 
   ngOnInit(): void {
@@ -52,7 +52,7 @@ export class NewsfeedPostsComponent implements OnInit {
   }
 
   reloadPage() {
-    this.getFiltered().subscribe();
+    this.getFiltered();
   }
 
   resetFilter() {
@@ -69,6 +69,7 @@ export class NewsfeedPostsComponent implements OnInit {
   add() {
     // open modal to add new newsfeed post
     const modalref = this.modalService.open(AddNewsfeedPostComponent);
+    modalref.componentInstance.newsfeedPostFilter.electionId = this.selectedElection.id; // pass the election ID to the modal
 
     modalref.result.then(
       (res: NewsfeedPost) => {
@@ -100,7 +101,10 @@ export class NewsfeedPostsComponent implements OnInit {
   }
 
   delete(id: number) {
-    return this.service.deleteNewsfeedPost(id).subscribe((res) => {
+    console.log('Deleting newsfeed post with ID:', id);
+
+    this.service.deleteNewsfeedPost(id).subscribe((res) => {
+      console.log('Deleted response:', res);
       if (res) {
         this.resetFilter();
       }
@@ -108,14 +112,12 @@ export class NewsfeedPostsComponent implements OnInit {
   }
 
   getFiltered() {
-    return this.service.getNewsfeedFiltered(this.filter, this.paging).pipe(
-      map((res) => {
+    this.service.getNewsfeedFiltered(this.filter, this.paging).subscribe((res) => {
         if (res?.posts) {
           this.posts = res.posts;
           this.totalPosts = res.total;
         }
-      })
-    );
+      });
   }
 
   private debounceSubscription() {

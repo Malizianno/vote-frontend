@@ -33,7 +33,7 @@ export class EditNewsfeedPostComponent implements OnInit {
 
   save() {
     this.service
-      .addNewsfeedPost(this.newsfeedPost)
+      .updateNewsfeedPost(this.newsfeedPost)
       .subscribe((res: NewsfeedPost) => {
         if (res) {
           this.activeModal.close(res);

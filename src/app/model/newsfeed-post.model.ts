@@ -5,8 +5,8 @@ export class NewsfeedPost extends GenericModel {
   title!: string;
   content!: string;
   imageUrl!: string;
-  createdAt!: Date;
-  updatedAt!: Date;
+  createdAt!: string;
+  updatedAt!: string;
   createdBy!: string;
   electionId!: number;
 }

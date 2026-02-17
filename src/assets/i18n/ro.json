@@ -102,6 +102,13 @@
   },
 
   "newsfeed": {
+    "newsfeed": "Știri",
+    "title": "Titlu",
+    "content": "Conținut",
+    "image-url": "URL imagine",
+    "created-at": "Creat la",
+    "updated-at": "Actualizat la",
+    "created-by": "Creat de",
     "post:": {
       "title": "Titlu",
       "content": "Conținut",

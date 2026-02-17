@@ -104,6 +104,12 @@
 
   "newsfeed": {
     "newsfeed": "posts",
+    "title": "Title",
+    "content": "Content",
+    "image-url": "Image URL",
+    "created-at": "Created at",
+    "updated-at": "Updated at",
+    "created-by": "Created by",
     "post:": {
       "title": "Title",
       "content": "Content",

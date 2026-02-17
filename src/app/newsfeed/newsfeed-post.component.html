@@ -40,7 +40,7 @@
                   (ngModelChange)="filterChangedSubject.next($event)"
                 />
               </th>
-              <th scope="col">{{ "newsfeed.image" | translate }}</th>
+              <th scope="col">{{ "newsfeed.image-url" | translate }}</th>
               <th scope="col">{{ "newsfeed.created-at" | translate }}</th>
               <th scope="col">{{ "newsfeed.updated-at" | translate }}</th>
               <th scope="col">{{ "newsfeed.created-by" | translate }}</th>
@@ -72,7 +72,7 @@
               </td>
               <td>{{ post.createdAt | date : "dd.MM.yyyy HH:mm:ss" }}</td>
               <td>{{ post.updatedAt | date : "dd.MM.yyyy HH:mm:ss" }}</td>
-              <td>{{ post.createdBy | date : "dd.MM.yyyy HH:mm:ss" }}</td>
+              <td>{{ post.createdBy }}</td>
               <td>
                 <div class="float-end">
                   <button
@@ -95,7 +95,7 @@
               </td>
             </tr>
             <tr *ngIf="totalPosts < 1">
-              <td colspan="7">
+              <td colspan="8">
                 <app-no-data [condition]="totalPosts < 1" />
               </td>
             </tr>
