@@ -48,7 +48,8 @@ export class EditNewsfeedPostComponent implements OnInit {
       !!this.newsfeedPost &&
       this.newsfeedPost.title &&
       this.newsfeedPost.content &&
-      this.newsfeedPost.imageUrl
+      this.newsfeedPost.imageUrl &&
+      this.newsfeedPost.electionId
     );
   }
 }

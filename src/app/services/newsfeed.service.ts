@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
-import { AppConstants } from '../util/app-constants.util';
 import { HttpClient } from '@angular/common/http';
-import { NewsfeedPost, NewsfeedPostResponse } from '../model/newsfeed-post.model';
-import { Paging } from '../model/paging.model';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import {
+  NewsfeedPost,
+  NewsfeedPostResponse,
+} from '../model/newsfeed-post.model';
+import { Paging } from '../model/paging.model';
+import { AppConstants } from '../util/app-constants.util';
 
 @Injectable({
   providedIn: 'root',
@@ -21,13 +24,20 @@ export class NewsfeedService {
     return this.http.get<NewsfeedPost[]>(this.apiURL + '/all', {});
   }
 
-  getNewsfeedFiltered(postFilter: NewsfeedPost, paging: Paging):Observable<NewsfeedPostResponse> {
+  getNewsfeedFiltered(
+    post: NewsfeedPost,
+    paging: Paging
+  ): Observable<NewsfeedPostResponse> {
     const filter = {
-      postFilter,
+      post,
       paging: { page: paging.page - 1, size: paging.size },
     };
 
-    return this.http.post<NewsfeedPostResponse>(this.apiURL + '/filtered', filter, {});
+    return this.http.post<NewsfeedPostResponse>(
+      this.apiURL + '/filtered',
+      filter,
+      {}
+    );
   }
 
   addNewsfeedPost(post: NewsfeedPost): Observable<NewsfeedPost> {
@@ -35,10 +45,14 @@ export class NewsfeedService {
   }
 
   updateNewsfeedPost(post: NewsfeedPost): Observable<NewsfeedPost> {
-    return this.http.put<NewsfeedPost>(this.apiURL + `/update/${post.id}`, post, {});
+    return this.http.put<NewsfeedPost>(
+      this.apiURL + `/update/${post.id}`,
+      post,
+      {}
+    );
   }
 
-  deleteNewsfeedPost(id: number):Observable<any> {
+  deleteNewsfeedPost(id: number): Observable<any> {
     return this.http.delete(this.apiURL + `/delete/${id}`, {});
   }
 }

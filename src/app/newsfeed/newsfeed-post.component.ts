@@ -57,6 +57,7 @@ export class NewsfeedPostsComponent implements OnInit {
 
   resetFilter() {
     this.filter = new NewsfeedPost();
+    this.filter.electionId = this.selectedElection.id;
     this.paging.page = 1;
     this.reloadPage();
   }
