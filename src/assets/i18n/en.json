@@ -107,9 +107,9 @@
     "title": "Title",
     "content": "Content",
     "image-url": "Image URL",
-    "created-at": "Created at",
-    "updated-at": "Updated at",
-    "created-by": "Created by",
+    "created-at": "Created",
+    "updated-at": "Updated",
+    "created-by": "Author",
     "post:": {
       "title": "Title",
       "content": "Content",

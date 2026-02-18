@@ -106,9 +106,9 @@
     "title": "Titlu",
     "content": "Conținut",
     "image-url": "URL imagine",
-    "created-at": "Creat la",
-    "updated-at": "Actualizat la",
-    "created-by": "Creat de",
+    "created-at": "Creat",
+    "updated-at": "Actualizat",
+    "created-by": "Autor",
     "post:": {
       "title": "Titlu",
       "content": "Conținut",
