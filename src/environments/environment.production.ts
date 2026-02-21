@@ -14,8 +14,7 @@ import packageInfo from '../../package.json';
 export const environment = {
   production: true,
   version: packageInfo.version + '-prod',
-  serverUrl: 'https://vote-backend-320485262997.us-central1.run.app/vote',
-  apiBaseUrl: 'https://vote-backend-320485262997.us-central1.run.app/vote',
+  serverUrl: '/vote',
   defaultLanguage: 'ro-RO',
   supportedLanguages: ['en-US', 'ro-RO'],
 };
