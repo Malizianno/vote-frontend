@@ -1,5 +1,8 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { NoDataComponent } from '../components/no-data/no-data.component';
 import { ElectionsComponent } from './elections.component';
 
 describe('ElectionsComponent', () => {
@@ -8,7 +11,8 @@ describe('ElectionsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ElectionsComponent],
+      imports: [HttpClientTestingModule, FormsModule, TranslateModule.forRoot()],
+      declarations: [ElectionsComponent, NoDataComponent],
     });
     fixture = TestBed.createComponent(ElectionsComponent);
     component = fixture.componentInstance;

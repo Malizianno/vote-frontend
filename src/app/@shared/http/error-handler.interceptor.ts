@@ -26,6 +26,14 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       this.router.navigate(['/login'], { queryParams: { error: '401', redirect: this.router.url }, replaceUrl: true });
     }
 
+    if (
+      response instanceof HttpErrorResponse &&
+      (response.status === 403 || response.error.message === 'Error: Forbidden')
+    ) {
+      this.credentials.setCredentials();
+      this.router.navigate(['/login'], { queryParams: { error: '403', redirect: this.router.url }, replaceUrl: true });
+    }
+
     throw response;
   }
 }
