@@ -41,11 +41,11 @@
   },
   "elections": {
     "elections": "alegeri",
-    "name": "nume",
-    "enabled": "activ",
-    "description": "descriere",
-    "startDate": "start",
-    "endDate": "final",
+    "name": "Nume",
+    "enabled": "Activ",
+    "description": "Descriere",
+    "startDate": "Start",
+    "endDate": "Final",
     "modal": {
       "add": "Adaugă alegeri",
       "edit": "Modifică alegeri",
@@ -75,7 +75,7 @@
     "users": "utilizatori",
     "admins": "admin",
     "voters": "votant",
-    "user": "utilizator",
+    "user": "Utilizator",
     "modal": {
       "add": "Adaugă utilizator",
       "edit": "Modifică utilizator",

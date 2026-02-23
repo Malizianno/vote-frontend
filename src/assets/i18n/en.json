@@ -41,11 +41,11 @@
   },
   "elections": {
     "elections": "elections",
-    "name": "name",
-    "enabled": "enabled",
-    "description": "description",
-    "startDate": "start",
-    "endDate": "end",
+    "name": "Name",
+    "enabled": "Enabled",
+    "description": "Description",
+    "startDate": "Start",
+    "endDate": "End",
     "modal": {
       "add": "Add election",
       "edit": "Edit election",
@@ -75,7 +75,7 @@
     "users": "users",
     "admins": "admin",
     "voters": "votant",
-    "user": "username",
+    "user": "Username",
     "modal": {
       "add": "Add user",
       "edit":"Edit user",
