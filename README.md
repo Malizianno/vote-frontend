@@ -1,4 +1,5 @@
 This project is part of a bigger project: vot.e App designed for diploma purposes;
+old start npm script: // "start": "ng serve --proxy-config proxy.conf.json",
 
 # vot.e App
 
