@@ -18,7 +18,7 @@ export class CredentialsService {
   }
 
   /**
-   * Checks is the user is authenticated.
+   * Checks if the user is authenticated.
    * @return True if the user is authenticated.
    */
   isAuthenticated(): boolean {
@@ -26,7 +26,7 @@ export class CredentialsService {
   }
 
   /**
-   * Checks is the user is admin.
+   * Checks if the user is admin.
    * @return True if the user is admin.
    */
   get isAdmin(): boolean {

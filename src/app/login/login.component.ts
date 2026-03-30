@@ -32,7 +32,7 @@ export class LoginComponent {
       if (res && res.role && res.token && res.username) {
         // console.log('login response: ', res);
 
-        this.credentialsService.setCredentials(res, true);
+        this.credentialsService.setCredentials(res, false);
 
         // get election list
         this.loadElections();
